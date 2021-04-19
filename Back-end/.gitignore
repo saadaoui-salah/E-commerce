@@ -1,0 +1,11 @@
+/env
+/.vscode
+/db.sqlite3
+/request/migrations
+/request/__pycache__
+/product/migrations
+/product/__pycache__
+/account/migrations
+/account/__pycache__
+/analytics/__pycache__
+/media
