@@ -12,7 +12,7 @@ import { OptionsStateContext } from '../../reducers/context'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grow } from '@material-ui/core'
 import CustomDialog from './Dialog'
-import { edit, remove, setID } from '../../reducers/actoins'
+import { edit, cancel } from '../../reducers/actoins'
 import { OptionsDispatchContext } from '../../reducers/context'
 
 const useStyle = makeStyles(() => ({
@@ -44,12 +44,82 @@ const useStyle = makeStyles(() => ({
 
 }))
 
-
-export const Options = ({ id }) => {
+export const SaveIconButton = ({ display }) => {
     const style = useStyle()
-    const state = useContext(OptionsStateContext)
     const dispatch = useContext(OptionsDispatchContext)
-    const displayEditOptions = state.edit && id === state.id
+    return (
+        <IconButton
+            onClick={() => dispatch(edit(false))}
+            varialnt="outlined"
+            style={{ backgroundColor: "#0063cc" }}
+            className={style.optionBtn}
+        >
+            <Grow
+                in={display}
+                style={{ transformOrigin: '0 0 0' }}
+                {...(display ? { timeout: 600 } : {})}
+            >
+                <SaveAltOutlinedIcon
+                    className={style.icon}
+                />
+            </Grow>
+        </IconButton>
+    )
+}
+
+export const CancelIconButton = ({ display }) => {
+    const style = useStyle()
+    const dispatch = useContext(OptionsDispatchContext)
+    return (
+        <IconButton
+            onClick={() => dispatch(edit(false))}
+            style={{ backgroundColor: "#f50057" }}
+            className={style.optionBtn}
+        >
+            <Grow
+                in={display}
+                style={{ transformOrigin: '0 0 0' }}
+                {...(display ? { timeout: 600 } : {})}
+            >
+                <CloseOutlinedIcon className={style.icon} />
+            </Grow>
+        </IconButton>
+    )
+}
+
+export const EditIconButton = ({ id }) => {
+    const style = useStyle()
+    const dispatch = useContext(OptionsDispatchContext)
+    return (
+        <IconButton
+            onClick={() => {
+                dispatch(edit(id));
+            }}
+            varialnt="outlined"
+            style={{ backgroundColor: "#0063cc" }}
+            className={style.optionBtn}
+        >
+            <Fade in={true} timeout={600}>
+                <EditIcon className={style.icon} />
+            </Fade>
+        </IconButton>
+    )
+}
+
+export const DeleteIconButton = () => {
+    const style = useStyle()
+    const dispatch = useContext(OptionsDispatchContext)
+    return (
+        <IconButton onClick={() => dispatch(cancel())} style={{ backgroundColor: "#f50057" }} className={style.optionBtn} >
+            <Fade in={true} timeout={600}>
+                <DeleteIcon className={style.icon} />
+            </Fade>
+        </IconButton>
+    )
+}
+export const TableOptions = ({ id }) => {
+    const state = useContext(OptionsStateContext)
+    const displayEditOptions = state.edit.id === id
     return (
         <>
             {
@@ -59,61 +129,17 @@ export const Options = ({ id }) => {
                             display: 'flex',
                             justifyContent: 'center'
                         }}>
-                        <IconButton
-                            onClick={() => dispatch(edit(false))}
-                            varialnt="outlined"
-                            style={{ backgroundColor: "#0063cc" }}
-                            className={style.optionBtn}
-                        >
-                            <Grow
-                                in={displayEditOptions}
-                                style={{ transformOrigin: '0 0 0' }}
-                                {...(displayEditOptions ? { timeout: 600 } : {})}
-                            >
-                                <SaveAltOutlinedIcon
-                                    className={style.icon}
-                                />
-                            </Grow>
-                        </IconButton>
-
-                        <IconButton
-                            onClick={() => dispatch(edit(false))}
-                            style={{ backgroundColor: "#f50057" }}
-                            className={style.optionBtn}
-                        >
-                            <Grow
-                                in={displayEditOptions}
-                                style={{ transformOrigin: '0 0 0' }}
-                                {...(displayEditOptions ? { timeout: 600 } : {})}
-                            >
-                                <CloseOutlinedIcon className={style.icon} />
-                            </Grow>
-                        </IconButton>
+                        <SaveIconButton display={displayEditOptions} />
+                        <CancelIconButton display={displayEditOptions} />
                     </div>
 
                 )
                     : (
 
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            <IconButton
-                                onClick={() => {
-                                    dispatch(edit(true));
-                                    dispatch(setID(id))
-                                }}
-                                varialnt="outlined"
-                                style={{ backgroundColor: "#0063cc" }}
-                                className={style.optionBtn}
-                            >
-                                <Fade in={true} timeout={600}>
-                                    <EditIcon className={style.icon} />
-                                </Fade>
-                            </IconButton>
 
-                            <IconButton onClick={() => dispatch(remove(true))} style={{ backgroundColor: "#f50057" }} className={style.optionBtn} >
-                                <Fade in={true} timeout={600}>
-                                    <DeleteIcon className={style.icon} />
-                                </Fade>
-                            </IconButton>
+                            <EditIconButton id={id} />
+                            <DeleteIconButton />
                         </div>
                     )}
 
@@ -121,7 +147,30 @@ export const Options = ({ id }) => {
     )
 }
 
-export const AddBtn = ({ value, content, title }) => {
+export const CardOptions = ({ id }) => {
+    const state = useContext(OptionsStateContext)
+    const displayEditOptions = state.edit && state.id === id
+    console.log(state)
+    console.log(id)
+    console.log(displayEditOptions)
+    if (displayEditOptions) {
+        <div
+            style={{
+                display: 'flex',
+                justifyContent: 'center'
+            }}>
+            <SaveIconButton display={displayEditOptions} />
+            <CancelIconButton display={displayEditOptions} />
+        </div>
+    }
+    return (
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <EditIconButton id={id} />
+        </div>
+    )
+}
+
+export const AddButton = ({ value, content, title }) => {
     const style = useStyle()
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
@@ -146,7 +195,7 @@ export const AddBtn = ({ value, content, title }) => {
     )
 }
 
-export const DeleteBtn = ({ title, content }) => {
+export const DeleteButton = ({ title, content }) => {
     const style = useStyle()
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)

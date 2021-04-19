@@ -26,7 +26,7 @@ export const SelectStatus = () => {
     )
 }
 
-export const SearchBar = () => {
+export const SearchField = () => {
     return (
         <>
             <TextField

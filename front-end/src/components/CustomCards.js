@@ -11,7 +11,7 @@ import {
     Avatar,
 } from '@material-ui/core'
 import theme from '../theme'
-import { Options } from './sub-components/Buttons'
+import { CardOptions, EditIconButton } from './sub-components/Buttons'
 import { useRef, useState, useMemo } from 'react'
 
 const useStyles = makeStyles(() => ({
@@ -54,7 +54,7 @@ export function HomeCard(props) {
 }
 
 
-export function CollectionCard() {
+export function CollectionCard(id) {
     const [checked, setChecked] = useState(false)
     return (
         <>
@@ -74,7 +74,7 @@ export function CollectionCard() {
                     </Grid>
 
                     <Grid item >
-                        <Options />
+                        <CardOptions id={id} />
                     </Grid>
                 </Grid>
                 <CardContent>
@@ -107,5 +107,15 @@ export function CollectionCard() {
                 </CardContent>
             </Card>
         </>
+    )
+}
+
+export const CategoryCard = () => {
+    return(
+        <Card>
+            <CardContent>
+
+            </CardContent>
+        </Card>
     )
 }

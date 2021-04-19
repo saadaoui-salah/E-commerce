@@ -2,23 +2,15 @@ export const EDIT = 'EDIT'
 export const REMOVE = 'REMOVE' 
 export const SET_ID = 'SET_ID'
 
-export function edit(value){
+export function edit(id){
     return{
         type:EDIT,
-        pyload:value
+        id:id,
     }
 }
 
-export function remove(value){
+export function cancel(){
     return{
         type:REMOVE,
-        pyload:value
-    }
-}
-
-export function setID(id){
-    return{
-        type:SET_ID,
-        pyload:id
     }
 }

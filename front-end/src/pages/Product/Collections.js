@@ -1,8 +1,8 @@
 import { Grid } from '@material-ui/core'
 import { CollectionCard } from '../../components/CustomCards'
-import { AddBtn,DeleteBtn } from '../../components/sub-components/Buttons'
+import { AddButton ,DeleteButton } from '../../components/sub-components/Buttons'
 import { CollectionForm } from '../../components/CustomForms'
-import { SearchBar } from '../../components/sub-components/CustomTextField'
+import { SearchField } from '../../components/sub-components/CustomTextField'
 import { useReducer } from 'react'
 import { OptionsStateContext, OptionsDispatchContext } from '../../reducers/context'
 import { initialState } from '../../reducers/state'
@@ -17,37 +17,33 @@ export default function Collections() {
         <OptionsDispatchContext.Provider value={dispatch}>
             <Grid container direction="row" spacing={2}>
                 <Grid item xs={12} sm={12} md={4}  lg={4}>
-                    <AddBtn value="Collection" content={<CollectionForm />} title="Create New Collection" />
-                    <DeleteBtn style={{marginLeft:'10px !important'}} title="Delete Collection" content="Do you want to remove this collection ?"/>
+                    <AddButton value="Collection" content={<CollectionForm />} title="Create New Collection" />
+                    <DeleteButton style={{marginLeft:'10px !important'}} title="Delete Collection" content="Do you want to remove this collection ?"/>
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6}>
-                    <SearchBar />
+                    <SearchField />
                 </Grid>
             </Grid>
             <Grid container justify="center" wrap="no-wrap" spacing={2}>
                 <Grid item sm={12} xs={12} md={6} lg={4} xl={4}>
 
-                    <CollectionCard />
+                    <CollectionCard id={1} />
                 </Grid>
                 <Grid item sm={12} xs={12} md={6} lg={4} xl={4}>
 
-                    <CollectionCard />
+                    <CollectionCard id={2} />
                 </Grid>
                 <Grid item sm={12} xs={12} md={6} lg={4} xl={4}>
 
-                    <CollectionCard />
+                    <CollectionCard id={3} />
                 </Grid>
                 <Grid item sm={12} xs={12} md={6} lg={4} xl={4}>
 
-                    <CollectionCard />
+                    <CollectionCard id={4} />
                 </Grid>
                 <Grid item sm={12} xs={12} md={6} lg={4} xl={4}>
 
-                    <CollectionCard />
-                </Grid>
-                <Grid item sm={12} xs={12} md={6} lg={4} xl={4}>
-
-                    <CollectionCard />
+                    <CollectionCard id={5} />
                 </Grid>
             </Grid>
         </OptionsDispatchContext.Provider>

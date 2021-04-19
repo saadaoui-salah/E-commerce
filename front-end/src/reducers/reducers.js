@@ -1,24 +1,18 @@
-import {EDIT, REMOVE, SET_ID} from './actoins'
-
-import {initialState} from './state'
+import {EDIT, REMOVE} from './actoins'
 
 export const OptionsReducer = (state, action) => {
     switch (action.type) {
         case EDIT:
             return {
-                ...state,
-                edit: action.pyload
+                remove:false,
+                edit: true,
+                id:action.id
             }
         case REMOVE:
             return {
-                ...state,
-                remove: action.pylaod
-            }
-        case SET_ID:
-            console.log("action.pylaod")
-            return {
-                ...state,
-                id: action.pylaod
+                id:null,
+                edit: true,
+                remove: false
             }
         default:
             return state
