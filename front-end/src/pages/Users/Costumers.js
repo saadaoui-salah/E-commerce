@@ -7,10 +7,9 @@ import {initialState} from '../../reducers/state'
 import {useReducer } from 'react'
 import {OptionsStateContext, OptionsDispatchContext} from '../../reducers/context'
 
-const columns = ["username", "eee", "Category", "Quantity", "User"];
-function createData(image, product, category, quantity, bPrice, vPrice, user) {
-    const benifits = vPrice - bPrice;
-    return [image, product, category, quantity, bPrice, vPrice, user, benifits];
+const columns = ["username", "Total Orders", "Total ُxpenses", "Country"];
+function createData(username, total_orders, total_expense, country) {
+    return [username, total_orders, total_expense, country];
 }
 
 const rows = [
@@ -45,13 +44,6 @@ export default function Users() {
     return (
         <OptionsStateContext.Provider value={options}>
             <OptionsDispatchContext.Provider value={dispatch}>
-                <Grid
-                    container
-                    spacing={4}
-                    justify="flex-end"
-                >
-                    <AddButton value="Product" content={<ProductFrom />} title="Create New Product" />
-                </Grid>
                 <Table columns={columns} rows={rows} options={options_} />
             </OptionsDispatchContext.Provider>
         </OptionsStateContext.Provider >
