@@ -5,7 +5,7 @@ import {initialState} from '../../reducers/state'
 import {useReducer } from 'react'
 import {OptionsStateContext, OptionsDispatchContext} from '../../reducers/context'
 
-const columns = ["username", "Total Orders", "Total ُxpenses", "Country"];
+const columns = ["username", "Total Orders", "Total expenses", "Country"];
 function createData(username, total_orders, total_expense, country) {
     return [username, total_orders, total_expense, country];
 }
