@@ -149,7 +149,7 @@ export var routers = {
             id: 1,
             enName: 'Dashboard',
             arName: 'لوحة التحكم',
-            to: '/dashboard',
+            to: '/',
             icon: (style, active) => <DashboardIcon className={active ? style.active : style.icon} />
         },
         {
@@ -170,7 +170,7 @@ export var routers = {
             id: 4,
             enName: 'Users',
             arName: 'لوحة التحكم',
-            to: '/users/',
+            to: '/users/costumers',
             icon: (style, active) => <PeopleIcon className={active ? style.active : style.icon} />
         },
         {
@@ -185,7 +185,7 @@ export var routers = {
         {
             id: 1,
             exact: true,
-            path: '/dashboard',
+            path: '/',
             component: () => <DashboardPage />,
         },
         {
@@ -197,13 +197,13 @@ export var routers = {
         {
             id: 3,
             exact: false,
-            path: '/Orders',
+            path: '/orders',
             component: () => <Routers link="orders" data={odersRouters} />,
         },
         {
             id: 4,
             exact: false,
-            path: '/Users',
+            path: '/users',
             component: () => <Routers link="users" data={usersRouters} />,
         },
         {
