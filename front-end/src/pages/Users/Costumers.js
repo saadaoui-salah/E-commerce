@@ -1,7 +1,5 @@
 import Table from '../../components/Table'
-import { AddButton, TableOptions } from '../../components/sub-components/Buttons'
-import { ProductFrom } from '../../components/CustomForms'
-import { Grid } from '@material-ui/core'
+import { TableOptions } from '../../components/sub-components/Buttons'
 import { OptionsReducer } from '../../reducers/reducers'
 import {initialState} from '../../reducers/state'
 import {useReducer } from 'react'
