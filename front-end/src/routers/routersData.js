@@ -14,8 +14,9 @@ import OrdersAnalytics from '../pages/Orders/OrdersAnalytics'
 import UsersAnalyitcs from '../pages/Users/UsersAnalyitcs'
 import Routers from './Routers'
 import Orders from '../pages/Orders/Orders'
+import Costumers from '../pages/Users/Costumers'
+import Vendors from '../pages/Users/Vendors'
 import Users from '../pages/Users/Users'
-
 
 
 export var productsRouters = {
@@ -101,13 +102,25 @@ export var odersRouters = {
 export var usersRouters = {
     items: [
         {
-            id: 1,
+            id: 0,
             enName: 'Users',
             arName: 'المستخدمين',
             to: '/',
         },
         {
+            id: 1,
+            enName: 'Costumers',
+            arName: 'المشتريين',
+            to: '/costumers',
+        },
+        {
             id: 2,
+            enName: 'Vendors',
+            arName: 'البائعين',
+            to: '/vendors',
+        },
+        {
+            id: 3,
             enName: 'Analytics',
             arName: 'لوحة التحكم',
             to: '/analytics',
@@ -115,12 +128,22 @@ export var usersRouters = {
     ],
     pages: [
         {
-            id: 1,
+            id: 0,
             path: '/',
             component: ()=> <Users />,
         },
         {
+            id: 1,
+            path: 'costumers',
+            component: ()=> <Costumers />,
+        },
+        {
             id: 2,
+            path: 'vendors',
+            component: ()=> <Vendors />,
+        },
+        {
+            id: 3,
             path: 'analytics',
             component: () => <UsersAnalyitcs/>,
         },
