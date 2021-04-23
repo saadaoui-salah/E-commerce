@@ -5,19 +5,22 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PeopleIcon from '@material-ui/icons/People';
 import ChatIcon from '@material-ui/icons/Chat';
 // pages
+/// Product
 import Products from '../pages/Product/Products'
-import DashboardPage from '../pages/DashboardPage';
-import ProductsAnalytics from '../pages/Product/ProductsAnalytics'
 import Collections from '../pages/Product/Collections'
+import ProductsAnalytics from '../pages/Product/ProductsAnalytics'
 import Category from '../pages/Product/Category'
-import OrdersAnalytics from '../pages/Orders/OrdersAnalytics'
-import UsersAnalyitcs from '../pages/Users/UsersAnalyitcs'
-import Routers from './Routers'
+/// Dashboard
+import DashboardPage from '../pages/DashboardPage';
+/// Orders 
 import Orders from '../pages/Orders/Orders'
+import OrdersAnalytics from '../pages/Orders/OrdersAnalytics'
+/// Users
+import UsersAnalyitcs from '../pages/Users/UsersAnalyitcs'
 import Costumers from '../pages/Users/Costumers'
 import Vendors from '../pages/Users/Vendors'
-import Users from '../pages/Users/Users'
-
+// router
+import Routers from './Routers'
 
 export var productsRouters = {
     items: [
@@ -102,12 +105,6 @@ export var odersRouters = {
 export var usersRouters = {
     items: [
         {
-            id: 0,
-            enName: 'Users',
-            arName: 'المستخدمين',
-            to: '/',
-        },
-        {
             id: 1,
             enName: 'Costumers',
             arName: 'المشتريين',
@@ -127,11 +124,6 @@ export var usersRouters = {
         },
     ],
     pages: [
-        {
-            id: 0,
-            path: '/',
-            component: ()=> <Users />,
-        },
         {
             id: 1,
             path: 'costumers',
