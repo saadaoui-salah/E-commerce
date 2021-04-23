@@ -1,4 +1,4 @@
-import {HomeCard} from '../components/CustomCards'
+import { HomeCard } from '../components/CustomCards'
 import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import LocalMallIcon from '@material-ui/icons/LocalMall';
@@ -6,7 +6,13 @@ import PeopleIcon from '@material-ui/icons/People';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import Map from '../components/Map.js'
-import LineChart from '../components/LineChart'
+import Table from '../components/Table'
+import DesktopWindowsIcon from '@material-ui/icons/DesktopWindows';
+import TabletIcon from '@material-ui/icons/Tablet';
+import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
+import {LineChart} from '../components/LineChart'
+
+
 const useStyles = makeStyles(() => ({
 
     icon: {
@@ -17,6 +23,27 @@ const useStyles = makeStyles(() => ({
         padding: '10px'
     }
 }))
+
+const columns = ["Contries", <DesktopWindowsIcon />, <TabletIcon />, <PhoneIphoneIcon />]
+
+function createData(contry, desktop, tablet, phone) {
+    return [contry, desktop, tablet, phone]
+}
+
+const rows = [
+    createData("Algeria", "20%", "30%", "80%"),
+    createData("Algeria", "20%", "30%", "80%"),
+    createData("Algeria", "20%", "30%", "80%"),
+    createData("Algeria", "20%", "30%", "80%"),
+    createData("Algeria", "20%", "30%", "80%"),
+    createData("Algeria", "20%", "30%", "80%"),
+    createData("Algeria", "20%", "30%", "80%"),
+    createData("Algeria", "20%", "30%", "80%"),
+    createData("Algeria", "20%", "30%", "80%"),
+    createData("Algeria", "20%", "30%", "80%"),
+    createData("Algeria", "20%", "30%", "80%"),
+    createData("Algeria", "20%", "30%", "80%"),
+]
 
 function DashboardPage() {
     const style = useStyles()
@@ -36,11 +63,14 @@ function DashboardPage() {
                     <HomeCard name="Benifits" number={2000} bgColor='#36ff36b8' icon={<AttachMoneyIcon className={style.icon} />} />
                 </Grid>
                 <Grid alignItems="center" direction='row' justify='center' container style={{ margin: '0px 35px' }}>
-                    <Grid item sm={12} xs={12} md={8}>
-                        <Map />
+                    <Map />
+                </Grid>
+                <Grid alignItems="center" direction='row' justify='center' container style={{ margin: '0px 35px' }}>
+                    <Grid item sm={6} xs={12} md={6}>
+                        <Table rows={rows} columns={columns} />
                     </Grid>
-                    <Grid item sm={12} xs={12} md={4}>
-                        <LineChart />
+                    <Grid item sm={6} xs={12} md={6}>
+                        <LineChart/>
                     </Grid>
                 </Grid>
             </Grid>
