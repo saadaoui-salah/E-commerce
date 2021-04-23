@@ -24,7 +24,7 @@ export var productsRouters = {
             id: 1,
             enName: 'Products',
             arName: 'لوحة التحكم',
-            to: '/details',
+            to: '/',
         },
         {
             id: 2,
@@ -48,7 +48,7 @@ export var productsRouters = {
     pages: [
         {
             id: 1,
-            path: 'details',
+            path: '/',
             component: ()=> <Products />,
         },
         {
@@ -64,7 +64,7 @@ export var productsRouters = {
         {
             id: 4,
             path: 'analytics',
-            component: () => <h1>Analytics</h1>,
+            component: () => <ProductsAnalytics/>,
         },
     ]
 }
@@ -75,7 +75,7 @@ export var odersRouters = {
             id: 1,
             enName: 'Orders',
             arName: 'الطلبات',
-            to: '/details',
+            to: '/',
         },
         {
             id: 2,
@@ -87,13 +87,42 @@ export var odersRouters = {
     pages: [
         {
             id: 1,
-            path: 'details',
+            path: '/',
             component: ()=> <Orders />,
         },
         {
             id: 2,
             path: 'analytics',
-            component: () => <h1>Analytics</h1>,
+            component: () => <OrdersAnalytics/>,
+        },
+    ]
+}
+
+export var usersRouters = {
+    items: [
+        {
+            id: 1,
+            enName: 'Users',
+            arName: 'المستخدمين',
+            to: '/',
+        },
+        {
+            id: 2,
+            enName: 'Analytics',
+            arName: 'لوحة التحكم',
+            to: '/analytics',
+        },
+    ],
+    pages: [
+        {
+            id: 1,
+            path: '/',
+            component: ()=> <Users />,
+        },
+        {
+            id: 2,
+            path: 'analytics',
+            component: () => <UsersAnalyitcs/>,
         },
     ]
 }
@@ -112,21 +141,21 @@ export var routers = {
             id: 2,
             enName: 'Products',
             arName: 'لوحة التحكم',
-            to: '/products/details',
+            to: '/products/',
             icon: (style, active) => <LocalMallIcon className={active ? style.active : style.icon} />
         },
         {
             id: 3,
             enName: 'Orders',
             arName: 'لوحة التحكم',
-            to: '/orders',
+            to: '/orders/',
             icon: (style, active) => <ShoppingCartIcon className={active ? style.active : style.icon} />
         },
         {
             id: 4,
             enName: 'Users',
             arName: 'لوحة التحكم',
-            to: '/users',
+            to: '/users/',
             icon: (style, active) => <PeopleIcon className={active ? style.active : style.icon} />
         },
         {
@@ -159,8 +188,8 @@ export var routers = {
         {
             id: 4,
             exact: false,
-            path: '/users',
-            component: () => <Users />,
+            path: '/Users',
+            component: () => <Routers link="users" data={usersRouters} />,
         },
         {
             id: 5,
