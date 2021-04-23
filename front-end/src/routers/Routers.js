@@ -10,16 +10,16 @@ const useStyles = makeStyles(() => ({
     link: {
         textDecoration: 'none',
         fontWeight: 'bold',
-        color: "#0af",
+        color: "#888",
         marginLeft: '5px',
         '&:hover': {
             transition: '0.5s',
-            color: "#0260a7"
+            color: "#202020"
         }
     },
     slash: {
         marginLeft:'5px',
-        color: '#0af',
+        color: '#111',
         fontWeight: 'bold'
     }
 }))
@@ -28,7 +28,7 @@ export default function Routers({ link,data }) {
     const style = useStyles()
     return (
         <>
-            <Grid container justify="center">
+            <Grid container justify="flex-start">
                 {
                     data.items.map(item => {
                         return (

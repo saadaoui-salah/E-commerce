@@ -69,6 +69,35 @@ export var productsRouters = {
     ]
 }
 
+export var odersRouters = {
+    items: [
+        {
+            id: 1,
+            enName: 'Orders',
+            arName: 'الطلبات',
+            to: '/details',
+        },
+        {
+            id: 2,
+            enName: 'Analytics',
+            arName: 'لوحة التحكم',
+            to: '/analytics',
+        },
+    ],
+    pages: [
+        {
+            id: 1,
+            path: 'details',
+            component: ()=> <Orders />,
+        },
+        {
+            id: 2,
+            path: 'analytics',
+            component: () => <h1>Analytics</h1>,
+        },
+    ]
+}
+
 
 export var routers = {
     items: [
@@ -125,7 +154,7 @@ export var routers = {
             id: 3,
             exact: false,
             path: '/Orders',
-            component: () => <Orders />,
+            component: () => <Routers link="orders" data={odersRouters} />,
         },
         {
             id: 4,
