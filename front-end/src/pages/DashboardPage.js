@@ -10,7 +10,7 @@ import Table from '../components/Table'
 import DesktopWindowsIcon from '@material-ui/icons/DesktopWindows';
 import TabletIcon from '@material-ui/icons/Tablet';
 import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
-import {LineChart} from '../components/LineChart'
+import LineChart from '../components/LineChart'
 
 
 const useStyles = makeStyles(() => ({
@@ -62,10 +62,10 @@ function DashboardPage() {
                 <Grid item sm={4} md={3} xs={6}>
                     <HomeCard name="Benifits" number={2000} bgColor='#36ff36b8' icon={<AttachMoneyIcon className={style.icon} />} />
                 </Grid>
-                <Grid alignItems="center" direction='row' justify='center' container style={{ margin: '0px 35px' }}>
+                <Grid alignItems="center" direction='row' justify='center' container style={{ marginTop: '35px' }}>
                     <Map />
                 </Grid>
-                <Grid alignItems="center" direction='row' justify='center' container style={{ margin: '0px 35px' }}>
+                <Grid alignItems="center" direction='row' justify='center' container style={{ marginTop: '35px' }}>
                     <Grid item sm={6} xs={12} md={6}>
                         <Table rows={rows} columns={columns} />
                     </Grid>
