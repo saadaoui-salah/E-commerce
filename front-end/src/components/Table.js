@@ -32,6 +32,19 @@ const Header = ({ columns }) => {
     )
 }
 
+const DropDown = ({ DropDown }) => {
+    if (DropDown) {
+        return (
+            
+            <TableCell>
+                <ArrowIconButton />
+            </TableCell>
+            
+        )
+    }
+    return null
+}
+
 const Body = (props) => {
     return (
         <>
@@ -42,11 +55,7 @@ const Body = (props) => {
                 ).map((row, rIndex) => {
                     return (
                         <TableRow key={rIndex} hover role="checkbox" tabIndex={-1} >
-                            {props.hasArrows ?
-                            <TableCell>
-                                 <ArrowIconButton/> 
-                            </TableCell>
-                            : null}
+                            <DropDown DropDown={props.dropDown}/>
                             {props.columns.map((column, index) => {
                                 const value = row[index];
                                 if (props.options) {
@@ -81,7 +90,7 @@ const Body = (props) => {
 }
 
 
-export default function CustomTable({ rows, columns, options, children }) {
+export default function CustomTable({ rows, columns, options, children, dropDown }) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const handleChangePage = (event, newPage) => {
@@ -112,6 +121,7 @@ export default function CustomTable({ rows, columns, options, children }) {
                             options={
                                 options ? options : false
                             }
+                            dropDown={dropDown}
                             rows={rows} />
                     </Table>
                 </TableContainer>

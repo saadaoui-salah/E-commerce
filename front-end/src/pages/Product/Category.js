@@ -8,7 +8,6 @@ import {
     DeleteButton,
 } from '../../components/sub-components/Buttons'
 import { OptionsReducer } from '../../reducers/reducers'
-import { initialState } from '../../reducers/state'
 import {
     GlobalCategoryForm,
     SubCategoryForm
@@ -18,7 +17,7 @@ import { CollectionCard } from '../../components/CustomCards'
 import { Grid } from '@material-ui/core'
 
 export default function Category() {
-    const [state, dispatch] = useReducer(OptionsReducer, initialState.options)
+    const [state, dispatch] = useReducer(OptionsReducer)
     return (
         <OptionsStateContext.Provider value={state}>
             <OptionsDispatchContext.Provider value={dispatch}>

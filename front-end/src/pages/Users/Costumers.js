@@ -1,7 +1,6 @@
 import Table from '../../components/Table'
 import { TableOptions } from '../../components/sub-components/Buttons'
 import { OptionsReducer } from '../../reducers/reducers'
-import {initialState} from '../../reducers/state'
 import {useReducer } from 'react'
 import {OptionsStateContext, OptionsDispatchContext} from '../../reducers/context'
 
@@ -37,7 +36,7 @@ const rows = [
 
 export default function Users() {
 
-    const [options, dispatch] = useReducer(OptionsReducer,initialState.options)
+    const [options, dispatch] = useReducer(OptionsReducer)
     const options_ = { name: "Options", component: (id) => <TableOptions id={id} /> }
     return (
         <OptionsStateContext.Provider value={options}>

@@ -5,13 +5,12 @@ import { CollectionForm } from '../../components/CustomForms'
 import { SearchField } from '../../components/sub-components/CustomTextField'
 import { useReducer } from 'react'
 import { OptionsStateContext, OptionsDispatchContext } from '../../reducers/context'
-import { initialState } from '../../reducers/state'
 import { OptionsReducer } from '../../reducers/reducers'
 
 
 
 export default function Collections() {
-    const [state, dispatch] = useReducer(OptionsReducer, initialState.options)
+    const [state, dispatch] = useReducer(OptionsReducer)
     return (
     <OptionsStateContext.Provider value={state}>
         <OptionsDispatchContext.Provider value={dispatch}>
