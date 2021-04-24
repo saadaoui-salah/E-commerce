@@ -8,14 +8,10 @@ import {
     TableContainer,
     TablePagination,
     IconButton,
-
 } from "@material-ui/core";
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { useState } from 'react'
-import { EditField } from './sub-components/CustomTextField'
-import { SearchField } from './sub-components/CustomTextField'
-
+import { EditField, SearchField } from './sub-components/CustomTextField'
+import { ArrowIconButton } from './sub-components/Buttons'
 
 const Header = ({ columns }) => {
     return (
@@ -37,7 +33,6 @@ const Header = ({ columns }) => {
 }
 
 const Body = (props) => {
-    const [open, setOpen] = useState({ open: false, id: null })
     return (
         <>
             <TableBody>
@@ -47,9 +42,11 @@ const Body = (props) => {
                 ).map((row, rIndex) => {
                     return (
                         <TableRow key={rIndex} hover role="checkbox" tabIndex={-1} >
+                            {props.hasArrows ?
                             <TableCell>
-                                
+                                 <ArrowIconButton/> 
                             </TableCell>
+                            : null}
                             {props.columns.map((column, index) => {
                                 const value = row[index];
                                 if (props.options) {

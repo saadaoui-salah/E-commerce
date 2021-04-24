@@ -14,6 +14,9 @@ import { Grow } from '@material-ui/core'
 import CustomDialog from './Dialog'
 import { edit, cancel } from '../../reducers/actoins'
 import { OptionsDispatchContext } from '../../reducers/context'
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+
 
 const useStyle = makeStyles(() => ({
     optionBtn: {
@@ -213,5 +216,21 @@ export const DeleteButton = ({ title, content }) => {
             />
 
         </>
+    )
+}
+
+export const ArrowIconButton = () => {
+    const [open, setOpen] = useState(false)
+    if (open) {
+        return (
+            <IconButton aria-label="expand row" size="small" onClick={() => setOpen(false)}>
+                <KeyboardArrowUpIcon />
+            </IconButton>
+        )
+    }
+    return (
+        <IconButton aria-label="expand row" size="small" onClick={() => setOpen(true)}>
+            <KeyboardArrowDownIcon />
+        </IconButton>
     )
 }
