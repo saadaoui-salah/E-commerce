@@ -1,7 +1,6 @@
 import Table from '../../components/Table'
-import { AddButton, TableOptions } from '../../components/sub-components/Buttons'
+import { AddButton, TableOptions, DeleteButton } from '../../components/sub-components/Buttons'
 import { ProductFrom } from '../../components/CustomForms'
-import { Grid } from '@material-ui/core'
 import { OptionsReducer } from '../../reducers/reducers'
 import { initialState } from '../../reducers/state'
 import { useReducer } from 'react'
@@ -47,6 +46,7 @@ export default function Products() {
             <OptionsDispatchContext.Provider value={dispatch}>
                 <Table columns={columns} rows={rows} options={options_}>
                     <AddButton value="Product" content={<ProductFrom />} title="Create New Product" />
+                    <DeleteButton content="Are you sure" title="Delete Product"/>
                 </Table>
             </OptionsDispatchContext.Provider>
         </OptionsStateContext.Provider >
