@@ -91,10 +91,10 @@ export default function CustomTable({ rows, columns, options, children }) {
         <>
             <Paper>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <div>
+                    <div style={{ margin: '10px'}}>
                         {children}
                     </div>
-                    <div style={{width: '280px'}}>
+                    <div style={{width: '280px', margin: '10px'}}>
                         <SearchField />
                     </div>
                 </div>
