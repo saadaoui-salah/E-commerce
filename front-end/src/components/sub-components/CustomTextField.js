@@ -33,8 +33,9 @@ export const SearchField = () => {
                 style={{
                     width: '100%',
                     backgroundColor: '#fff',
-                    borderRadius:'5px'
+                    borderRadius:'5px',
                 }}
+                size="small"
                 placeholder="Search"
                 variant="outlined"
                 InputProps={{
