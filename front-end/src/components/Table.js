@@ -6,8 +6,12 @@ import {
     TableHead,
     Paper,
     TableContainer,
-    TablePagination
+    TablePagination,
+    IconButton,
+
 } from "@material-ui/core";
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { useState } from 'react'
 import { EditField } from './sub-components/CustomTextField'
 import { SearchField } from './sub-components/CustomTextField'
@@ -33,7 +37,7 @@ const Header = ({ columns }) => {
 }
 
 const Body = (props) => {
-
+    const [open, setOpen] = useState({ open: false, id: null })
     return (
         <>
             <TableBody>
@@ -43,6 +47,9 @@ const Body = (props) => {
                 ).map((row, rIndex) => {
                     return (
                         <TableRow key={rIndex} hover role="checkbox" tabIndex={-1} >
+                            <TableCell>
+                                
+                            </TableCell>
                             {props.columns.map((column, index) => {
                                 const value = row[index];
                                 if (props.options) {
@@ -91,10 +98,10 @@ export default function CustomTable({ rows, columns, options, children }) {
         <>
             <Paper>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <div style={{ margin: '10px'}}>
+                    <div style={{ margin: '10px' }}>
                         {children}
                     </div>
-                    <div style={{width: '280px', margin: '10px'}}>
+                    <div style={{ width: '280px', margin: '10px' }}>
                         <SearchField />
                     </div>
                 </div>
