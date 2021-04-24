@@ -9,7 +9,9 @@ import {
     TablePagination
 } from "@material-ui/core";
 import { useState } from 'react'
-import { EditField } from '../components/sub-components/CustomTextField'
+import { EditField } from './sub-components/CustomTextField'
+import { SearchField } from './sub-components/CustomTextField'
+
 
 const Header = ({ columns }) => {
     return (
@@ -75,7 +77,7 @@ const Body = (props) => {
 }
 
 
-export default function CustomTable({ rows, columns, options }) {
+export default function CustomTable({ rows, columns, options, children }) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const handleChangePage = (event, newPage) => {
@@ -88,6 +90,14 @@ export default function CustomTable({ rows, columns, options }) {
     return (
         <>
             <Paper>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div>
+                        {children}
+                    </div>
+                    <div style={{width: '280px'}}>
+                        <SearchField />
+                    </div>
+                </div>
                 <TableContainer>
                     <Table>
                         <Header columns={columns} />
