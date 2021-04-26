@@ -1,9 +1,9 @@
 import Table from '../../components/Table'
 import { AddButton, TableOptions, DeleteButton } from '../../components/sub-components/Buttons'
 import { ProductFrom } from '../../components/CustomForms'
-import { OptionsReducer } from '../../reducers/reducers'
-import { useReducer } from 'react'
 import { OptionsStateContext, OptionsDispatchContext } from '../../reducers/context'
+import { optionsState, optionsDispatch } from '../../reducers/reducers'
+
 
 const columns = ["Image", "Product", "Category", "Quantity", "User"];
 function createData(image, product, category, quantity, bPrice, vPrice, user) {
@@ -37,15 +37,13 @@ const rows = [
 
 
 export default function Products() {
-
-    const [options, dispatch] = useReducer(OptionsReducer)
     const options_ = { name: "Options", component: (id) => <TableOptions id={id} /> }
     return (
-        <OptionsStateContext.Provider value={options}>
-            <OptionsDispatchContext.Provider value={dispatch}>
+        <OptionsStateContext.Provider value={optionsState}>
+            <OptionsDispatchContext.Provider value={optionsDispatch}>
                 <Table columns={columns} rows={rows} options={options_} dropDown={true}>
                     <AddButton value="Product" content={<ProductFrom />} title="Create New Product" />
-                    <DeleteButton content="Are you sure" title="Delete Product"/>
+                    <DeleteButton content="Are you sure" title="Delete Product" />
                 </Table>
             </OptionsDispatchContext.Provider>
         </OptionsStateContext.Provider >

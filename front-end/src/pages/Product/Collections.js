@@ -3,17 +3,15 @@ import { CollectionCard } from '../../components/CustomCards'
 import { AddButton ,DeleteButton } from '../../components/sub-components/Buttons'
 import { CollectionForm } from '../../components/CustomForms'
 import { SearchField } from '../../components/sub-components/CustomTextField'
-import { useReducer } from 'react'
 import { OptionsStateContext, OptionsDispatchContext } from '../../reducers/context'
-import { OptionsReducer } from '../../reducers/reducers'
+import {optionsState, optionsDispatch} from '../../reducers/reducers'
 
 
 
-export default function Collections() {
-    const [state, dispatch] = useReducer(OptionsReducer)
+export default function Collections() {    
     return (
-    <OptionsStateContext.Provider value={state}>
-        <OptionsDispatchContext.Provider value={dispatch}>
+    <OptionsStateContext.Provider value={optionsState}>
+        <OptionsDispatchContext.Provider value={optionsDispatch}>
             <Grid container direction="row" spacing={2}>
                 <Grid item xs={12} sm={12} md={4}  lg={4}>
                     <AddButton value="Collection" content={<CollectionForm />} title="Create New Collection" />

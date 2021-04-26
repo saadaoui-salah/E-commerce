@@ -1,8 +1,9 @@
 import {EDIT, REMOVE, OPEN,CLOSE} from './actoins'
-import {dropDown, options} from './state'
+import {options, dropDown} from './state'
+import {useReducer} from 'react'
 
 
-export const OptionsReducer = (state=options, action) => {
+export const OptionsReducer = (state, action) => {
     switch (action.type) {
         case EDIT:
             return {
@@ -21,7 +22,7 @@ export const OptionsReducer = (state=options, action) => {
     }
 }
 
-export const Dropdown = (state=dropDown, action) => {
+export const Dropdown = (state, action) => {
     switch(action.type){
         case OPEN:
             return {
@@ -33,5 +34,17 @@ export const Dropdown = (state=dropDown, action) => {
                 id:null,
                 open:false
             }
+        default:
+            return state
     }
+}
+
+export const [optionsState, optionsDispatch] = () => {
+    useReducer(OptionsReducer, options)
+    return [state, dispatch]
+}
+
+export const [dropDownState, dropDownDispatch] = () => {
+    useReducer(Dropdown, dropDown)
+    return [state, dispatch]
 }

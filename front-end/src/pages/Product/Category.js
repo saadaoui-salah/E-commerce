@@ -1,4 +1,3 @@
-import { useReducer } from 'react'
 import {
     OptionsStateContext,
     OptionsDispatchContext
@@ -7,20 +6,20 @@ import {
     AddButton,
     DeleteButton,
 } from '../../components/sub-components/Buttons'
-import { OptionsReducer } from '../../reducers/reducers'
 import {
     GlobalCategoryForm,
     SubCategoryForm
 } from '../../components/CustomForms'
-import {SearchField} from '../../components/sub-components/CustomTextField'
+import { SearchField } from '../../components/sub-components/CustomTextField'
 import { CollectionCard } from '../../components/CustomCards'
 import { Grid } from '@material-ui/core'
+import { optionsState, optionsDispatch } from '../../reducers/reducers'
+
 
 export default function Category() {
-    const [state, dispatch] = useReducer(OptionsReducer)
     return (
-        <OptionsStateContext.Provider value={state}>
-            <OptionsDispatchContext.Provider value={dispatch}>
+        <OptionsStateContext.Provider value={optionsState}>
+            <OptionsDispatchContext.Provider value={optionsDispatch}>
                 <Grid container justify="space-between" >
                     <AddButton
                         value="global category"
@@ -36,7 +35,7 @@ export default function Category() {
                         title="Delete Category"
                         content="Are you sure, you want to delete this category"
                     />
-                    <SearchField/>
+                    <SearchField />
                 </Grid>
                 <Grid container justify="center" alignItems="center" spacing={2}>
                     <Grid item xs={12} sm={6} md={4} lg={3}>
