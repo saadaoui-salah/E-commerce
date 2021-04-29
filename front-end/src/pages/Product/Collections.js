@@ -4,11 +4,13 @@ import { AddButton ,DeleteButton } from '../../components/sub-components/Buttons
 import { CollectionForm } from '../../components/CustomForms'
 import { SearchField } from '../../components/sub-components/CustomTextField'
 import { OptionsStateContext, OptionsDispatchContext } from '../../reducers/context'
-import {optionsState, optionsDispatch} from '../../reducers/reducers'
-
+import { OptionsReducer} from '../../reducers/reducers'
+import { options} from '../../reducers/state'
+import {useReducer} from 'react'
 
 
 export default function Collections() {    
+    const [optionsState, optionsDispatch] = useReducer(options, OptionsReducer)
     return (
     <OptionsStateContext.Provider value={optionsState}>
         <OptionsDispatchContext.Provider value={optionsDispatch}>

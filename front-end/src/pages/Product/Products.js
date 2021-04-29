@@ -2,8 +2,9 @@ import Table from '../../components/Table'
 import { AddButton, TableOptions, DeleteButton } from '../../components/sub-components/Buttons'
 import { ProductFrom } from '../../components/CustomForms'
 import { OptionsStateContext, OptionsDispatchContext } from '../../reducers/context'
-import { optionsState, optionsDispatch } from '../../reducers/reducers'
-
+import { OptionsReducer} from '../../reducers/reducers'
+import { options} from '../../reducers/state'
+import {useReducer} from 'react'
 
 const columns = ["Image", "Product", "Category", "Quantity", "User"];
 function createData(image, product, category, quantity, bPrice, vPrice, user) {
@@ -37,6 +38,7 @@ const rows = [
 
 
 export default function Products() {
+    const [optionsState, optionsDispatch] = useReducer(options, OptionsReducer)
     const options_ = { name: "Options", component: (id) => <TableOptions id={id} /> }
     return (
         <OptionsStateContext.Provider value={optionsState}>

@@ -13,10 +13,13 @@ import {
 import { SearchField } from '../../components/sub-components/CustomTextField'
 import { CollectionCard } from '../../components/CustomCards'
 import { Grid } from '@material-ui/core'
-import { optionsState, optionsDispatch } from '../../reducers/reducers'
+import { options } from '../../reducers/state'
+import { OptionsReducer } from '../../reducers/reducers'
+import { useReducer } from 'react'
 
 
 export default function Category() {
+    const [optionsState, optionsDispatch] = useReducer(options,OptionsReducer)
     return (
         <OptionsStateContext.Provider value={optionsState}>
             <OptionsDispatchContext.Provider value={optionsDispatch}>

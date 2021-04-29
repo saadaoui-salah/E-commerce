@@ -25,6 +25,7 @@ export const OptionsReducer = (state, action) => {
 export const Dropdown = (state, action) => {
     switch(action.type){
         case OPEN:
+
             return {
                 open:true,
                 id:action.id
@@ -37,14 +38,4 @@ export const Dropdown = (state, action) => {
         default:
             return state
     }
-}
-
-export const [optionsState, optionsDispatch] = () => {
-    useReducer(OptionsReducer, options)
-    return [state, dispatch]
-}
-
-export const [dropDownState, dropDownDispatch] = () => {
-    useReducer(Dropdown, dropDown)
-    return [state, dispatch]
 }
