@@ -19,7 +19,7 @@ import { useReducer } from 'react'
 
 
 export default function Category() {
-    const [optionsState, optionsDispatch] = useReducer(options,OptionsReducer)
+    const [optionsState, optionsDispatch] = useReducer(OptionsReducer, options)
     return (
         <OptionsStateContext.Provider value={optionsState}>
             <OptionsDispatchContext.Provider value={optionsDispatch}>
@@ -42,13 +42,13 @@ export default function Category() {
                 </Grid>
                 <Grid container justify="center" alignItems="center" spacing={2}>
                     <Grid item xs={12} sm={6} md={4} lg={3}>
-                        <CollectionCard />
+                        <CollectionCard id={1} />
                     </Grid>
                     <Grid item xs={12} sm={6} md={4} lg={3}>
-                        <CollectionCard />
+                        <CollectionCard id={2} />
                     </Grid>
                     <Grid item xs={12} sm={6} md={4} lg={3}>
-                        <CollectionCard />
+                        <CollectionCard id={3}/>
                     </Grid>
                 </Grid>
 

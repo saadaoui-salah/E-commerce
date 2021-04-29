@@ -38,7 +38,7 @@ const rows = [
 
 
 export default function Products() {
-    const [optionsState, optionsDispatch] = useReducer(options, OptionsReducer)
+    const [optionsState, optionsDispatch] = useReducer(OptionsReducer, options)
     const options_ = { name: "Options", component: (id) => <TableOptions id={id} /> }
     return (
         <OptionsStateContext.Provider value={optionsState}>

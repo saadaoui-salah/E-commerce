@@ -10,7 +10,7 @@ import {useReducer} from 'react'
 
 
 export default function Collections() {    
-    const [optionsState, optionsDispatch] = useReducer(options, OptionsReducer)
+    const [optionsState, optionsDispatch] = useReducer(OptionsReducer, options)
     return (
     <OptionsStateContext.Provider value={optionsState}>
         <OptionsDispatchContext.Provider value={optionsDispatch}>

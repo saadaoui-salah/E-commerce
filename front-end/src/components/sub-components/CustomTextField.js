@@ -5,7 +5,6 @@ import { OptionsStateContext } from '../../reducers/context'
 
 export const EditField = ({ value, id }) => {
     const state = useContext(OptionsStateContext)
-    console.log(state)
     if (state.edit && id === state.id) {
         return (
             <Zoom in={state.edit} timeout={500}>

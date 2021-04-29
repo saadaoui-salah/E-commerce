@@ -1,9 +1,10 @@
 import {EDIT, REMOVE, OPEN,CLOSE} from './actoins'
-import {options, dropDown} from './state'
-import {useReducer} from 'react'
 
 
-export const OptionsReducer = (state, action) => {
+
+export function OptionsReducer (state, action){
+    console.log(state)
+    console.log(action)
     switch (action.type) {
         case EDIT:
             return {

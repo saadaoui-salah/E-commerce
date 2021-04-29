@@ -95,9 +95,7 @@ export const EditIconButton = ({ id }) => {
     const dispatch = useContext(OptionsDispatchContext)
     return (
         <IconButton
-            onClick={() => {
-                dispatch(edit(id));
-            }}
+            onClick={() => dispatch(edit(id.id))}
             varialnt="outlined"
             style={{ backgroundColor: "#0063cc" }}
             className={style.optionBtn}
@@ -133,7 +131,7 @@ export const TableOptions = ({ id }) => {
                             justifyContent: 'center'
                         }}>
                         <SaveIconButton display={displayEditOptions} />
-                        <CancelIconButton display={displayEditOptions} />
+                        <CancelIconButton  display={displayEditOptions} />
                     </div>
 
                 )
@@ -152,18 +150,17 @@ export const TableOptions = ({ id }) => {
 
 export const CardOptions = ({ id }) => {
     const state = useContext(OptionsStateContext)
-    const displayEditOptions = state.edit && state.id === id
     console.log(state)
-    console.log(id)
-    console.log(displayEditOptions)
+    const displayEditOptions = state.edit && state.id === id
+
     if (displayEditOptions) {
         <div
             style={{
                 display: 'flex',
                 justifyContent: 'center'
             }}>
-            <SaveIconButton display={displayEditOptions} />
-            <CancelIconButton display={displayEditOptions} />
+            <SaveIconButton onClick={cancel()} display={displayEditOptions} />
+            <CancelIconButton onClick={edit(id)} display={displayEditOptions} />
         </div>
     }
     return (
