@@ -9,6 +9,7 @@ import {
     Checkbox,
     CardContent,
     Avatar,
+    Slide,
 } from '@material-ui/core'
 import theme from '../theme'
 import { CardOptions, EditIconButton } from './sub-components/Buttons'
@@ -56,53 +57,64 @@ export function HomeCard(props) {
 
 export function CollectionCard(id) {
     const [checked, setChecked] = useState(false)
+    const [hover, setHover] = useState(false)
     return (
         <>
             <Card
+                onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}
                 id="card"
-                style={checked ? { backgroundColor: '#f1f1f1',transition:'0.19s' } : null}
+                style={checked ? { backgroundColor: '#f1f1f1', transition: '0.2s', cursor: "pointer" } : {cursor: "pointer"}}
             >
                 <Grid container justify="space-between" alignItems="center" noWrap>
-                    <Grid item>
-                        <Checkbox value={checked} onClick={() => setChecked(!checked)} />
-                    </Grid>
                     <Grid item >
                         <CardHeader
+                            onClick={() => setChecked(!checked)}
                             title="Collection"
                             subheader="22 products"
                         />
                     </Grid>
-
-                    <Grid item >
-                        <CardOptions id={id} />
-                    </Grid>
+                    {hover?
+                        <Slide in={hover} direction="left" unmountOnExit unmountOnEnter >
+                            <Grid item >
+                                <CardOptions id={id} />
+                            </Grid>
+                        </Slide>
+                        : 
+                        checked?
+                        <Slide in={hover} direction="left" unmountOnExit unmountOnEnter >
+                            <Grid item >
+                                <CardOptions id={id} />
+                            </Grid>
+                        </Slide>
+                        :null
+                    }
                 </Grid>
-                <CardContent>
+                <CardContent
+                    onClick={() => setChecked(!checked)}
+                >
                     <List >
                         <ListItemText >
-                            <div style={{display:'flex', alignItems:'center'}}>
-                                <Checkbox />
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <Avatar />
-                                <h3 style={{marginLeft:'10px'}}>chose</h3>
+                                <h3 style={{ marginLeft: '10px' }}>chose</h3>
                             </div>
                         </ListItemText>
-                        
+
                         <ListItemText >
-                            <div style={{display:'flex', alignItems:'center'}}>
-                                <Checkbox />
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <Avatar />
-                                <h3 style={{marginLeft:'10px'}}>chose</h3>
+                                <h3 style={{ marginLeft: '10px' }}>chose</h3>
                             </div>
                         </ListItemText>
-                        
+
                         <ListItemText >
-                            <div style={{display:'flex', alignItems:'center'}}>
-                                <Checkbox />
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <Avatar />
-                                <h3 style={{marginLeft:'10px'}}>chose</h3>
+                                <h3 style={{ marginLeft: '10px' }}>chose</h3>
                             </div>
                         </ListItemText>
-                        
+
                     </List>
                 </CardContent>
             </Card>
@@ -111,7 +123,7 @@ export function CollectionCard(id) {
 }
 
 export const CategoryCard = () => {
-    return(
+    return (
         <Card>
             <CardContent>
 
