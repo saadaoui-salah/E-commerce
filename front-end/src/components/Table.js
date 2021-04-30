@@ -35,11 +35,9 @@ const Header = ({ columns }) => {
 const DropDown = ({ DropDown }) => {
     if (DropDown) {
         return (
-            
             <TableCell>
                 <ArrowIconButton />
             </TableCell>
-            
         )
     }
     return null
@@ -54,33 +52,36 @@ const Body = (props) => {
                     props.page * props.rowsPerPage + props.rowsPerPage
                 ).map((row, rIndex) => {
                     return (
-                        <TableRow key={rIndex} hover role="checkbox" tabIndex={-1} >
-                            <DropDown DropDown={props.dropDown}/>
-                            {props.columns.map((column, index) => {
-                                const value = row[index];
-                                if (props.options) {
-                                    if (column === props.options.name) {
+                        <>
+                                
+                            <TableRow key={rIndex} hover role="checkbox" tabIndex={-1} >
+                                <DropDown DropDown={props.dropDown} />
+                                {props.columns.map((column, index) => {
+                                    const value = row[index];
+                                    if (props.options) {
+                                        if (column === props.options.name) {
+                                            return (
+                                                <TableCell key={index} align="center">
+                                                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                                        {props.options.component(rIndex)}
+                                                    </div>
+                                                </TableCell>
+                                            )
+                                        }
                                         return (
-                                            <TableCell key={index} align="center">
-                                                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                                    {props.options.component(rIndex)}
-                                                </div>
+                                            <TableCell key={column.id} align="center">
+                                                <EditField id={rIndex} value={value} />
                                             </TableCell>
-                                        )
+                                        );
                                     }
                                     return (
                                         <TableCell key={column.id} align="center">
-                                            <EditField id={rIndex} value={value} />
+                                            {value}
                                         </TableCell>
-                                    );
-                                }
-                                return (
-                                    <TableCell key={column.id} align="center">
-                                        {value}
-                                    </TableCell>
-                                )
-                            })}
-                        </TableRow>
+                                    )
+                                })}
+                            </TableRow>
+                        </>
                     );
                 })}
 
