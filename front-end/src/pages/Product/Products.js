@@ -44,6 +44,7 @@ export default function Products() {
         <OptionsStateContext.Provider value={optionsState}>
             <OptionsDispatchContext.Provider value={optionsDispatch}>
                 <Table columns={columns} rows={rows} options={options_} dropDown={true}>
+                    
                     <AddButton value="Product" content={<ProductFrom />} title="Create New Product" />
                     <DeleteButton content="Are you sure" title="Delete Product" />
                 </Table>
