@@ -80,13 +80,6 @@ export function CollectionCard(id) {
                                 <CardOptions id={id} />
                             </Grid>
                         </Slide>
-                        : 
-                        checked?
-                        <Slide in={hover} direction="left" unmountOnExit unmountOnEnter >
-                            <Grid item >
-                                <CardOptions id={id} />
-                            </Grid>
-                        </Slide>
                         :null
                     }
                 </Grid>
