@@ -7,6 +7,7 @@ import {
     IconButton,
     Button,
     Fade,
+    Slide,
 } from "@material-ui/core";
 import { OptionsStateContext } from '../../reducers/context'
 import { makeStyles } from '@material-ui/core/styles'
@@ -131,7 +132,7 @@ export const TableOptions = ({ id }) => {
                             justifyContent: 'center'
                         }}>
                         <SaveIconButton display={displayEditOptions} />
-                        <CancelIconButton  display={displayEditOptions} />
+                        <CancelIconButton display={displayEditOptions} />
                     </div>
 
                 )
@@ -150,23 +151,27 @@ export const TableOptions = ({ id }) => {
 
 export const CardOptions = ({ id }) => {
     const state = useContext(OptionsStateContext)
-    console.log(state)
-    const displayEditOptions = state.edit && state.id === id
-
+    const displayEditOptions = state.id === id.id
     if (displayEditOptions) {
-        <div
-            style={{
-                display: 'flex',
-                justifyContent: 'center'
-            }}>
-            <SaveIconButton onClick={cancel()} display={displayEditOptions} />
-            <CancelIconButton onClick={edit(id)} display={displayEditOptions} />
-        </div>
+        return (
+            <Slide timeout={350} direction="left" in={displayEditOptions} mountOnEnter  >
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center'
+                    }}>
+                    <SaveIconButton onClick={cancel()} display={displayEditOptions} />
+                    <CancelIconButton onClick={edit(id)} display={displayEditOptions} />
+                </div>
+            </Slide>
+        )
     }
     return (
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <EditIconButton id={id} />
-        </div>
+        <Slide timeout={350} direction="left" in={!displayEditOptions} mountOnEnter unmountOnExit >
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <EditIconButton id={id} />
+            </div>
+        </Slide>
     )
 }
 
