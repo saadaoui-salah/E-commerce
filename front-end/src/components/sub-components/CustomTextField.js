@@ -1,6 +1,6 @@
 import { InputAdornment, Input, MenuItem, TextField, Zoom } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { OptionsStateContext } from '../../reducers/context'
 
 export const EditField = ({ value, id }) => {
@@ -8,7 +8,6 @@ export const EditField = ({ value, id }) => {
     if (state.edit && id === state.id) {
         return (
             <Zoom in={state.edit} timeout={500}>
-
                 <Input style={{ maxWidth: '40px', fontSize: '14px' }} value={value}></Input>
             </Zoom>
         )
@@ -16,15 +15,29 @@ export const EditField = ({ value, id }) => {
     return (value)
 }
 
-export const SelectStatus = () => {
+export const SelectStatus = ({default, choices}) => {
+    const [status, setStatus] = useState()
+    const handleSelect = (e) => {
+        setStatus(e.target.value)
+    }
     return (
-        <TextField select defaultValue="WAITING">
-            <MenuItem style={{ color: '#4caf50' }}>DONE</MenuItem>
-            <MenuItem style={{ color: '#f50057' }}>CANCELED</MenuItem>
-            <MenuItem style={{ color: '#ff9800' }}>WAITING</MenuItem>
-        </TextField>
+        <div >
+            <TextField
+                size="small"
+                variant="outlined"
+                onChange={handleSelect}
+                value={status}
+                select
+                defaultValue="WAITING">
+            {choices.map(choice=>{
+                <MenuItem value={choice.value} style={{ color: choice.color }}>choice.name</MenuItem>  
+            })
+            }
+            </TextField>
+        </div>
     )
 }
+
 
 export const SearchField = () => {
     return (
@@ -33,7 +46,7 @@ export const SearchField = () => {
                 style={{
                     width: '100%',
                     backgroundColor: '#fff',
-                    borderRadius:'5px',
+                    borderRadius: '5px',
                 }}
                 size="small"
                 placeholder="Search"
