@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core'
 import theme from '../theme'
 import { CardOptions, EditIconButton } from './sub-components/Buttons'
-import { useRef, useState, useMemo } from 'react'
+import {  useState } from 'react'
 
 const useStyles = makeStyles(() => ({
     card: {
@@ -55,7 +55,7 @@ export function HomeCard(props) {
 }
 
 
-export function CollectionCard(id) {
+export function CollectionCard({id}) {
     const [checked, setChecked] = useState(false)
     const [hover, setHover] = useState(false)
     return (

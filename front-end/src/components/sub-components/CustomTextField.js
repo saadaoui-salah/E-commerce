@@ -15,24 +15,28 @@ export const EditField = ({ value, id }) => {
     return (value)
 }
 
-export const SelectStatus = ({default, choices}) => {
-    const [status, setStatus] = useState()
+export const SelectStatus = (props) => {
+    const [status, setStatus] = useState(props.default)
     const handleSelect = (e) => {
         setStatus(e.target.value)
     }
+    console.log(props.default)
     return (
         <div >
             <TextField
+                
                 size="small"
                 variant="outlined"
                 onChange={handleSelect}
                 value={status}
                 select
                 defaultValue="WAITING">
-            {choices.map(choice=>{
-                <MenuItem value={choice.value} style={{ color: choice.color }}>choice.name</MenuItem>  
-            })
-            }
+                {props.choices.map(choice => {
+                    return (
+                        <MenuItem value={choice.value} style={{ color: choice.color }}>{choice.name}</MenuItem>
+                    )
+                })
+                }
             </TextField>
         </div>
     )

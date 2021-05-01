@@ -19,6 +19,9 @@ import OrdersAnalytics from '../pages/Orders/OrdersAnalytics'
 import UsersAnalyitcs from '../pages/Users/UsersAnalyitcs'
 import Costumers from '../pages/Users/Costumers'
 import Vendors from '../pages/Users/Vendors'
+// auth 
+import {Login} from '../pages/login'
+import {Register} from '../pages/register'
 // router
 import Routers from './Routers'
 
@@ -208,6 +211,18 @@ export var routers = {
         },
         {
             id: 5,
+            exact: false,
+            path: '/register',
+            component: () => <Register />,
+        },
+        {
+            id: 6,
+            exact: false,
+            path: '/login',
+            component: () => <Login />,
+        },
+        {
+            id: 7,
             exact: false,
             path: '/chat',
         },
