@@ -10,11 +10,9 @@ import {
   HttpClient,
   from
 } from '@apollo/client'
-import {
-  onError,
-} from '@apollo/client/link/error'
+import {onError} from '@apollo/client/link/error'
 
-const errorLink = onError(({graphqlErrors, networkError})=>{
+/* const errorLink = onError(({graphqlErrors, networkError})=>{
   if (graphqlErrors){
     graphqlErrors.map(({message, location, path})=>{
       console.log("message")
@@ -24,12 +22,12 @@ const errorLink = onError(({graphqlErrors, networkError})=>{
 
 const link = from([
   errorLink,
-  new HttpClient({url:"http://localhost:8000"})
-])
+  new HttpClient({uri:"http://127.0.0.1:8000/graphql"}),
+]) */
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: link
+  uri:"http://127.0.0.1:8000/graphql"
 })
 
 
