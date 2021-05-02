@@ -7,7 +7,4 @@ class PubType(DjangoObjectType):
         model = Pub
         fields = (
             'id',
-            'image',
-            'views',
-            'link_to'
         )
