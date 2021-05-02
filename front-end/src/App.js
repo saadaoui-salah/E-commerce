@@ -144,10 +144,10 @@ function App() {
       </ListItem>
     )
   }
-
+  
   return (
     <>
-        <AppBar
+    <AppBar
           elevation={0}
           position='fixed'
           classes={{
@@ -231,7 +231,7 @@ function App() {
             </div>
           </div>
         </Router>
-    </>
+        </>
   )
 }
 export default App

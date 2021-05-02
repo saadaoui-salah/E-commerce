@@ -44,6 +44,16 @@ const DropDown = ({ DropDown }) => {
 }
 
 const Body = (props) => {
+    const [select, setSelect] = useState([])
+    const handleSelect = (id) => {
+        if (id in select){
+            const new_select = select.filter(id_ => id_ != id)
+            setSelect(new_select)
+        }else{
+            setSelect([...select, id])
+        }
+    }
+    console.log(select)
     return (
         <>
             <TableBody>
@@ -61,7 +71,7 @@ const Body = (props) => {
                                     if (props.options) {
                                         if (column === props.options.name) {
                                             return (
-                                                <TableCell key={index} align="center">
+                                                <TableCell  key={index} align="center">
                                                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                                                         {props.options.component(rIndex)}
                                                     </div>
@@ -69,7 +79,7 @@ const Body = (props) => {
                                             )
                                         }
                                         return (
-                                            <TableCell key={column.id} align="center">
+                                            <TableCell onClick={()=>handleSelect(rIndex)}  style={{cursor:"pointer", userSelect:'none'}} key={column.id} align="center">
                                                 <EditField id={rIndex} value={value} />
                                             </TableCell>
                                         );
