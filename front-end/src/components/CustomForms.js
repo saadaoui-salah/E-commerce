@@ -4,17 +4,26 @@ import {
     MenuList,
     TextField,
 } from '@material-ui/core'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 
 
 export function ProductFrom() {
-
+    const [state, setState] = useState({
+        name:'',
+        parentCategory:'',
+        category:'',
+        quantity:'',
+        vPrice:'',
+        bPrice:'',    
+    })
+    function handleChange(value){
+        setState([...state, value])
+    }
     return (
         <>
             <Grid container spacing={2} direction="row">
                 <Grid item>
-
                     <Grid container spacing={2} justify="center" align="center" direction="column">
                         <Grid item>
                             <TextField
