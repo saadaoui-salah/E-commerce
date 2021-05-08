@@ -1,9 +1,4 @@
 export const EDIT = 'EDIT' 
-export const REMOVE = 'REMOVE'
-export const OPEN = 'OPEN' 
-export const CLOSE = 'CLOSE' 
-export const SET_ID = 'SET_ID'
-
 export function edit(id){
     return{
         type:EDIT,
@@ -11,12 +6,14 @@ export function edit(id){
     }
 }
 
+export const REMOVE = 'REMOVE'
 export function cancel(){
     return{
         type:REMOVE,
     }
 }
 
+export const OPEN = 'OPEN' 
 export function openDropDown(id){
     return{
         type:OPEN,
@@ -24,6 +21,25 @@ export function openDropDown(id){
     }
 }
 
+export const CLOSE = 'CLOSE' 
 export function closeDropDown(){
     return {type:CLOSE}
 }
+
+export const ADD_PRODUCT = 'ADD_PRODUCT'
+export const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
+export function addProduct(image,name,category,parentCategory,quantity,bPrice,vPrice,detail){
+    return{
+        type:ADD_PRODUCT,
+        image:image,
+        name:name,
+        category:category,
+        parentCategory:parentCategory,
+        quantity:quantity,
+        bPrice:bPrice,
+        vPrice:vPrice,
+        detail:detail
+    }
+}
+
+

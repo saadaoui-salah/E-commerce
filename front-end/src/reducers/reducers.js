@@ -1,5 +1,5 @@
 import {EDIT, REMOVE, OPEN,CLOSE} from './actoins'
-
+import {UPDATE_PRODUCT, ADD_PRODUCT} from './actoins'
 
 
 export function OptionsReducer (state, action){
@@ -39,4 +39,35 @@ export const Dropdown = (state, action) => {
         default:
             return state
     }
+}
+
+export const productReducer = (state, action) => {
+    switch(action.type){
+        case ADD_PRODUCT:
+            return [...state,{
+                image:action.image,
+                name:action.name,
+                category:action.category,
+                parentCategory:action.parentCategory,
+                quantity:action.quantity,
+                bPrice:action.bPrice,
+                vPrice: action.vPrice,
+                detail:action.detail,
+            }]
+        case UPDATE_PRODUCT:
+            return [...state,{
+                id:action.id,
+                image:action.image,
+                name:action.name,
+                category:action.category,
+                parentCategory:action.parentCategory,
+                quantity:action.quantity,
+                bPrice:action.bPrice,
+                vPrice: action.vPrice,
+                detail:action.detail,
+            }]
+        default:
+            return state
+    }
+    
 }

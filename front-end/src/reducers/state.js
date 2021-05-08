@@ -8,3 +8,5 @@ export const dropDown = {
     open: false,
     id: null
 }
+
+export const products= []

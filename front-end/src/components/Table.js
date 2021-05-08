@@ -46,58 +46,62 @@ const DropDown = ({ DropDown }) => {
 const Body = (props) => {
     const [select, setSelect] = useState([])
     const handleSelect = (id) => {
-        if (id in select){
+        if (id in select) {
             const new_select = select.filter(id_ => id_ != id)
             setSelect(new_select)
-        }else{
+        } else {
             setSelect([...select, id])
         }
     }
     console.log(select)
-    return (
-        <>
-            <TableBody>
-                {props.rows.slice(
-                    props.page * props.rowsPerPage,
-                    props.page * props.rowsPerPage + props.rowsPerPage
-                ).map((row, rIndex) => {
-                    return (
-                        <>
-                                
-                            <TableRow key={rIndex} hover role="checkbox" tabIndex={-1} >
-                                <DropDown DropDown={props.dropDown} />
-                                {props.columns.map((column, index) => {
-                                    const value = row[index];
-                                    if (props.options) {
-                                        if (column === props.options.name) {
+    if (props.rows) {
+        return (
+            <>
+                <TableBody>
+                    {props.rows.slice(
+                        props.page * props.rowsPerPage,
+                        props.page * props.rowsPerPage + props.rowsPerPage
+                    ).map((row, rIndex) => {
+                        return (
+                            <>
+
+                                <TableRow key={rIndex} hover role="checkbox" tabIndex={-1} >
+                                    <DropDown DropDown={props.dropDown} />
+                                    {props.columns.map((column, index) => {
+                                        const value = row[index];
+                                        if (props.options) {
+                                            if (column === props.options.name) {
+                                                return (
+                                                    <TableCell key={index} align="center">
+                                                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                                            {props.options.component(rIndex)}
+                                                        </div>
+                                                    </TableCell>
+                                                )
+                                            }
                                             return (
-                                                <TableCell  key={index} align="center">
-                                                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                                        {props.options.component(rIndex)}
-                                                    </div>
+                                                <TableCell onClick={() => handleSelect(rIndex)} style={{ cursor: "pointer", userSelect: 'none' }} key={column.id} align="center">
+                                                    <EditField id={rIndex} value={value} />
                                                 </TableCell>
-                                            )
+                                            );
                                         }
                                         return (
-                                            <TableCell onClick={()=>handleSelect(rIndex)}  style={{cursor:"pointer", userSelect:'none'}} key={column.id} align="center">
-                                                <EditField id={rIndex} value={value} />
+                                            <TableCell key={column.id} align="center">
+                                                {value}
                                             </TableCell>
-                                        );
-                                    }
-                                    return (
-                                        <TableCell key={column.id} align="center">
-                                            {value}
-                                        </TableCell>
-                                    )
-                                })}
-                            </TableRow>
-                        </>
-                    );
-                })}
+                                        )
+                                    })}
+                                </TableRow>
+                            </>
+                        );
+                    })}
 
-            </TableBody>
-        </>
-    )
+                </TableBody>
+            </>
+        )
+    }else{
+        return <div></div>
+    }
 }
 
 
@@ -139,7 +143,7 @@ export default function CustomTable({ rows, columns, options, children, dropDown
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 15, 20, 25, 30]}
                     component="div"
-                    count={rows.length}
+                    count={rows ? rows.length : 0}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onChangePage={handleChangePage}
