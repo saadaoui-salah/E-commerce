@@ -32,11 +32,7 @@ export default function Products() {
     const options_ = { name: "Options", component: (id) => <TableOptions id={id} /> }
     const { error, loading, data } = useQuery(LOAD_PRODUCTS)
     const rows = productsState
-
-    useEffect(() => {
-        console.log(data)
-
-    }, [data])
+    console.log(data)
     return (
         <OptionsStateContext.Provider value={optionsState}>
             <ProductStateContext.Provider value={productState}>

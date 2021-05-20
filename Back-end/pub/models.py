@@ -29,7 +29,7 @@ class PubsTotalStats(models.Model):
         return self.total_pub
     
 class PubStats(models.Model):
-    costumer = models.ForeignKey("account.Costumer", null=True, blank=True,on_delete=models.SET_NULL)
+    consumer = models.ForeignKey("account.Costumer", null=True, blank=True,on_delete=models.SET_NULL)
     pub      = models.ForeignKey(Pub, on_delete=models.CASCADE)
     clicks   = models.PositiveIntegerField(default=0)
     views    = models.PositiveIntegerField(default=0)

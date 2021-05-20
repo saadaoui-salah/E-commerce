@@ -25,7 +25,7 @@ class SubVendorManager(BaseUserManager):
 
 class CostumerManager(BaseUserManager):
     def get_queryset(self,*args, **kwargs):
-        return super().get_queryset(*args, **kwargs).filter(type=User.Type.COSTUMER)
+        return super().get_queryset(*args, **kwargs).filter(type=User.Type.CONSUMER)
 
 
 class MultiVendorManager(BaseUserManager):
@@ -36,7 +36,7 @@ class MultiVendorManager(BaseUserManager):
 ############# COSTUM USER
 class User(AbstractUser):
     class Type(models.TextChoices):
-        COSTUMER     = "COSTUMER","Costumer"
+        CONSUMER     = "CONSUMER","Costumer"
         VENDOR       = "VENDOR","Vendor"
         MULTI_VENDOR = "MULTI_VENDOR", "Multi_vendor"
         ADMIN        = "ADMIN", "Admin"
@@ -67,6 +67,16 @@ class User(AbstractUser):
     
     USERNAME_FIELD = "username"
     EMAIL_FIELD = "email"
+
+    def is_vendor(self):
+        if self.type == Type.VENDOR:
+            return True
+        return False
+    def is_consumer(self):
+        if self.type == Type.CONSUMER:
+            pass
+    def is_multi_vendor(self):
+        pass
 
 
 ############# USERS TYPES 
@@ -100,7 +110,7 @@ class Costumer(User):
 
     def save(self,*args, **kwargs):
         if not self.pk:
-            self.type = User.Type.COSTUMER
+            self.type = User.Type.CONSUMER
         return super().save(*args, **kwargs)
 
 

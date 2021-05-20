@@ -15,7 +15,7 @@ class Request(models.Model):
         WAITING   ="waiting"
 
     vendor     = models.ForeignKey("account.Vendor",on_delete=models.CASCADE, related_name="r_vendor_fk")
-    costumer     = models.ForeignKey("account.Costumer",on_delete=models.CASCADE, related_name="r_costumer_fk")
+    consumer     = models.ForeignKey("account.Costumer",on_delete=models.CASCADE, related_name="r_costumer_fk")
     product      = models.ForeignKey("product.Product", on_delete=models.CASCADE, related_name="product")
     product_num  = models.PositiveIntegerField()
     phone_number = models.PositiveIntegerField()
@@ -36,7 +36,7 @@ class Request(models.Model):
         return self.product.vendor.username
     @property
     def get_costumer(self):
-        return self.costumer.username
+        return self.consumer.username
          
     class Meta():
         ordering = ['-date']

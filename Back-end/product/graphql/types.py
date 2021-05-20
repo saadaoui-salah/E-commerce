@@ -33,7 +33,7 @@ class ProductInfoType(DjangoObjectType):
     class Meta:
         model  = ProductInfo
         fields = (
-            'costumer',
+            'consumer',
             'comment',
             'product',
             'rating',

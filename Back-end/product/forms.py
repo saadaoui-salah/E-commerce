@@ -20,7 +20,7 @@ class ProuctInfoForm(forms.ModelForm):
     class Meta():
         model  = ProductInfo
         fields = [
-            'costumer',
+            'consumer',
             'product',
             'rating',
             'comment'

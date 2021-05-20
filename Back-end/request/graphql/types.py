@@ -17,5 +17,5 @@ class RequestType(DjangoObjectType):
             'phone_number',
             'adresse',
             'status',
-            'costumer',
+            'consumer',
         )

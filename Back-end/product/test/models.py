@@ -44,7 +44,7 @@ class ProductTest(CategoryTest):
 class ProductInfoTest(ProductTest):
     def product_info_model_test(self):
         self.new_product_info = ProductInfo.objects.create(
-            user = Profile.objects.filter(user__type="COSTUMER")[0],
+            user = Profile.objects.filter(user__type="CONSUMER")[0],
             product = self.new_product,
             comment = "this a test comment"            
         )

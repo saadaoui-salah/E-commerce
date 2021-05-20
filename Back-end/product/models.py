@@ -56,14 +56,14 @@ class ProductInfo(models.Model):
         THREE = 3
         FOUR  = 4
         FIVE  = 5
-    costumer = models.ForeignKey('account.Costumer',on_delete=models.CASCADE,null=True,blank=True)
+    consumer = models.ForeignKey('account.Costumer',on_delete=models.CASCADE,null=True,blank=True)
     product  = models.ForeignKey(Product,on_delete=models.CASCADE)
     rating   = models.IntegerField(choices=Rating.choices, default=Rating.ZERO, null=True,blank=True)
     comment  = models.TextField(null=True,blank=True)
     date     = models.DateField(auto_now_add=True)
     objects  = ProductInfoManager()
     def __str__(self):
-        return self.costumer.username
+        return self.consumer.username
 
 
 class Cobon(models.Model):

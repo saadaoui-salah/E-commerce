@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('clicks', models.PositiveIntegerField(default=0)),
                 ('views', models.PositiveIntegerField(default=0)),
-                ('costumer', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='account.costumer')),
+                ('consumer', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='account.consumer')),
                 ('pub', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='pub.pub')),
             ],
         ),

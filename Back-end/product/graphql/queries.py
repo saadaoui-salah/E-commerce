@@ -35,12 +35,14 @@ class ProductQuery(graphene.ObjectType):
         user = info.context.user
         if user.is_authenticated:
             if user.Type.VENDOR:
+                print("is_vendor")
                 return Product.objects.filter(vendor=user)
+
         return Product.objects.none() 
     def resolve_get_product(root,info,id):
         instance = Product.objects.filter(id=id)
         user = info.context.user
-        if user.Type.COSTUMER or user.is_anonymous:
+        if user.Type.CONSUMER or user.is_anonymous:
             object_viewed_signal.send(sender=instance.get().__class__,instance=instance.get(),request=info.context)
         try:
             return instance

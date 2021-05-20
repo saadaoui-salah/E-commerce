@@ -4,7 +4,7 @@ models:
     Product     : are the product of all vendors the porduct has relation
                   with Category and Vendor (user type)
     
-    ProductInfo : are all the informations that the costumer can give us 
+    ProductInfo : are all the informations that the consumer can give us 
                   about the product
 
 managers:

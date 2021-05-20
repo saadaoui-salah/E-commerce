@@ -52,7 +52,7 @@ deletProduct(id:4){
 mutation request{
 createRequest(
     input:{
-      costumer:3
+      consumer:3
       product:3
       productNum:4
       phoneNumber:465465465

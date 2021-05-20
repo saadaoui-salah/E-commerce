@@ -92,7 +92,7 @@ class UpdateProductInfoMutation(graphene.Mutation):
     
     def mutate(root,info,rating,comment,id):
         user = info.context.user
-        if user.is_authenticated and user.Type.COSTUMER:
+        if user.is_authenticated and user.Type.CONSUMER:
             try:
                 product_info_obj = ProductInfo.objects.filter(id=id)
                 if product_info_obj.user_id == user.id and product:
@@ -116,7 +116,7 @@ class DeleteProductInfoMutation(graphene.Mutation):
 
     def mutate(root,info,id):
         user = info.context.user
-        if user.is_authenticated and user.Type.COSTUMER:
+        if user.is_authenticated and user.Type.CONSUMER:
             try:
                 product_info_obj = get_object_or_404(ProductInfo,id=id)
                 if product_info.user_id == user.id:

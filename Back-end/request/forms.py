@@ -6,7 +6,7 @@ class RequestForm(forms.ModelForm):
     class Meta():
         model  = Request
         fields = [
-            'costumer',
+            'consumer',
             'product',
             'product_num',
             'phone_number',
