@@ -34,7 +34,7 @@ class ProductQuery(graphene.ObjectType):
     def resolve_get_vendor_products(root,info):
         user = info.context.user
         if user.is_authenticated:
-            if user.Type.VENDOR:
+            if user.is_vendor():
                 print("is_vendor")
                 return Product.objects.filter(vendor=user)
 
