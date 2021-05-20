@@ -26,14 +26,22 @@ function createData(image, product, category, quantity, bPrice, vPrice) {
 
 export default function Products() {
 
-    const [productState, productDispatch] = useReducer(productReducer, options)
-    const [optionsState, optionsDispatch] = useReducer(OptionsReducer, products)
+    const [productState, productDispatch] = useReducer(productReducer, products)
+    const [optionsState, optionsDispatch] = useReducer(OptionsReducer, options)
     const productsState = useContext(ProductStateContext)
     const productsDispatch = useContext(ProductDispatchContext)
     const options_ = { name: "Options", component: (id) => <TableOptions id={id} /> }
     const { error, loading, data } = useQuery(LOAD_PRODUCTS)
+    useEffect(()=>{
+        if(!loading){
+            data.getProducts.map(product=>{
+                productsDispatch(product)
+            })
+        }
+    }
+    ,[data])
     const rows = productsState
-    console.log(data)
+    console.log('rows',rows)
     return (
         <OptionsStateContext.Provider value={optionsState}>
             <ProductStateContext.Provider value={productState}>
