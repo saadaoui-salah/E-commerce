@@ -17,7 +17,7 @@ import Orders from '../pages/Orders/Orders'
 import OrdersAnalytics from '../pages/Orders/OrdersAnalytics'
 /// Users
 import UsersAnalyitcs from '../pages/Users/UsersAnalyitcs'
-import Costumers from '../pages/Users/Costumers'
+import consumers from '../pages/Users/consumers'
 import Vendors from '../pages/Users/Vendors'
 // auth 
 import {Login} from '../pages/login'
@@ -109,9 +109,9 @@ export var usersRouters = {
     items: [
         {
             id: 1,
-            enName: 'Costumers',
+            enName: 'consumers',
             arName: 'المشتريين',
-            to: '/costumers',
+            to: '/consumers',
         },
         {
             id: 2,
@@ -129,8 +129,8 @@ export var usersRouters = {
     pages: [
         {
             id: 1,
-            path: 'costumers',
-            component: ()=> <Costumers />,
+            path: 'consumers',
+            component: ()=> <consumers />,
         },
         {
             id: 2,
@@ -173,7 +173,7 @@ export var routers = {
             id: 4,
             enName: 'Users',
             arName: 'لوحة التحكم',
-            to: '/users/costumers',
+            to: '/users/consumers',
             icon: (style, active) => <PeopleIcon className={active ? style.active : style.icon} />
         },
         {

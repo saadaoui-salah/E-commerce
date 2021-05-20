@@ -64,7 +64,7 @@ class CounterQuery(graphene.ObjectType):
                 counter = Product.objects.filter(vendor__multi_vendor_fk__id=user.id).count()
                 return counter
         return 0 
-    def resolve_costumers_counter(self, info):
+    def resolve_consumers_counter(self, info):
         user = info.context.user
         if user.is_authenticated:
             if user.Type == user.Type.VENDOR:

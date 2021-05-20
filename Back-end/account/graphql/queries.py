@@ -6,7 +6,7 @@ from .types import UserListType
 class ProfileAdminQuery(object):
 
     vendors_list  = graphene.List(UserListType)
-    costumers_list  = graphene.List(UserListType)
+    consumers_list  = graphene.List(UserListType)
     multi_vendor_list  = graphene.List(UserListType)
 
     def resolve_vendors_list(root,info):
@@ -17,7 +17,7 @@ class ProfileAdminQuery(object):
             return Vendor.objects.all()
         return None
 
-    def resolve_costumers_list(root,info):
+    def resolve_consumers_list(root,info):
         user = info.context.user
         if user.Type.VENDOR:
             vendor = Vendor.objects.filter(id=user.id)

@@ -66,7 +66,7 @@ function DashboardPage() {
                 <Grid item sm={4} md={3} xs={6}>
                     {loading ? null :
                      <HomeCard 
-                        name="Costumers"
+                        name="consumers"
                         number={data.consumersCounter} 
                         bgColor='red' 
                         icon={<PeopleIcon className={style.icon} />} />
