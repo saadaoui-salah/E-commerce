@@ -29,6 +29,7 @@ export default function Products() {
     const [productState, productDispatch] = useReducer(productReducer, options)
     const [optionsState, optionsDispatch] = useReducer(OptionsReducer, products)
     const productsState = useContext(ProductStateContext)
+    const productsDispatch = useContext(ProductDispatchContext)
     const options_ = { name: "Options", component: (id) => <TableOptions id={id} /> }
     const { error, loading, data } = useQuery(LOAD_PRODUCTS)
     const rows = productsState
