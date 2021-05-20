@@ -3,12 +3,15 @@ import {gql} from '@apollo/client'
 export const LOAD_PRODUCTS = gql`
     query{
         getProducts{
-            name
+            image,
+            name,
+            category,
+            quantity,
         }
     }
 `
 
-export const COUNTERS = gql`
+export const HOME_COUNTERS = gql`
     query{
         productsCounter,
         consumersCounter,
