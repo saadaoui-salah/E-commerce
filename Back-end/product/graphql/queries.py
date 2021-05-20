@@ -25,20 +25,21 @@ class ProductInfoQuery(graphene.ObjectType):
     def resolve_top_rating(root,info):
         return Product.objects.get_top_rating(10) 
     def resolve_get_product_info(root,info,product_id):
-        return list(ProductInfo.objects.filter(product_id=product_id))
+        return ProductInfo.objects.filter(product_id=product_id)
 
 
 class ProductQuery(graphene.ObjectType):
-    get_vendor_products = graphene.List(ProductType)
-    get_product         = graphene.List(ProductType,id=graphene.ID())
-    def resolve_get_vendor_products(root,info):
+    get_products = graphene.List(ProductType)
+    get_product  = graphene.List(ProductType,id=graphene.ID())
+    def resolve_get_products(root,info):
         user = info.context.user
         if user.is_authenticated:
             if user.is_vendor:
-                print("is_vendor")
                 return Product.objects.filter(vendor=user)
-
-        return Product.objects.none() 
+            if user.is_admin:
+                return Product.objects.all()
+        return Product.objects.all() 
+        
     def resolve_get_product(root,info,id):
         instance = Product.objects.filter(id=id)
         user = info.context.user

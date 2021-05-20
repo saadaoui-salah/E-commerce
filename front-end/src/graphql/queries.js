@@ -1,12 +1,18 @@
-import {gql} from '@apollo/client'
+import { gql } from '@apollo/client'
 
 export const LOAD_PRODUCTS = gql`
     query{
+        
         getProducts{
-            image,
-            name,
-            category,
-            quantity,
+            id
+            image
+            name
+            category {
+              id
+            }
+            quantity
+            priceAchat,
+            priceVender
         }
     }
 `
@@ -20,4 +26,4 @@ export const HOME_COUNTERS = gql`
         benifitsCounter,
 
     }
-` 
+`
