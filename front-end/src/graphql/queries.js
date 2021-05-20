@@ -11,7 +11,7 @@ export const LOAD_PRODUCTS = gql`
 export const COUNTERS = gql`
     query{
         productsCounter,
-        coustumersCounter,
+        consumersCounter,
         ordersCounter,
         vendorsCounter,
         benifitsCounter,

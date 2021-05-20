@@ -49,7 +49,7 @@ class ProductQuery(graphene.ObjectType):
 
 class CounterQuery(graphene.ObjectType):
     products_counter = graphene.Int()
-    coustumers_counter = graphene.Int()
+    consumers_counter = graphene.Int()
     orders_counter = graphene.Int(required=False)
     vendors_counter = graphene.Int(required=False)
     benifits_counter = graphene.Int()
