@@ -48,13 +48,13 @@ class ProductQuery(graphene.ObjectType):
             return Product.objects.none() 
 
 class CounterQuery(graphene.ObjectType):
-    product_counter = graphene.Int()
+    products_counter = graphene.Int()
     coustumers_counter = graphene.Int()
     orders_counter = graphene.Int(required=False)
     vendors_counter = graphene.Int(required=False)
     benifits_counter = graphene.Int()
 
-    def resolve_product_counter(self, info):
+    def resolve_products_counter(self, info):
         user = info.context.user
         if user.is_authenticated:
             if user.Type == user.Type.VENDOR:
