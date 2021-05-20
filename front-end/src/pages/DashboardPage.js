@@ -12,7 +12,7 @@ import TabletIcon from '@material-ui/icons/Tablet';
 import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 import LineChart from '../components/LineChart'
 import { useQuery } from '@apollo/client'
-import {COUNTERS} from '../graphql/queries'
+import {HOME_COUNTERS} from '../graphql/queries'
 
 
 const useStyles = makeStyles(() => ({
@@ -49,7 +49,7 @@ const rows = [
 
 function DashboardPage() {
     const style = useStyles()
-    const { error, loading, data } = useQuery(COUNTERS)
+    const { error, loading, data } = useQuery(HOME_COUNTERS)
     console.log(data)
     return (
         <>
