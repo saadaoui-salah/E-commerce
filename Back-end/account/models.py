@@ -69,19 +69,19 @@ class User(AbstractUser):
     EMAIL_FIELD = "email"
 
     def is_vendor(self):
-        if self.type == Type.VENDOR:
+        if self.type == self.Type.VENDOR:
             return True
         return False
     def is_consumer(self):
-        if self.type == Type.CONSUMER:
+        if self.type == self.Type.CONSUMER:
             return True
         return False
     def is_multi_vendor(self):
-        if self.type == Type.MULTI_VENDOR:
+        if self.type == self.Type.MULTI_VENDOR:
             return True
         return False
     def is_admin(self):
-        if self.type == Type.ADMIN:
+        if self.type == self.Type.ADMIN:
             return True
         return False
         
