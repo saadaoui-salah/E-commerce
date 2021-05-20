@@ -87,12 +87,14 @@ class CounterQuery(graphene.ObjectType):
             if user.Type == user.Type.MULTI_VENDOR:
                 counter = Vendor.objects.filter(multi_vendor_fk__id=user.id).count()
                 return counter
+        return 0
     def resolve_benifits_counter(self, info):
         user = info.context.user
         if user.is_authenticated:
             if user.Type == user.Type.VENDOR:
                 benifits = Order.objects.filter(vendor__id=user.id).get_benifits.sum() 
                 return benifits
+        return 0
 
 
 class ProductAppQuery(
