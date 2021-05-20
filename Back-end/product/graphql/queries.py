@@ -34,7 +34,7 @@ class ProductQuery(graphene.ObjectType):
     def resolve_get_vendor_products(root,info):
         user = info.context.user
         if user.is_authenticated:
-            if user.is_vendor():
+            if user.is_vendor:
                 print("is_vendor")
                 return Product.objects.filter(vendor=user)
 
@@ -42,7 +42,7 @@ class ProductQuery(graphene.ObjectType):
     def resolve_get_product(root,info,id):
         instance = Product.objects.filter(id=id)
         user = info.context.user
-        if user.Type.CONSUMER or user.is_anonymous:
+        if user.is_consumer or user.is_anonymous:
             object_viewed_signal.send(sender=instance.get().__class__,instance=instance.get(),request=info.context)
         try:
             return instance
@@ -59,20 +59,20 @@ class CounterQuery(graphene.ObjectType):
     def resolve_products_counter(self, info):
         user = info.context.user
         if user.is_authenticated:
-            if user.Type == user.Type.VENDOR:
+            if user.is_vendor:
                 counter = Product.objects.filter(vendor__id=user.id).count()
                 return counter
-            if user.Type.MULTI_VENDOR:
+            if user.is_multi_vendor:
                 counter = Product.objects.filter(vendor__multi_vendor_fk__id=user.id).count()
                 return counter
         return 0 
     def resolve_consumers_counter(self, info):
         user = info.context.user
         if user.is_authenticated:
-            if user.Type == user.Type.VENDOR:
+            if user.is_vendor:
                 counter = Costumer.objects.filter(vendor_fk__id=user.id).count()
                 return counter
-            if user.Type == user.Type.MULTI_VENDOR:
+            if user.is_multi_vendor:
                 counter = Costumer.objects.filter(mutlti_vendor_fk__id=user.id).count()
                 return counter
         return 0
@@ -87,14 +87,14 @@ class CounterQuery(graphene.ObjectType):
     def resolve_vendors_counter(self, info):
         user = info.context.user
         if user.is_authenticated:
-            if user.Type == user.Type.MULTI_VENDOR:
+            if user.is_multi_vendor:
                 counter = Vendor.objects.filter(multi_vendor_fk__id=user.id).count()
                 return counter
         return 0
     def resolve_benifits_counter(self, info):
         user = info.context.user
         if user.is_authenticated:
-            if user.Type == user.Type.VENDOR:
+            if user.is_vendor:
                 benifits = Order.objects.filter(vendor__id=user.id).get_benifits.sum() 
                 return benifits
         return 0
