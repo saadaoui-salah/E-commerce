@@ -11,6 +11,8 @@ import DesktopWindowsIcon from '@material-ui/icons/DesktopWindows';
 import TabletIcon from '@material-ui/icons/Tablet';
 import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 import LineChart from '../components/LineChart'
+import { useQuery } from '@apollo/client'
+import {COUNTERS} from '../graphql/queries'
 
 
 const useStyles = makeStyles(() => ({
@@ -47,6 +49,8 @@ const rows = [
 
 function DashboardPage() {
     const style = useStyles()
+    const counters = useQuery(COUNTERS)
+    console.log(counters)
     return (
         <>
             <Grid alignItems="center" direction='row' justify='center' container spacing={2}>
