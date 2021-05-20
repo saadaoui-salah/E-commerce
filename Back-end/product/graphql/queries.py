@@ -65,6 +65,9 @@ class CounterQuery(graphene.ObjectType):
             if user.is_multi_vendor:
                 counter = Product.objects.filter(vendor__multi_vendor_fk__id=user.id).count()
                 return counter
+            if user.is_admin:
+                counter = Product.objects.all().count()
+                return counter
         return 0 
     def resolve_consumers_counter(self, info):
         user = info.context.user
@@ -75,13 +78,19 @@ class CounterQuery(graphene.ObjectType):
             if user.is_multi_vendor:
                 counter = Costumer.objects.filter(mutlti_vendor_fk__id=user.id).count()
                 return counter
+            if user.is_admin:
+                counter = Costumer.objects.all().count()
+                return counter
         return 0
         
     def resolve_orders_counter(self, info):
         user = info.context.user
         if user.is_authenticated:
-            if user.Type == user.Type.VENDOR:
+            if user.is_vendor:
                 counter = Order.objects.filter(vendor__id=user.id).count()
+                return counter
+            if user.is_admin:
+                counter = Order.objects.all().count()
                 return counter
         return 0
     def resolve_vendors_counter(self, info):
@@ -90,12 +99,18 @@ class CounterQuery(graphene.ObjectType):
             if user.is_multi_vendor:
                 counter = Vendor.objects.filter(multi_vendor_fk__id=user.id).count()
                 return counter
+            if user.is_admin:
+                counter = Vendor.objects.all().count()
+                return counter
         return 0
     def resolve_benifits_counter(self, info):
         user = info.context.user
         if user.is_authenticated:
             if user.is_vendor:
                 benifits = Order.objects.filter(vendor__id=user.id).get_benifits.sum() 
+                return benifits
+            if user.is_admin:
+                benifits = Order.objects.all().get_benifits.sum() 
                 return benifits
         return 0
 
