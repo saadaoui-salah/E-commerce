@@ -49,8 +49,8 @@ const rows = [
 
 function DashboardPage() {
     const style = useStyles()
-    const counters = useQuery(COUNTERS)
-    console.log(counters)
+    const { error, loading, data } = useQuery(COUNTERS)
+    console.log(data)
     return (
         <>
             <Grid alignItems="center" direction='row' justify='center' container spacing={2}>
