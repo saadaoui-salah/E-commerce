@@ -55,19 +55,16 @@ function DashboardPage() {
         <>
             <Grid alignItems="center" direction='row' justify='center' container spacing={2}>
                 <Grid item sm={4} md={3} xs={6}>
-                    <HomeCard name="Products" number={data.productsCounter} bgColor='#0af' icon={<LocalMallIcon className={style.icon} />} />
+                    <HomeCard name="Products" number={2000} bgColor='#0af' icon={<LocalMallIcon className={style.icon} />} />
                 </Grid>
                 <Grid item sm={4} md={3} xs={6}>
-                    <HomeCard name="Costumers" number={data.costumersCounter} bgColor='red' icon={<PeopleIcon className={style.icon} />} />
+                    <HomeCard name="Costumers" number={2000} bgColor='red' icon={<PeopleIcon className={style.icon} />} />
                 </Grid>
                 <Grid item sm={4} md={3} xs={6}>
-                    <HomeCard name="Orders" number={data.ordersCounter} bgColor='#ffc23e' icon={<ShoppingCartIcon className={style.icon} />} />
+                    <HomeCard name="Orders" number={2000} bgColor='#ffc23e' icon={<ShoppingCartIcon className={style.icon} />} />
                 </Grid>
                 <Grid item sm={4} md={3} xs={6}>
-                    <HomeCard name="Benifits" number={data.benifitsCounter} bgColor='#36ff36b8' icon={<AttachMoneyIcon className={style.icon} />} />
-                </Grid>
-                <Grid item sm={4} md={3} xs={6}>
-                    <HomeCard name="Benifits" number={data.vendorsCounter} bgColor='#36ff36b8' icon={<AttachMoneyIcon className={style.icon} />} />
+                    <HomeCard name="Benifits" number={2000} bgColor='#36ff36b8' icon={<AttachMoneyIcon className={style.icon} />} />
                 </Grid>
                 <Grid alignItems="center" direction='row' justify='center' container style={{ marginTop: '35px' }}>
                     <Map />
