@@ -12,15 +12,15 @@ import {
     productReducer,
 } from '../../reducers/reducers'
 import { options, products } from '../../reducers/state'
-import { useEffect, useReducer, useContext, useMemo } from 'react'
+import { useEffect, useReducer, useContext } from 'react'
 import { useQuery } from '@apollo/client'
 import { LOAD_PRODUCTS } from '../../graphql/queries'
 
 
-const columns = ["Image", "Product", "Category", "Quantity", "User"];
-function createData(image, product, category, quantity, bPrice, vPrice, user) {
+const columns = ["Image", "Product", "Category", "Quantity", "Price", "Benifits"];
+function createData(image, product, category, quantity, bPrice, vPrice) {
     const benifits = vPrice - bPrice;
-    return [image, product, category, quantity, bPrice, vPrice, user, benifits];
+    return [image, product, category, quantity, vPrice, benifits];
 }
 
 
