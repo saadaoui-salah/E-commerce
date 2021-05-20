@@ -74,9 +74,17 @@ class User(AbstractUser):
         return False
     def is_consumer(self):
         if self.type == Type.CONSUMER:
-            pass
+            return True
+        return False
     def is_multi_vendor(self):
-        pass
+        if self.type == Type.MULTI_VENDOR:
+            return True
+        return False
+    def is_admin(self):
+        if self.type == Type.ADMIN:
+            return True
+        return False
+        
 
 
 ############# USERS TYPES 
