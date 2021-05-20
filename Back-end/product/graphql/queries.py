@@ -1,7 +1,9 @@
+from typing_extensions import Required
 import graphene
 from product.models import Product, Category, ProductInfo
 from .types import ProductInfoType,ProductType,CategoryType
 from signals import object_viewed_signal
+from accounts import User
 
 # Product/category/ProductInfo Queries
 class CategoryQuery(graphene.ObjectType):
@@ -37,11 +39,36 @@ class ProductQuery(graphene.ObjectType):
         return Product.objects.none() 
     def resolve_get_product(root,info,id):
         instance = Product.objects.filter(id=id)
-        object_viewed_signal.send(sender=instance.get().__class__,instance=instance.get(),request=info.context)
+        user = info.context.user
+        if user.Type.COSTUMER or user.is_anonymous:
+            object_viewed_signal.send(sender=instance.get().__class__,instance=instance.get(),request=info.context)
         try:
             return instance
         except:    
             return Product.objects.none() 
+
+class CounterQuery(graphene.ObjectType):
+    product_counter = graphene.Int()
+    coustumers_counter = graphene.Int()
+    orders_counter = graphene.Int(required=False)
+    vendors_counter = graphene.Int(required=False)
+    benifits_counter = graphene.Int()
+
+    def resolve_product_counter(root, info):
+        root.user = info.context.user
+        if root.user.Type.VENDOR:
+            counter = Product.objects.filter(vendor=root.user).count()
+            return counter
+        return 0 
+    def resolve_costumers_counter(root, info):
+        if root.user.Type.VENDOR
+    def resolve_orders_counter(root, info):
+        pass 
+    def resolve_vendors_counter(root, info):
+        pass 
+    def resolve_benifits_counter(root, info):
+        pass 
+
 
 
 class ProductAppQuery(
