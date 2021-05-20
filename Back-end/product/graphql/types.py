@@ -13,6 +13,9 @@ class ProductType(DjangoObjectType):
             'image',
             'rating',
             'price_vender',
+            'price_achat',
+            'category',
+            'quantity',
             )
 
 
