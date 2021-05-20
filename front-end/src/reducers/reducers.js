@@ -45,23 +45,23 @@ export const productReducer = (state, action) => {
     switch (action.type) {
         case ADD_PRODUCT:
             return [...state, {
-                id: action.id,
-                image: action.image,
-                name: action.name,
-                category: action.category,
-                quantity: action.quantity,
-                bPrice: action.bPrice,
-                vPrice: action.vPrice,
+                id: action.product.id,
+                image: action.product.image,
+                name: action.product.name,
+                category: action.product.category,
+                quantity: action.product.quantity,
+                bPrice: action.product.bPrice,
+                vPrice: action.product.vPrice,
             }]
         case UPDATE_PRODUCT:
             return [...state, {
-                id: action.id,
-                image: action.image,
-                name: action.name,
-                category: action.category,
-                quantity: action.quantity,
-                bPrice: action.bPrice,
-                vPrice: action.vPrice,
+                id: action.product.id,
+                image: action.product.image,
+                name: action.product.name,
+                category: action.product.category,
+                quantity: action.product.quantity,
+                bPrice: action.product.bPrice,
+                vPrice: action.product.vPrice,
             }]
         default:
             return state
