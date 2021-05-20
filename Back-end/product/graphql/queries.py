@@ -1,9 +1,9 @@
-from typing_extensions import Required
 import graphene
 from product.models import Product, Category, ProductInfo
 from .types import ProductInfoType,ProductType,CategoryType
 from signals import object_viewed_signal
-from accounts import User
+from account.models import Costumer, Vendor
+from request.models import Request as Order 
 
 # Product/category/ProductInfo Queries
 class CategoryQuery(graphene.ObjectType):
@@ -57,18 +57,33 @@ class CounterQuery(graphene.ObjectType):
     def resolve_product_counter(root, info):
         root.user = info.context.user
         if root.user.Type.VENDOR:
-            counter = Product.objects.filter(vendor=root.user).count()
+            counter = Product.objects.filter(vendor__id=root.user.id).count()
+            return counter
+        if root.user.Type.MULTI_VENDOR:
+            counter = Product.objects.filter(vendor__multi_vendor_fk__id=root.user.id).count()
             return counter
         return 0 
     def resolve_costumers_counter(root, info):
-        if root.user.Type.VENDOR
+        if root.user.Type.VENDOR:
+            counter = Costumer.objects.filter(vendor_fk__id=root.user.id).count()
+            return counter
+        if root.user.Type.MULTI_VENDOR:
+            counter = Costumer.objects.filter(mutlti_vendor_fk__id=root.user.id).count()
+            return counter
+        return 0
+        
     def resolve_orders_counter(root, info):
-        pass 
+        if root.user.Type.VENDOR:
+            counter = Order.objects.filter(vendor__id=root.user.id).count()
+            return counter
     def resolve_vendors_counter(root, info):
-        pass 
+        if root.user.Type.MULTI_VENDOR:
+            counter = Vendor.objects.filter(multi_vendor_fk__id=root.user.id).count()
+            return counter
     def resolve_benifits_counter(root, info):
-        pass 
-
+        if root.user.Type.VENDOR:
+            benifits = Order.objects.filter(vendor__id=root.user.id).get_benifits.sum() 
+            return benifits
 
 
 class ProductAppQuery(

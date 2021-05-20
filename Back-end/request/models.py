@@ -14,6 +14,7 @@ class Request(models.Model):
         CANCELED  ="canceled"
         WAITING   ="waiting"
 
+    vendor     = models.ForeignKey("account.Vendor",on_delete=models.CASCADE, related_name="r_vendor_fk")
     costumer     = models.ForeignKey("account.Costumer",on_delete=models.CASCADE, related_name="r_costumer_fk")
     product      = models.ForeignKey("product.Product", on_delete=models.CASCADE, related_name="product")
     product_num  = models.PositiveIntegerField()
