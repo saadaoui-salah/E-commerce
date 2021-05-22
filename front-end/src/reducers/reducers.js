@@ -40,26 +40,27 @@ export const Dropdown = (state, action) => {
 }
 
 export const productReducer = (state, action) => {
+    console.log(state)
     switch (action.type) {
         case ADD_PRODUCT:
             return [...state, {
-                id: action.product.id,
-                image: action.product.image,
-                name: action.product.name,
-                category: action.product.category,
-                quantity: action.product.quantity,
-                bPrice: action.product.bPrice,
-                vPrice: action.product.vPrice,
+                id: action.id,
+                image: action.image,
+                name: action.name,
+                category: action.category,
+                quantity: action.quantity,
+                bPrice: action.bPrice,
+                vPrice: action.vPrice,
             }]
         case UPDATE_PRODUCT:
             return [...state, {
-                id: action.product.id,
-                image: action.product.image,
-                name: action.product.name,
-                category: action.product.category,
-                quantity: action.product.quantity,
-                bPrice: action.product.bPrice,
-                vPrice: action.product.vPrice,
+                id: action.id,
+                image: action.image,
+                name: action.name,
+                category: action.category,
+                quantity: action.quantity,
+                bPrice: action.bPrice,
+                vPrice: action.vPrice,
             }]
         default:
             return state
