@@ -8,7 +8,8 @@ export const LOAD_PRODUCTS = gql`
             image
             name
             category {
-              id
+              category,
+              parent_category
             }
             quantity
             priceAchat,
