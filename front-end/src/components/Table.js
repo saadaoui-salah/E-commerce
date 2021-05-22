@@ -62,15 +62,14 @@ const Body = (props) => {
                         props.page * props.rowsPerPage + props.rowsPerPage
                     ).map((row, rIndex) => {
                         return (
-                            <>
                                 <TableRow key={rIndex} hover role="checkbox" tabIndex={-1} >
-                                    <DropDown DropDown={props.dropDown} />
                                     {props.columns.map((column, index) => {
                                         const value = row[index];
+                                        console.log(columns)
                                         if (column === props.options.name) {
                                             return (
                                                 <TableCell key={index} align="center">
-                                                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                                    <div key={index} style={{ display: 'flex', justifyContent: 'center' }}>
                                                         {props.options.component(rIndex)}
                                                     </div>
                                                 </TableCell>
@@ -83,7 +82,6 @@ const Body = (props) => {
                                         )
                                     })}
                                 </TableRow>
-                            </>
                         );
                     })}
                 </TableBody>
