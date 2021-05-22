@@ -148,7 +148,7 @@ export function CollectionForm() {
             <Grid item xs={12} md={6}>
                 <TextField
                     select
-                    check
+                    check="true"
                     label="Products"
                     style={{width:'100%'}}
                     variant="outlined"
