@@ -3,8 +3,6 @@ import { UPDATE_PRODUCT, ADD_PRODUCT } from './actoins'
 
 
 export function OptionsReducer(state, action) {
-    console.log(state)
-    console.log(action)
     switch (action.type) {
         case EDIT:
             return {
