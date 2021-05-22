@@ -2,14 +2,15 @@ import { gql } from '@apollo/client'
 
 export const LOAD_PRODUCTS = gql`
     query{
-        
-        getProducts{
+        getProducts {
             id
             image
             name
             category {
               category,
-              parent_category
+              parentCategory {
+                category
+              }
             }
             quantity
             priceAchat,
