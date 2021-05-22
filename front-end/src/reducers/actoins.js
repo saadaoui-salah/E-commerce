@@ -28,17 +28,18 @@ export function closeDropDown(){
 
 export const ADD_PRODUCT = 'ADD_PRODUCT'
 export const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
-export function addProduct(image,name,category,parentCategory,quantity,bPrice,vPrice,detail){
+export function addProduct(product){
     return{
         type:ADD_PRODUCT,
-        image:image,
-        name:name,
-        category:category,
-        parentCategory:parentCategory,
-        quantity:quantity,
-        bPrice:bPrice,
-        vPrice:vPrice,
-        detail:detail
+        id:product.id,
+        image:product.image,
+        name:product.name,
+        category:product.category,
+        parentCategory:product.parentCategory,
+        quantity:product.quantity,
+        bPrice:product.bPrice,
+        vPrice:product.vPrice,
+        detail:product.detail
     }
 }
 
