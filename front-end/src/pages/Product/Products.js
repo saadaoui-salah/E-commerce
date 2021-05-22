@@ -17,15 +17,14 @@ import { LOAD_PRODUCTS } from '../../graphql/queries'
 
 const columns = ["Image", "Product", "Category", "Quantity", "Price", "Benifits"];
 function createData(image, product, category, quantity, bPrice, vPrice) {
-    const benifits = vPrice - bPrice;
+    const benifits = parseFloat(vPrice) - parseFloat(bPrice);
     category = `${category.parentCategory.category} / ${category.category}`
-    return [image, product, category, quantity, vPrice, benifits];
+    return [image, product, category, quantity, vPrice, parseFloat(benifits)];
 }
 
 
 
 export default function Products() {
-
     const [productState, productDispatch] = useReducer(productReducer, products)
     const options_ = { name: "Options", component: (id) => <TableOptions id={id} /> }
     const { error, loading, data } = useQuery(LOAD_PRODUCTS)
@@ -40,14 +39,13 @@ export default function Products() {
     ,[loading])
     let rows = []
     productState.map(product =>{
-        console.log(product.vPrice)
         rows = [...rows, createData(
             product.image,
             product.name,
             product.category,
             product.quantity,
-            product.priceAchat,
-            product.priceVender
+            product.bPrice,
+            product.vPrice
         )]
     })
 
