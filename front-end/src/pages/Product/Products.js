@@ -9,7 +9,7 @@ import {
     productReducer,
 } from '../../reducers/reducers'
 import { products } from '../../reducers/state'
-import { useEffect, useReducer, useContext } from 'react'
+import { useEffect, useReducer } from 'react'
 import { useQuery } from '@apollo/client'
 import { addProduct } from '../../reducers/actoins'
 import { LOAD_PRODUCTS } from '../../graphql/queries'
