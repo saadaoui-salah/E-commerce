@@ -114,13 +114,3 @@ export function CollectionCard({id}) {
         </>
     )
 }
-
-export const CategoryCard = () => {
-    return (
-        <Card>
-            <CardContent>
-
-            </CardContent>
-        </Card>
-    )
-}
