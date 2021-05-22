@@ -1,19 +1,6 @@
 import { InputAdornment, Input, MenuItem, TextField, Zoom } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
 import { useContext, useState } from 'react'
-import { OptionsStateContext } from '../../reducers/context'
-
-export const EditField = ({ value, id }) => {
-    const state = useContext(OptionsStateContext)
-    if (state.edit && id === state.id) {
-        return (
-            <Zoom in={state.edit} timeout={500}>
-                <Input style={{ maxWidth: '40px', fontSize: '14px' }} value={value}></Input>
-            </Zoom>
-        )
-    }
-    return (value)
-}
 
 export const SelectStatus = (props) => {
     const [status, setStatus] = useState(props.default)

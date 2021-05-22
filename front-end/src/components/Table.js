@@ -10,7 +10,7 @@ import {
     IconButton,
 } from "@material-ui/core";
 import { useState } from 'react'
-import { EditField, SearchField } from './sub-components/CustomTextField'
+import { SearchField } from './sub-components/CustomTextField'
 import { ArrowIconButton } from './sub-components/Buttons'
 
 const Header = ({ columns }) => {
@@ -53,7 +53,6 @@ const Body = (props) => {
             setSelect([...select, id])
         }
     }
-    console.log(select)
     if (props.rows) {
         return (
             <>
@@ -69,7 +68,6 @@ const Body = (props) => {
                                     <DropDown DropDown={props.dropDown} />
                                     {props.columns.map((column, index) => {
                                         const value = row[index];
-                                        if (props.options) {
                                             if (column === props.options.name) {
                                                 return (
                                                     <TableCell key={index} align="center">
@@ -79,12 +77,6 @@ const Body = (props) => {
                                                     </TableCell>
                                                 )
                                             }
-                                            return (
-                                                <TableCell onClick={() => handleSelect(rIndex)} style={{ cursor: "pointer", userSelect: 'none' }} key={column.id} align="center">
-                                                    <EditField id={rIndex} value={value} />
-                                                </TableCell>
-                                            );
-                                        }
                                         return (
                                             <TableCell key={column.id} align="center">
                                                 {value}
