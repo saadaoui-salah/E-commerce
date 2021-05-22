@@ -31,7 +31,7 @@ export default function Collections() {
                             <SearchField />
                         </Grid>
                     </Grid>
-                    <Grid container justify="center" wrap="no-wrap" spacing={2}>
+                    <Grid container justify="center" spacing={2}>
                         <Grid item sm={12} xs={12} md={6} lg={4} xl={4}>
 
                             <CollectionCard id={1} />

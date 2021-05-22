@@ -66,7 +66,7 @@ export function CollectionCard({id}) {
                 id="card"
                 style={checked ? { backgroundColor: '#f1f1f1', transition: '0.2s', cursor: "pointer" } : {cursor: "pointer"}}
             >
-                <Grid container justify="space-between" alignItems="center" noWrap>
+                <Grid container justify="space-between" alignItems="center" >
                     <Grid item >
                         <CardHeader
                             onClick={() => setChecked(!checked)}
@@ -75,7 +75,7 @@ export function CollectionCard({id}) {
                         />
                     </Grid>
                     {hover?
-                        <Slide in={hover} direction="left" unmountOnExit unmountOnEnter >
+                        <Slide in={hover} direction="left" >
                             <Grid item >
                                 <CardOptions id={id} />
                             </Grid>
