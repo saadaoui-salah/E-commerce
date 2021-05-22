@@ -37,6 +37,9 @@ export default function Products() {
         }
     }
     ,[loading])
+    useEffect(()=>{
+
+    },[data])
     let rows = []
     productState.map(product =>{
         rows = [...rows, createData(
