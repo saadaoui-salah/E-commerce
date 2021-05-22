@@ -90,7 +90,6 @@ export function ProductFrom() {
 }
 
 export function GlobalCategoryForm() {
-    const selectCategory = useRef()
     return (
         <Grid container direction="row" justify="center" align="center" spacing={2}>
             <Grid item xs={12} md={6}>
