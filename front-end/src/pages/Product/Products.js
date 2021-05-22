@@ -2,18 +2,16 @@ import Table from '../../components/Table'
 import { AddButton, TableOptions, DeleteButton } from '../../components/sub-components/Buttons'
 import { ProductFrom } from '../../components/CustomForms'
 import {
-    OptionsStateContext,
     ProductStateContext,
-    OptionsDispatchContext,
     ProductDispatchContext
 } from '../../reducers/context'
 import {
-    OptionsReducer,
     productReducer,
 } from '../../reducers/reducers'
-import { options, products } from '../../reducers/state'
+import { products } from '../../reducers/state'
 import { useEffect, useReducer, useContext } from 'react'
 import { useQuery } from '@apollo/client'
+import { addProduct } from '../../reducers/actoins'
 import { LOAD_PRODUCTS } from '../../graphql/queries'
 
 
@@ -24,29 +22,26 @@ function createData(image, product, category, quantity, bPrice, vPrice) {
 }
 
 
+
 export default function Products() {
 
     const [productState, productDispatch] = useReducer(productReducer, products)
-    const [optionsState, optionsDispatch] = useReducer(OptionsReducer, options)
-    const productsState = useContext(ProductStateContext)
-    console.log(productState)
-    const productsDispatch = useContext(ProductDispatchContext)
     const options_ = { name: "Options", component: (id) => <TableOptions id={id} /> }
     const { error, loading, data } = useQuery(LOAD_PRODUCTS)
+    console.log(error)
+    console.log(productState)
     useEffect(()=>{
         if(!loading){
             console.log(data.getProducts)
             data.getProducts.map(product=>{
-                productDispatch(product)
+                productDispatch(addProduct(product))
             })
         }
     }
     ,[loading])
-    const rows = productsState
+    const rows = productState
     return (
-        <OptionsStateContext.Provider value={optionsState}>
             <ProductStateContext.Provider value={productState}>
-                <OptionsDispatchContext.Provider value={optionsDispatch}>
                     <ProductDispatchContext.Provider value={productDispatch}>
                         <Table columns={columns} rows={rows} options={options_}>
 
@@ -54,8 +49,6 @@ export default function Products() {
                             <DeleteButton content="Are you sure" title="Delete Product" />
                         </Table>
                     </ProductDispatchContext.Provider >
-                </OptionsDispatchContext.Provider>
             </ProductStateContext.Provider >
-        </OptionsStateContext.Provider >
     )
 }

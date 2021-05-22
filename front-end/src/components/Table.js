@@ -63,20 +63,19 @@ const Body = (props) => {
                     ).map((row, rIndex) => {
                         return (
                             <>
-
                                 <TableRow key={rIndex} hover role="checkbox" tabIndex={-1} >
                                     <DropDown DropDown={props.dropDown} />
                                     {props.columns.map((column, index) => {
                                         const value = row[index];
-                                            if (column === props.options.name) {
-                                                return (
-                                                    <TableCell key={index} align="center">
-                                                        <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                                            {props.options.component(rIndex)}
-                                                        </div>
-                                                    </TableCell>
-                                                )
-                                            }
+                                        if (column === props.options.name) {
+                                            return (
+                                                <TableCell key={index} align="center">
+                                                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                                        {props.options.component(rIndex)}
+                                                    </div>
+                                                </TableCell>
+                                            )
+                                        }
                                         return (
                                             <TableCell key={column.id} align="center">
                                                 {value}
@@ -87,11 +86,10 @@ const Body = (props) => {
                             </>
                         );
                     })}
-
                 </TableBody>
             </>
         )
-    }else{
+    } else {
         return <div></div>
     }
 }
