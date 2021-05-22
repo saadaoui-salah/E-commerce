@@ -18,6 +18,7 @@ import { LOAD_PRODUCTS } from '../../graphql/queries'
 const columns = ["Image", "Product", "Category", "Quantity", "Price", "Benifits"];
 function createData(image, product, category, quantity, bPrice, vPrice) {
     const benifits = vPrice - bPrice;
+    category = `${category.parentCategory}/${category.category}`
     return [image, product, category, quantity, vPrice, benifits];
 }
 
@@ -44,7 +45,6 @@ export default function Products() {
             <ProductStateContext.Provider value={productState}>
                     <ProductDispatchContext.Provider value={productDispatch}>
                         <Table columns={columns} rows={rows} options={options_}>
-
                             <AddButton value="Product" content={<ProductFrom />} title="Create New Product" />
                             <DeleteButton content="Are you sure" title="Delete Product" />
                         </Table>
