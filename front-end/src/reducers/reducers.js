@@ -40,7 +40,6 @@ export const Dropdown = (state, action) => {
 }
 
 export const productReducer = (state, action) => {
-    console.log(state)
     switch (action.type) {
         case ADD_PRODUCT:
             return [...state, {
