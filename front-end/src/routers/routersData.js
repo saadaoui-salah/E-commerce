@@ -17,7 +17,7 @@ import Orders from '../pages/Orders/Orders'
 import OrdersAnalytics from '../pages/Orders/OrdersAnalytics'
 /// Users
 import UsersAnalyitcs from '../pages/Users/UsersAnalyitcs'
-import consumers from '../pages/Users/consumers'
+import Consumers from '../pages/Users/Consumers'
 import Vendors from '../pages/Users/Vendors'
 // auth 
 import {Login} from '../pages/login'

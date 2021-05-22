@@ -29,19 +29,20 @@ export default function Products() {
     const [productState, productDispatch] = useReducer(productReducer, products)
     const [optionsState, optionsDispatch] = useReducer(OptionsReducer, options)
     const productsState = useContext(ProductStateContext)
+    console.log(productState)
     const productsDispatch = useContext(ProductDispatchContext)
     const options_ = { name: "Options", component: (id) => <TableOptions id={id} /> }
     const { error, loading, data } = useQuery(LOAD_PRODUCTS)
     useEffect(()=>{
         if(!loading){
+            console.log(data.getProducts)
             data.getProducts.map(product=>{
-                productsDispatch(product)
+                productDispatch(product)
             })
         }
     }
-    ,[data])
+    ,[loading])
     const rows = productsState
-    console.log('rows',rows)
     return (
         <OptionsStateContext.Provider value={optionsState}>
             <ProductStateContext.Provider value={productState}>
