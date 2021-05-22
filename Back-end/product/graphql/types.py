@@ -25,6 +25,7 @@ class CategoryType(DjangoObjectType):
         fields = (
             'id',
             'category',
+            'parent_category',
             'image',
             )
 
