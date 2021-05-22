@@ -130,7 +130,7 @@ export var usersRouters = {
         {
             id: 1,
             path: 'consumers',
-            component: ()=> <consumers />,
+            component: ()=> <Consumers />,
         },
         {
             id: 2,
