@@ -37,8 +37,8 @@ export function addProduct(product){
         category:product.category,
         parentCategory:product.parentCategory,
         quantity:product.quantity,
-        bPrice:product.bPrice,
-        vPrice:product.vPrice,
+        bPrice:product.priceAchat,
+        vPrice:product.priceVender,
         detail:product.detail
     }
 }
