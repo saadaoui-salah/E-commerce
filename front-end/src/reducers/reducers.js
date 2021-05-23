@@ -71,7 +71,7 @@ export const categoriesReducer = (state, action)=>{
     switch (action.type){
         case ADD_CATEGORY:
             return [state.parentCategory, [...state.category,{
-                id: category.id,
+                id: action.category.id,
                 category: action.category.category,
                 parentID: action.category.parentCategory.id
             }]]
