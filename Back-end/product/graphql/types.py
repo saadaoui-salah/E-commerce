@@ -29,7 +29,7 @@ class CategoryType(DjangoObjectType):
             'image',
             )
 
-class ParetnCategoryType(DjangoObjectType):
+class ParentCategoryType(DjangoObjectType):
     class Meta:
         model = Category
         fields = (
