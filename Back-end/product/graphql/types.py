@@ -25,19 +25,7 @@ class CategoryType(DjangoObjectType):
         fields = (
             'id',
             'category',
-            'parent_category',
-            'image',
             )
-
-class ParentCategoryType(DjangoObjectType):
-    class Meta:
-        model = Category
-        fields = (
-            'id',
-            'category',
-            'image',
-            )
-
 
 class ProductInfoType(DjangoObjectType):
     class Meta:
