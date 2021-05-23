@@ -50,6 +50,6 @@ export function addCategory(category){
         type:ADD_CATEGORY,
         id:category.id,
         category:category.category,
-        parendID:parentCategory.id
+        parendID:category.parentCategory.id
     }
 } 
