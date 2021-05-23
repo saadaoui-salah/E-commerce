@@ -65,7 +65,6 @@ const Body = (props) => {
                                 <TableRow key={rIndex} hover role="checkbox" tabIndex={-1} >
                                     {props.columns.map((column, index) => {
                                         const value = row[index];
-                                        console.log(columns)
                                         if (column === props.options.name) {
                                             return (
                                                 <TableCell key={index} align="center">
