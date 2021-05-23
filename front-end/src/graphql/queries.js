@@ -29,3 +29,14 @@ export const HOME_COUNTERS = gql`
 
     }
 `
+export const LOAD_CATEGORIES = gql`
+    query{
+        getCategory{
+            id,
+            parentCategory{
+                id,
+                category
+            }
+        }
+    }
+` 

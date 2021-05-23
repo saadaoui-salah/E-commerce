@@ -29,6 +29,15 @@ class CategoryType(DjangoObjectType):
             'image',
             )
 
+class ParetnCategoryType(DjangoObjectType):
+    class Meta:
+        model = Category
+        fields = (
+            'id',
+            'category',
+            'image',
+            )
+
 
 class ProductInfoType(DjangoObjectType):
     class Meta:
