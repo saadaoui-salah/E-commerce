@@ -72,8 +72,8 @@ export const categoriesReducer = (state, action)=>{
         case ADD_CATEGORY:
             return [state.parentCategory, [...state.category,{
                 id: category.id,
-                category: category.category,
-                parentID: category.parentCategory.id
+                category: action.category.category,
+                parentID: action.category.parentCategory.id
             }]]
 /*         case ADD_PARENT_CATEGORY:
             return [[...state.parentCategory,{
