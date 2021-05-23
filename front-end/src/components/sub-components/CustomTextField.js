@@ -11,7 +11,7 @@ export const SelectField = (props) => {
                 onChange={props.setState}
                 value={props.state}
                 select
-                defaultValue={props.default}>
+                defaultValue={props.state}>
                 {props.choices.map(choice => {
                     return (
                         <MenuItem value={choice.value} style={{ color: choice.color }}>{choice.name}</MenuItem>
