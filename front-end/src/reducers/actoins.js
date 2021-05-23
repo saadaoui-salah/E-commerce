@@ -44,3 +44,12 @@ export function addProduct(product){
 }
 
 
+export const ADD_CATEGORY = "ADD_CATEGORY"
+export function addCategory(category){
+    return{
+        type:ADD_CATEGORY,
+        id:category.id,
+        category:category.category,
+        parendID:parentCategory.id
+    }
+} 

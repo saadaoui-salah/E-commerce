@@ -1,5 +1,5 @@
 import { EDIT, REMOVE, OPEN, CLOSE } from './actoins'
-import { UPDATE_PRODUCT, ADD_PRODUCT } from './actoins'
+import { UPDATE_PRODUCT, ADD_PRODUCT, ADD_CATEGORY, ADD_PARENT_CATEGORY } from './actoins'
 
 
 export function OptionsReducer(state, action) {
@@ -65,4 +65,22 @@ export const productReducer = (state, action) => {
             return state
     }
 
+}
+
+export const categoriesReducer = (state, action)=>{
+    switch (action.type){
+        case ADD_CATEGORY:
+            return [state.parentCategory, [...state.category,{
+                id: category.id,
+                category: category.category,
+                parentID: category.parentCategory.id
+            }]]
+        case ADD_PARENT_CATEGORY:
+            return [[...state.parentCategory,{
+                id: category.id,
+                category: category.id
+            }], state.category]
+        default:
+            return state
+    }
 }
