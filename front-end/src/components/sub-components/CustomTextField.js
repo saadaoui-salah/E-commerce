@@ -1,23 +1,17 @@
-import { InputAdornment, Input, MenuItem, TextField, Zoom } from '@material-ui/core'
+import { InputAdornment, MenuItem, TextField } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
-import { useContext, useState } from 'react'
 
-export const SelectStatus = (props) => {
-    const [status, setStatus] = useState(props.default)
-    const handleSelect = (e) => {
-        setStatus(e.target.value)
-    }
-    console.log(props.default)
+export const SelectField = (props) => {
     return (
         <div >
             <TextField
                 
                 size="small"
                 variant="outlined"
-                onChange={handleSelect}
-                value={status}
+                onChange={props.setState}
+                value={props.state}
                 select
-                defaultValue="WAITING">
+                defaultValue={props.default}>
                 {props.choices.map(choice => {
                     return (
                         <MenuItem value={choice.value} style={{ color: choice.color }}>{choice.name}</MenuItem>
