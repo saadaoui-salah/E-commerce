@@ -1,6 +1,6 @@
 import graphene
 from product.models import Product, Category, ProductInfo
-from .types import ProductInfoType,ProductType,CategoryType
+from .types import ProductInfoType,ProductType,CategoryType, ParentCategoryType
 from signals import object_viewed_signal
 from account.models import Costumer, Vendor
 from request.models import Request as Order 
@@ -8,11 +8,15 @@ from request.models import Request as Order
 # Product/category/ProductInfo Queries
 class CategoryQuery(graphene.ObjectType):
     
-    get_categories   = graphene.List(CategoryType)
+    get_categories   = graphene.List(ParentCategoryType)
+    get_parent_categories   = graphene.List(CategoryType)
     get_by_category = graphene.List(ProductType,cat=graphene.String())
     
     def resolve_get_categories(root,info):
         return Category.objects.filter(parent_category= not None)
+    
+    def resolve_get_parent_categories(root,info):
+        return Category.objects.filter(parent_category= None)
 
     def resolve_get_by_category(root,info,cat):
         return Product.objects.get_by_category(cat)
