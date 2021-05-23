@@ -1,6 +1,6 @@
 import graphene
 from product.models import Product, Category, ProductInfo
-from .types import ProductInfoType,ProductType,CategoryType, ParentCategoryType
+from .types import ProductInfoType,ProductType,CategoryType
 from signals import object_viewed_signal
 from account.models import Costumer, Vendor
 from request.models import Request as Order 
