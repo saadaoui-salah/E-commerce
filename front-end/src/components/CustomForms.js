@@ -1,12 +1,13 @@
 import {
     Grid,
     MenuItem,
-    MenuList,
     TextField,
 } from '@material-ui/core'
-import { useRef, useState } from 'react'
-
-
+import {useSelect} from '../hooks'
+import {SelectField} from '../components/sub-components/CustomTextField'
+import { useEffect, useState } from 'react'
+import {useQuery} from '@apollo/client'
+import  {LOAD_CATEGORIES} from '../graphql/queries'
 
 export function ProductFrom() {
     const [state, setState] = useState({
@@ -17,9 +18,18 @@ export function ProductFrom() {
         vPrice:'',
         bPrice:'',    
     })
+    const {error, loading, data} = useQuery(LOAD_CATEGORIES)
+    const categories = null
+    console.log(data)
+    useEffect(()=>{
+        if (!loading){
+            categories = data.getCategories
+        }
+    },[loading])
     function handleChange(value){
         setState([...state, value])
     }
+    const [parentCategory, setParentCategory] = useSelect("Chose category ...")
     return (
         <>
             <Grid container spacing={2} direction="row">
@@ -32,18 +42,11 @@ export function ProductFrom() {
                             />
                         </Grid>
                         <Grid item>
-                            <TextField
-                                style={{ width: '100%' }}
-                                select
-                                label="Parent Category"
-                                variant="outlined"
-                            >
-                                <MenuItem>T-shirt</MenuItem>
-                                <MenuItem>T-shirt</MenuItem>
-                                <MenuItem>T-shirt</MenuItem>
-                                <MenuItem>T-shirt</MenuItem>
-                                <MenuItem>T-shirt</MenuItem>
-                            </TextField>
+                            <SelectField 
+                                state={parentCategory}
+                                setState={setParentCategory}
+                                choices={categories}
+                            />
                         </Grid>
                         <Grid item>
                             <TextField
@@ -104,13 +107,11 @@ export function GlobalCategoryForm() {
 }
 
 export function SubCategoryForm() {
-    const selectCategory = useRef()
     return (
         <Grid container direction="row" justify="center" align="center" spacing={2}>
             <Grid item xs={12} md={6}>
                 <TextField
                     select
-                    ref={selectCategory}
                     label="Category"
                     style={{width:'100%'}}
                     variant="outlined"

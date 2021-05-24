@@ -25,8 +25,7 @@ class CategoryType(DjangoObjectType):
         fields = (
             'id',
             'category',
-            'parent_category'
-            
+            'parent_category',
             )
 
 class ProductInfoType(DjangoObjectType):

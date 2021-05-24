@@ -50,7 +50,6 @@ const rows = [
 function DashboardPage() {
     const style = useStyles()
     const { error, loading, data } = useQuery(HOME_COUNTERS)
-    console.log(data)
     return (
         <>
             <Grid alignItems="center" direction='row' justify='center' container spacing={2}>
