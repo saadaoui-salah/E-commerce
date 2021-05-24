@@ -2,7 +2,7 @@ import Table from '../../components/Table'
 import { TableOptions } from '../../components/sub-components/Buttons'
 import { OptionsReducer } from '../../reducers/reducers'
 import {useReducer } from 'react'
-import {SelectStatus} from '../../components/sub-components/CustomTextField'
+import {SelectField} from '../../components/sub-components/CustomTextField'
 import {OptionsStateContext, OptionsDispatchContext} from '../../reducers/context'
 import { options } from '../../reducers/state'
 const columns = ["username", "Total Orders", "Country", "Confirmed", "Days Left to Pay"];
@@ -33,26 +33,26 @@ const choices = [
 
 
 const rows = [
-    createData('India', 'IN', 1324171354, <SelectStatus choices={choices} default={choices[0]}/>, "user"),
-    createData('India', 'IN', 1324171354, <SelectStatus choices={choices} default={choices[0]}/>, "user"),
-    createData('India', 'IN', 1324171354, <SelectStatus choices={choices} default={choices[0]}/>, "user"),
-    createData('India', 'IN', 1324171354, <SelectStatus choices={choices} default={choices[0]}/>, "user"),
-    createData('India', 'IN', 1324171354, <SelectStatus choices={choices} default={choices[0]}/>, "user"),
-    createData('India', 'IN', 1324171354, <SelectStatus choices={choices} default={choices[0]}/>, "user"),
-    createData('India', 'IN', 1324171354, <SelectStatus choices={choices} default={choices[0]}/>, "user"),
-    createData('India', 'IN', 1324171354, <SelectStatus choices={choices} default={choices[0]}/>, "user"),
-    createData('India', 'IN', 1324171354, <SelectStatus choices={choices} default={choices[0]}/>, "user"),
-    createData('India', 'IN', 1324171354, <SelectStatus choices={choices} default={choices[0]}/>, "user"),
-    createData('India', 'IN', 1324171354, <SelectStatus choices={choices} default={choices[0]}/>, "user"),
-    createData('India', 'IN', 1324171354, <SelectStatus choices={choices} default={choices[0]}/>, "user"),
-    createData('India', 'IN', 1324171354, <SelectStatus choices={choices} default={choices[0]}/>, "user"),
-    createData('India', 'IN', 1324171354, <SelectStatus choices={choices} default={choices[0]}/>, "user"),
-    createData('India', 'IN', 1324171354, <SelectStatus choices={choices} default={choices[0]}/>, "user"),
-    createData('India', 'IN', 1324171354, <SelectStatus choices={choices} default={choices[0]}/>, "user"),
-    createData('India', 'IN', 1324171354, <SelectStatus choices={choices} default={choices[0]}/>, "user"),
-    createData('India', 'IN', 1324171354, <SelectStatus choices={choices} default={choices[0]}/>, "user"),
-    createData('India', 'IN', 1324171354, <SelectStatus choices={choices} default={choices[0]}/>, "user"),
-    createData('India', 'IN', 1324171354, <SelectStatus choices={choices} default={choices[0]}/>, "user"),
+    createData('India', 'IN', 1324171354, <SelectField choices={choices} default={choices[0]}/>, "user"),
+    createData('India', 'IN', 1324171354, <SelectField choices={choices} default={choices[0]}/>, "user"),
+    createData('India', 'IN', 1324171354, <SelectField choices={choices} default={choices[0]}/>, "user"),
+    createData('India', 'IN', 1324171354, <SelectField choices={choices} default={choices[0]}/>, "user"),
+    createData('India', 'IN', 1324171354, <SelectField choices={choices} default={choices[0]}/>, "user"),
+    createData('India', 'IN', 1324171354, <SelectField choices={choices} default={choices[0]}/>, "user"),
+    createData('India', 'IN', 1324171354, <SelectField choices={choices} default={choices[0]}/>, "user"),
+    createData('India', 'IN', 1324171354, <SelectField choices={choices} default={choices[0]}/>, "user"),
+    createData('India', 'IN', 1324171354, <SelectField choices={choices} default={choices[0]}/>, "user"),
+    createData('India', 'IN', 1324171354, <SelectField choices={choices} default={choices[0]}/>, "user"),
+    createData('India', 'IN', 1324171354, <SelectField choices={choices} default={choices[0]}/>, "user"),
+    createData('India', 'IN', 1324171354, <SelectField choices={choices} default={choices[0]}/>, "user"),
+    createData('India', 'IN', 1324171354, <SelectField choices={choices} default={choices[0]}/>, "user"),
+    createData('India', 'IN', 1324171354, <SelectField choices={choices} default={choices[0]}/>, "user"),
+    createData('India', 'IN', 1324171354, <SelectField choices={choices} default={choices[0]}/>, "user"),
+    createData('India', 'IN', 1324171354, <SelectField choices={choices} default={choices[0]}/>, "user"),
+    createData('India', 'IN', 1324171354, <SelectField choices={choices} default={choices[0]}/>, "user"),
+    createData('India', 'IN', 1324171354, <SelectField choices={choices} default={choices[0]}/>, "user"),
+    createData('India', 'IN', 1324171354, <SelectField choices={choices} default={choices[0]}/>, "user"),
+    createData('India', 'IN', 1324171354, <SelectField choices={choices} default={choices[0]}/>, "user"),
 ];
 
 
@@ -63,7 +63,7 @@ export default function Users() {
     return (
         <OptionsStateContext.Provider value={state}>
             <OptionsDispatchContext.Provider value={dispatch}>
-            <SelectStatus choices={choices} default={"CONFIRMED"}/>
+            <SelectField choices={choices} default={"CONFIRMED"}/>
                 <Table columns={columns} rows={rows} options={options_} />
             </OptionsDispatchContext.Provider>
         </OptionsStateContext.Provider >
