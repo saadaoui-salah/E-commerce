@@ -5,7 +5,6 @@ export const SelectField = (props) => {
     return (
         <div >
             <TextField
-                
                 size="small"
                 variant="outlined"
                 onChange={props.setState}
@@ -14,7 +13,7 @@ export const SelectField = (props) => {
                 defaultValue={props.state}>
                 {props.choices.map(choice => {
                     return (
-                        <MenuItem value={choice.value} style={{ color: choice.color }}>{choice.name}</MenuItem>
+                        <MenuItem>{choice}</MenuItem>
                     )
                 })
                 }

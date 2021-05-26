@@ -10,6 +10,7 @@ import {useQuery} from '@apollo/client'
 import  {LOAD_CATEGORIES} from '../graphql/queries'
 
 export function ProductFrom() {
+    const [categories, setCategories] = useState([''])
     const [state, setState] = useState({
         name:'',
         parentCategory:'',
@@ -19,17 +20,20 @@ export function ProductFrom() {
         bPrice:'',    
     })
     const {error, loading, data} = useQuery(LOAD_CATEGORIES)
-    const categories = null
-    console.log(data)
-    useEffect(()=>{
+    useEffect(() => {
         if (!loading){
-            categories = data.getCategories
+            data.getCategories.map(category=>{
+                if (categories == ['']){
+                    setCategories([category.category])
+                }
+                setCategories([...categories,category.category])
+            }) 
+            console.log(categories)
         }
-    },[loading])
+    }, [data])
     function handleChange(value){
         setState([...state, value])
     }
-    const [parentCategory, setParentCategory] = useSelect("Chose category ...")
     return (
         <>
             <Grid container spacing={2} direction="row">
@@ -43,8 +47,8 @@ export function ProductFrom() {
                         </Grid>
                         <Grid item>
                             <SelectField 
-                                state={parentCategory}
-                                setState={setParentCategory}
+                                state={categories}
+                                setState={setCategories}
                                 choices={categories}
                             />
                         </Grid>
