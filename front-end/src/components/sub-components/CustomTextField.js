@@ -14,7 +14,7 @@ export const SelectField = (props) => {
                 label="Select Category">
                 {props.choices.map(choice => {
                     return (
-                        <MenuItem>{choice}</MenuItem>
+                        <MenuItem key={choice.id}>{choice.category}</MenuItem>
                     )
                 })
                 }

@@ -3,37 +3,48 @@ import {
     MenuItem,
     TextField,
 } from '@material-ui/core'
-import {useSelect} from '../hooks'
-import {SelectField} from '../components/sub-components/CustomTextField'
 import { useEffect, useState } from 'react'
-import {useQuery} from '@apollo/client'
-import  {LOAD_CATEGORIES} from '../graphql/queries'
+import { useQuery } from '@apollo/client'
+import { LOAD_CATEGORIES, LOAD_PARENT_CATEGORIES } from '../graphql/queries'
 
 export function ProductFrom() {
     const [categories, setCategories] = useState([])
+    const [paretnCategories, setParentCategories] = useState([])
     const [product, setProduct] = useState({
-        name:'',
-        parentCategory:'',
-        category:'',
-        quantity:'',
-        vPrice:'',
-        bPrice:'',    
+        name: '',
+        parentCategory: '',
+        category: '',
+        quantity: '',
+        vPrice: '',
+        bPrice: '',
     })
-    // disabled eslint
-    const {error, loading, data} = useQuery(LOAD_CATEGORIES)
+    const { error, loading, data } = useQuery(LOAD_CATEGORIES)
     useEffect(() => {
-        if (!loading){
-            data.getCategories.map(category=>{           
-                setCategories([...categories,category.category])
-            }) 
+        if (!loading) {
+            data.getCategories.map(category => {
+                setCategories([...categories, category])
+            })
         }
     }, [data])
-    function setCategory(e, category){
+    const { isError, isLoading, parentCategoriesData } = useQuery(LOAD_PARENT_CATEGORIES, {
+        variables: 1
+    })
+    console.log(parentCategoriesData)
+
+    function setCategory(e) {
         setProduct({
             ...product,
-            category: category.props.children
+            category: e.target.value
         })
-        console.log(category.props.children)
+        console.log(e.target.value)
+        console.log(product)
+    }
+    function setParentCategory(e) {
+        setProduct({
+            ...product,
+            category: e.target.value
+        })
+        console.log(e.target.value)
         console.log(product)
     }
     return (
@@ -43,18 +54,27 @@ export function ProductFrom() {
                     <Grid container spacing={2} justify="center" align="center" direction="column">
                         <Grid item>
                             <TextField
+                                onChange={(e) => setProduct({ ...product, name: e.target.value })}
                                 label="Name"
                                 variant="outlined"
                             />
                         </Grid>
                         <Grid item>
-                            <SelectField 
-                                label="Select Category"
-                                defaultValue={product.category}
-                                state={product.category}
-                                setState={setCategory}
-                                choices={categories}
-                            />
+                            <TextField
+                                style={{ width: '100%' }}
+                                size="medium"
+                                variant="outlined"
+                                onChange={setCategory}
+                                value={product.category ? product.category.category : null}
+                                select
+                                label="Select Category">
+                                {categories.map(category => {
+                                    return (
+                                        <MenuItem value={category} key={category.id}>{category.category}</MenuItem>
+                                    )
+                                })
+                                }
+                            </TextField>
                         </Grid>
                         <Grid item>
                             <TextField
@@ -77,18 +97,21 @@ export function ProductFrom() {
                     <Grid container spacing={2} justify="center" align="center" direction="column">
                         <Grid item>
                             <TextField
+                                onChange={(e) => setProduct({ ...product, quantity: e.target.value })}
                                 label="Quantity"
                                 variant="outlined"
                             />
                         </Grid>
                         <Grid item>
                             <TextField
+                                onChange={(e) => setProduct({ ...product, bPrice: e.target.value })}
                                 label="Buy Price"
                                 variant="outlined"
                             />
                         </Grid>
                         <Grid item>
                             <TextField
+                                onChange={(e) => setProduct({ ...product, vPrice: e.target.value })}
                                 label="Vendre"
                                 variant="outlined"
                             />
@@ -105,8 +128,8 @@ export function GlobalCategoryForm() {
         <Grid container direction="row" justify="center" align="center" spacing={2}>
             <Grid item xs={12} md={6}>
                 <TextField
-                    style={{width:'100%'}}
-                    label={ "Sub Category"}
+                    style={{ width: '100%' }}
+                    label={"Sub Category"}
                     variant="outlined"
                 />
             </Grid>
@@ -121,9 +144,9 @@ export function SubCategoryForm() {
                 <TextField
                     select
                     label="Category"
-                    style={{width:'100%'}}
+                    style={{ width: '100%' }}
                     variant="outlined"
-                    >
+                >
                     <MenuItem>like</MenuItem>
                     <MenuItem>like</MenuItem>
                     <MenuItem>like</MenuItem>
@@ -134,8 +157,8 @@ export function SubCategoryForm() {
             </Grid>
             <Grid item xs={12} md={6}>
                 <TextField
-                    style={{width:'100%'}}
-                    label={ "Sub Category"}
+                    style={{ width: '100%' }}
+                    label={"Sub Category"}
                     variant="outlined"
                 />
             </Grid>
@@ -148,19 +171,19 @@ export function CollectionForm() {
         <Grid container direction="row" justify="center" align="center" spacing={2}>
             <Grid item xs={12} md={6}>
                 <TextField
-                    style={{width:'100%'}}
+                    style={{ width: '100%' }}
                     label="Collection Name"
                     variant="outlined"
                 />
-            </Grid>           
+            </Grid>
             <Grid item xs={12} md={6}>
                 <TextField
                     select
                     check="true"
                     label="Products"
-                    style={{width:'100%'}}
+                    style={{ width: '100%' }}
                     variant="outlined"
-                    >
+                >
                     <MenuItem>like</MenuItem>
                     <MenuItem>like</MenuItem>
                     <MenuItem>like</MenuItem>
