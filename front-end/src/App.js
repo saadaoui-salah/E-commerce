@@ -25,7 +25,7 @@ import theme from './theme'
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 
-const drawerWidthOpen = 180
+const drawerWidthOpen = 200
 /* const primary = "#131b2f" */
 /* const primary = "#101b38" */
 /* const primary = "#f5f6ff" */
@@ -38,7 +38,7 @@ const useStyles = makeStyles(() => ({
   appBarClose: {
     zIndex: '30',
     width: `calc(100% - ${drawerWidthOpen}px)`,
-    transition: '0.3s'
+    transition: '0.3s !important'
   },
   component: {
     display: 'flex',
@@ -71,10 +71,21 @@ const useStyles = makeStyles(() => ({
   hover: {
     marginTop: '5px',
     padding: '5px 10px',
-    transition: '0.8s all',
+    transition: '0.2s all',
     borderRadius: '5px',
     '&:hover': {
-      transtion: '0.5s',
+      paddingLeft:'4px',
+      backgroundColor: '#0085ea57',
+      cursor: 'pointer',
+    }
+  },
+  hoverIcon: {
+    marginTop: '5px',
+    padding: '5px 10px',
+    transition: '0.3s all',
+    borderRadius: '5px',
+    '&:hover': {
+      transition:'0.5s',
       backgroundColor: '#0085ea57',
       cursor: 'pointer',
     }
@@ -96,12 +107,12 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
   },
   drawerPaperClose: {
-    transition: '0.3s',
+    transition: '0.3s !important',
     width: '0px',
   },
   drawerPaperOpen: {
     zIndex: 1,
-    transition: '0.3s',
+    transition: '0.3s !important',
     width: `${drawerWidthOpen}px`
   },
   leftIcon: {
@@ -163,7 +174,7 @@ function App() {
               :
               <IconButton
                 style={{ marginLeft: '-20px' }}
-                className={style.hover}
+                className={style.hoverIcon}
                 onClick={() => setOpen(true)}
               >
                 <Icon>
@@ -192,7 +203,7 @@ function App() {
                 {tablette ?
                   <IconButton
                     style={{ marginTop: '10px' }}
-                    className={style.hover}
+                    className={style.hoverIcon}
                     onClick={() => setOpen(false)}
                   >
                     <Icon>
