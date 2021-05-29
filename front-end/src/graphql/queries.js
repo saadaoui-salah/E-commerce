@@ -36,4 +36,13 @@ export const LOAD_CATEGORIES = gql`
             category
         }
     }
+`
+
+export const LOAD_PARENT_CATEGORIES = gql`
+    query{
+        getCategories(id: $id){
+            id,
+            category
+        }
+    }
 ` 
