@@ -5,12 +5,13 @@ export const SelectField = (props) => {
     return (
         <div >
             <TextField
-                size="small"
+                style={{ width: '100%' }}
+                size="medium"
                 variant="outlined"
                 onChange={props.setState}
                 value={props.state}
                 select
-                defaultValue={props.state}>
+                label="Select Category">
                 {props.choices.map(choice => {
                     return (
                         <MenuItem>{choice}</MenuItem>
