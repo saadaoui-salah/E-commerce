@@ -8,11 +8,11 @@ from request.models import Request as Order
 # Product/category/ProductInfo Queries
 class CategoryQuery(graphene.ObjectType):
     
-    get_categories   = graphene.List(CategoryType)
+    get_categories   = graphene.List(CategoryType, parent_category_id=graphene.ID())
     get_by_category = graphene.List(ProductType,cat=graphene.String())
     
-    def resolve_get_categories(root, info, parent_category=None,):
-        return Category.objects.filter(parent_category=parent_category)
+    def resolve_get_categories(root, info, parent_category_id=None,):
+        return Category.objects.filter(parent_category=parent_category_id)
 
     def resolve_get_by_category(root,info,cat):
         return Product.objects.get_by_category(cat)
