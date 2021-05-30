@@ -17,5 +17,16 @@ export const customTheme = createMuiTheme({
             contrastText: "#fff"
         },
     },
-    direction:'ltr'
+    direction:'ltr',
+    transitions: {
+        duration: {
+          shortest: 150,
+          shorter: 200,
+          short: 250,
+          standard: 300,
+          complex: 375,
+          enteringScreen: 3000,
+          leavingScreen: 3000,
+        }
+    }
 })

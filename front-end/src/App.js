@@ -10,6 +10,7 @@ import {
   List,
   Drawer,
   AppBar,
+  Slide,
   Icon,
   Toolbar,
   Typography,
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBarClose: {
     zIndex: '30',
-    width: `calc(100% - ${drawerWidthOpen}px)`,
+    width: '100%',
     transition: '0.3s !important'
   },
   component: {
@@ -137,12 +138,12 @@ function Navbar() {
   const Item = ({ id, enName, icon, children }) => {
     return (
       <ListItem
-      onClick={() => setActiveItem(id)}
-      className={
-        clsx(style.hover, {
-          [style.active]: activeItem === id,
-          [style.openActive]: activeItem === id,
-        })}>
+        onClick={() => { setActiveItem(id); setOpen(false) }}
+        className={
+          clsx(style.hover, {
+            [style.active]: activeItem === id,
+            [style.openActive]: activeItem === id,
+          })}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div className={style.navItem}>{icon}
             <Typography
@@ -171,7 +172,7 @@ function Navbar() {
         }}>
         <Toolbar
           style={justifyCondition(open, 'flex-end', 'space-between')}
-          >
+        >
           {open ?
             null
             :
@@ -179,7 +180,7 @@ function Navbar() {
               style={{ marginLeft: '-20px' }}
               className={style.hoverIcon}
               onClick={() => setOpen(true)}
-              >
+            >
               <Icon>
                 <MenuOutlinedIcon className={style.menuIcon} />
               </Icon>
@@ -191,55 +192,62 @@ function Navbar() {
       <Router>
         <div className={style.component} style={justifyCondition(open, 'flex-end', 'center')}>
           <div className={style.side}>
-            <Drawer
-              color="primary"
-              elevation={0}
-              variant={tablette ? "temporary" : "persistent" }
-              onClose={() => setOpen(false)}
-              open={open}
-              classes={{
-                paper: clsx(style.drawerPaper, {
-                  [style.drawerPaperOpen]: open,
-                  [style.drawerPaperClose]: !open
-                })
-              }}
-              anchor="left"
-              >
-              {tablette ?
-                <IconButton
-                style={{ marginTop: '10px' }}
-                className={style.hoverIcon}
-                onClick={() => setOpen(false)}
+            <Slide direction="right" in={open} timeout={3000}>
+              <div>
+                <Drawer
+                  color="primary"
+                  elevation={0}
+                  variant={tablette ? "temporary" : "persistent"}
+                  onClose={() => setOpen(false)}
+                  open={open}
+                  style={{ duration: '1.3s !important' }}
+                  classes={{
+                    paper: clsx(style.drawerPaper, {
+                      [style.drawerPaperOpen]: open,
+                      [style.drawerPaperClose]: !open
+                    }),
+                  }}
+                  anchor="left"
                 >
-                  <Icon>
-                    <ChevronLeftIcon className={style.icon} />
-                  </Icon>
-                </IconButton>
-                : null
-              }
-              <List className={style.list} style={tablette ? null : { marginTop: '45px' }}
-              >
-                {routers.items.map(item => {
-                  const active = item.id === activeItem
-                  return (
-                    <Link key={item.id} style={{ textDecoration: 'none' }} to={item.to}>
-                      <Item
-                        icon={item.icon(style, active)}
-                        id={item.id}
-                        enName={item.enName}
-                        />
-                    </Link>
-                  )
-                })}
-              </List>
-            </Drawer>
+                  {tablette ?
+                    <IconButton
+                      style={{ marginTop: '10px' }}
+                      className={style.hoverIcon}
+                      onClick={() => setOpen(false)}
+                    >
+                      <Icon>
+                        <ChevronLeftIcon className={style.icon} />
+                      </Icon>
+                    </IconButton>
+                    : null
+                  }
+                  <List
+                    className={style.list}
+                    style={tablette ? {} : { marginTop: '45px' }}
+                  >
+                    {routers.items.map(item => {
+                      const active = item.id === activeItem
+                      return (
+                        <Link key={item.id} style={{ textDecoration: 'none' }} to={item.to}>
+                          <Item
+                            icon={item.icon(style, active)}
+                            id={item.id}
+                            enName={item.enName}
+                          />
+                        </Link>
+                      )
+                    })}
+                  </List>
+                </Drawer>
+              </div>
+            </Slide>
           </div>
           <div className={style.content} >
             <div className={style.container}
               style={open ? {
                 margin: `80px 20px 0px ${tablette ? '0px' : drawerWidthOpen + 20}px `
               } : { margin: '80px 20px 0px 20px' }}
-              >
+            >
               <Switch>
                 {routers.pages.map(page => <Route key={page.id} exact={page.exact} path={page.path} component={page.component} />)}
               </Switch>
