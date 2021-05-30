@@ -22,7 +22,6 @@ export default function Products() {
     const [productState, productDispatch] = useReducer(productReducer, productsState)
     const options_ = { name: "Options", component: (id) => <TableOptions id={id} /> }
     const { error, laoding, data } = useQuery(LOAD_PRODUCTS)
-    console.log(data)
     useEffect(() => {
         if (!laoding && data !== undefined ) {
             data.getProducts.map(product => {
