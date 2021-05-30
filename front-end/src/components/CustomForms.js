@@ -4,12 +4,13 @@ import {
     TextField,
 } from '@material-ui/core'
 import { useEffect, useState } from 'react'
-import { useQuery } from '@apollo/client'
+import { useQuery, useLazyQuery} from '@apollo/client'
 import { LOAD_CATEGORIES, LOAD_PARENT_CATEGORIES } from '../graphql/queries'
 
 export function ProductFrom() {
-    const [categories, setCategories] = useState([])
-    const [paretnCategories, setParentCategories] = useState([])
+    const [categoriesState, setCategories] = useState([])
+    const [paretnCategoriesState, setParentCategories] = useState([])
+    const { error, loading, data } = useQuery(LOAD_CATEGORIES)
     const [product, setProduct] = useState({
         name: '',
         parentCategory: '',
@@ -18,16 +19,23 @@ export function ProductFrom() {
         vPrice: '',
         bPrice: '',
     })
-    const { error, loading, data } = useQuery(LOAD_CATEGORIES)
     useEffect(() => {
-        if (!loading) {
+        if (!loading && data !== undefined) {
             data.getCategories.map(category => {
-                setCategories([...categories, category])
+                setCategories([...categoriesState, category])
             })
         }
     }, [data])
-    const { isError, isLoading, parentCategoriesData } = useQuery(LOAD_PARENT_CATEGORIES)
-    console.log(parentCategoriesData, isError)
+    const [getParentCategories, response] = useLazyQuery(LOAD_PARENT_CATEGORIES)
+    useEffect(() => {
+        if (product.category !== "" ) {
+            getParentCategories({variables: product.category.id})
+            console.log(response.data)
+        }
+        if (response.data !== undefined){
+            setParentCategories(response.data.getCategories)
+        }
+    }, [product.category, response.data])
 
     function setCategory(e) {
         setProduct({
@@ -62,7 +70,7 @@ export function ProductFrom() {
                                 value={product.category ? product.category.category : null}
                                 select
                                 label="Select Category">
-                                {categories.map(category => {
+                                {categoriesState.map(category => {
                                     return (
                                         <MenuItem value={category} key={category.id}>{category.category}</MenuItem>
                                     )
@@ -76,12 +84,13 @@ export function ProductFrom() {
                                 select
                                 label="Child Category"
                                 variant="outlined"
-                            >
-                                <MenuItem>T-shirt</MenuItem>
-                                <MenuItem>T-shirt</MenuItem>
-                                <MenuItem>T-shirt</MenuItem>
-                                <MenuItem>T-shirt</MenuItem>
-                                <MenuItem>T-shirt</MenuItem>
+                                >
+                                {paretnCategoriesState.map(category => {
+                                    return (
+                                        <MenuItem value={category} key={category.id}>{category.category}</MenuItem>
+                                    )
+                                })
+                                }
                             </TextField>
                         </Grid>
                     </Grid>
