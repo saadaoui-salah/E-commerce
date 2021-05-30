@@ -2,7 +2,7 @@ import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { makeStyles } from '@material-ui/core/styles'
 import { useMemo, useState } from 'react'
-import {routers} from './routers/routersData'
+import { routers } from './routers/routersData'
 import clsx from 'clsx'
 import {
   Avatar,
@@ -21,17 +21,14 @@ import {
   Route,
   Switch
 } from "react-router-dom";
-import theme from './theme'
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-
 
 const drawerWidthOpen = 200
 /* const primary = "#131b2f" */
 /* const primary = "#101b38" */
 /* const primary = "#f5f6ff" */
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   appBar: {
-    backgroundColor: theme.palette.primary.dark,
     zIndex: '30',
     transition: '0.3s'
   },
@@ -54,14 +51,14 @@ const useStyles = makeStyles(() => ({
     transition: '0.3s'
   },
   icon: {
-    color: 'rgb(123 195 245 / 71%)',
+    color: theme.palette.secondary.main,
     cursor: 'pointer',
   },
   arrowActive: {
     transform: 'rotateX(180deg)'
   },
   menuIcon: {
-    color: 'rgb(0 151 255) !important',
+    color: theme.palette.secondary.main,
     cursor: 'pointer',
     fontWeight: 'bold'
   },
@@ -74,8 +71,8 @@ const useStyles = makeStyles(() => ({
     transition: '0.2s all',
     borderRadius: '5px',
     '&:hover': {
-      paddingLeft:'4px',
-      backgroundColor: '#0085ea57',
+      paddingLeft: '4px',
+      backgroundColor: theme.palette.secondary.light,
       cursor: 'pointer',
     }
   },
@@ -85,8 +82,8 @@ const useStyles = makeStyles(() => ({
     transition: '0.3s all',
     borderRadius: '5px',
     '&:hover': {
-      transition:'0.5s',
-      backgroundColor: '#0085ea57',
+      transition: '0.5s',
+      backgroundColor: theme.palette.secondary.light,
       cursor: 'pointer',
     }
   },
@@ -97,12 +94,12 @@ const useStyles = makeStyles(() => ({
     marginLeft: '15px',
     marginRight: '5px',
     fontWeight: 'bold',
-    color: 'rgb(123 195 245 / 71%)',
+    color: theme.palette.secondary.main,
     userSelect: 'none'
   },
   drawerPaper: {
     height: '100vh',
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: theme.palette.primary.main,
     zIndex: '1',
     alignItems: 'center',
   },
@@ -128,7 +125,7 @@ const useStyles = makeStyles(() => ({
 function App() {
   const tablette = useMediaQuery('(max-width:900px)')
   const [open, setOpen] = useState(false)
-  const [activeItem, setActiveItem] = useState(1)  
+  const [activeItem, setActiveItem] = useState(1)
   const justifyCondition = (open, isOpen, isClose) => open ? { justifyContent: isOpen } : { justifyContent: isClose }
   useMemo(() => setOpen(true), [tablette])
   const style = useStyles()
@@ -155,94 +152,96 @@ function App() {
       </ListItem>
     )
   }
-  
+
   return (
     <>
-    <AppBar
-          elevation={0}
-          position='fixed'
-          classes={{
-            root: clsx(style.appBar, {
-              [style.appBarClose]: open
-            })
-          }}>
-          <Toolbar
-            style={justifyCondition(open, 'flex-end', 'space-between')}
-          >
-            {open ?
-              null
-              :
-              <IconButton
-                style={{ marginLeft: '-20px' }}
-                className={style.hoverIcon}
-                onClick={() => setOpen(true)}
-              >
-                <Icon>
-                  <MenuOutlinedIcon className={style.menuIcon} />
-                </Icon>
-              </IconButton>
-            }
-            <Avatar style={{ marginRight: '-10px' }} />
-          </Toolbar>
-        </AppBar>
-        <Router>
-          <div className={style.component} style={justifyCondition(open, 'flex-end', 'center')}>
-            <div className={style.side}>
-              <Drawer
-                elevation={0}
-                variant="persistent"
-                open={true}
-                classes={{
-                  paper: clsx(style.drawerPaper, {
-                    [style.drawerPaperOpen]: open,
-                    [style.drawerPaperClose]: !open
-                  })
-                }}
-                anchor="left"
-              >
-                {tablette ?
-                  <IconButton
-                    style={{ marginTop: '10px' }}
-                    className={style.hoverIcon}
-                    onClick={() => setOpen(false)}
-                  >
-                    <Icon>
-                      <ChevronLeftIcon className={style.icon} />
-                    </Icon>
-                  </IconButton>
-                  : null
-                }
-                <List className={style.list} style={tablette ? null : { marginTop: '45px' }}
+      <AppBar
+        color="primary"
+        elevation={0}
+        position='fixed'
+        classes={{
+          root: clsx(style.appBar, {
+            [style.appBarClose]: open
+          })
+        }}>
+        <Toolbar
+          style={justifyCondition(open, 'flex-end', 'space-between')}
+        >
+          {open ?
+            null
+            :
+            <IconButton
+              style={{ marginLeft: '-20px' }}
+              className={style.hoverIcon}
+              onClick={() => setOpen(true)}
+            >
+              <Icon>
+                <MenuOutlinedIcon className={style.menuIcon} />
+              </Icon>
+            </IconButton>
+          }
+          <Avatar style={{ marginRight: '-10px' }} />
+        </Toolbar>
+      </AppBar>
+      <Router>
+        <div className={style.component} style={justifyCondition(open, 'flex-end', 'center')}>
+          <div className={style.side}>
+            <Drawer
+              color="primary"
+              elevation={0}
+              variant="persistent"
+              open={true}
+              classes={{
+                paper: clsx(style.drawerPaper, {
+                  [style.drawerPaperOpen]: open,
+                  [style.drawerPaperClose]: !open
+                })
+              }}
+              anchor="left"
+            >
+              {tablette ?
+                <IconButton
+                  style={{ marginTop: '10px' }}
+                  className={style.hoverIcon}
+                  onClick={() => setOpen(false)}
                 >
-                  {routers.items.map(item => {
-                    const active = item.id === activeItem
-                    return (
-                      <Link key={item.id} style={{ textDecoration: 'none' }} to={item.to}>
-                        <Item
-                          icon={item.icon(style, active)}
-                          id={item.id}
-                          enName={item.enName}
-                        />
-                      </Link>
-                    )
-                  })}
-                </List>
-              </Drawer>
-            </div>
-            <div className={style.content} >
-              <div className={style.container}
-                style={open ? {
-                  margin: `90px 20px 0px ${drawerWidthOpen + 20}px `
-                } : { margin: '90px 20px 0px 20px' }}
+                  <Icon>
+                    <ChevronLeftIcon className={style.icon} />
+                  </Icon>
+                </IconButton>
+                : null
+              }
+              <List className={style.list} style={tablette ? null : { marginTop: '45px' }}
               >
-                <Switch>
-                  {routers.pages.map(page => <Route key={page.id} exact={page.exact} path={page.path} component={page.component} />)}
-                </Switch>
-              </div>
+                {routers.items.map(item => {
+                  const active = item.id === activeItem
+                  return (
+                    <Link key={item.id} style={{ textDecoration: 'none' }} to={item.to}>
+                      <Item
+                        icon={item.icon(style, active)}
+                        id={item.id}
+                        enName={item.enName}
+                      />
+                    </Link>
+                  )
+                })}
+              </List>
+            </Drawer>
+          </div>
+          <div className={style.content} >
+            <div className={style.container}
+              style={open ? {
+                margin: `90px 20px 0px ${drawerWidthOpen + 20}px `
+              } : { margin: '90px 20px 0px 20px' }}
+            >
+              <Switch>
+                {routers.pages.map(page => <Route key={page.id} exact={page.exact} path={page.path} component={page.component} />)}
+              </Switch>
             </div>
           </div>
-        </Router>
-        </>
+        </div>
+      </Router>
+    </>
   )
 }
 export default App

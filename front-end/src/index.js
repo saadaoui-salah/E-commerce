@@ -10,7 +10,9 @@ import {
   HttpClient,
   from
 } from '@apollo/client'
-import {onError} from '@apollo/client/link/error'
+import { onError } from '@apollo/client/link/error'
+import { customTheme } from './themes'
+import { ThemeProvider } from '@material-ui/core/styles/'
 
 /* const errorLink = onError(({graphqlErrors, networkError})=>{
   if (graphqlErrors){
@@ -27,14 +29,16 @@ const link = from([
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  uri:"http://127.0.0.1:8000/graphql"
+  uri: "http://127.0.0.1:8000/graphql"
 })
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  <ThemeProvider theme={customTheme}>
+    <React.StrictMode>
       <ApolloProvider client={client}><App /></ApolloProvider>
-  </React.StrictMode>,
+    </React.StrictMode>
+  </ThemeProvider>,
   document.getElementById('root')
 );
 
