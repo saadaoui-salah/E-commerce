@@ -2,8 +2,7 @@ import Table from '../../components/Table'
 import { AddButton, TableOptions, DeleteButton } from '../../components/sub-components/Buttons'
 import { ProductFrom } from '../../components/CustomForms'
 import {
-    ProductStateContext,
-    ProductDispatchContext
+    ProductContext,
 } from '../../reducers/context'
 import {
     productReducer,
@@ -53,13 +52,11 @@ export default function Products() {
     })
 
     return (
-            <ProductStateContext.Provider value={productState}>
-                    <ProductDispatchContext.Provider value={productDispatch}>
+            <ProductContext.Provider value={{state: productState, dispatch: productDispatch}}>
                         <Table columns={columns} rows={rows} options={options_}>
                             <AddButton value="Product" content={<ProductFrom />} title="Create New Product" />
                             <DeleteButton content="Are you sure" title="Delete Product" />
                         </Table>
-                    </ProductDispatchContext.Provider >
-            </ProductStateContext.Provider >
+            </ProductContext.Provider >
     )
 }

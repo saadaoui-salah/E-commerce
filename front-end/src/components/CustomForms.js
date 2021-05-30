@@ -26,26 +26,20 @@ export function ProductFrom() {
             })
         }
     }, [data])
-    const { isError, isLoading, parentCategoriesData } = useQuery(LOAD_PARENT_CATEGORIES, {
-        variables: 1
-    })
-    console.log(parentCategoriesData)
+    const { isError, isLoading, parentCategoriesData } = useQuery(LOAD_PARENT_CATEGORIES)
+    console.log(parentCategoriesData, isError)
 
     function setCategory(e) {
         setProduct({
             ...product,
             category: e.target.value
         })
-        console.log(e.target.value)
-        console.log(product)
     }
     function setParentCategory(e) {
         setProduct({
             ...product,
             category: e.target.value
         })
-        console.log(e.target.value)
-        console.log(product)
     }
     return (
         <>

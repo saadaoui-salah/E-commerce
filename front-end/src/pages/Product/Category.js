@@ -1,7 +1,4 @@
-import {
-    OptionsStateContext,
-    OptionsDispatchContext
-} from '../../reducers/context'
+import { OptionsContext } from '../../reducers/context'
 import {
     AddButton,
     DeleteButton,
@@ -21,8 +18,7 @@ import { useReducer } from 'react'
 export default function Category() {
     const [optionsState, optionsDispatch] = useReducer(OptionsReducer, options)
     return (
-        <OptionsStateContext.Provider value={optionsState}>
-            <OptionsDispatchContext.Provider value={optionsDispatch}>
+        <OptionsContext.Provider value={{state: optionsState, dispatch: optionsDispatch}}>
                 <Grid container justify="space-between" >
                     <AddButton
                         value="global category"
@@ -52,8 +48,7 @@ export default function Category() {
                     </Grid>
                 </Grid>
 
-            </OptionsDispatchContext.Provider>
-        </OptionsStateContext.Provider >
+        </OptionsContext.Provider >
 
     )
 }

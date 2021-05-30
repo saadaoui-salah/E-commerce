@@ -3,7 +3,7 @@ import { CollectionCard } from '../../components/CustomCards'
 import { AddButton, DeleteButton } from '../../components/sub-components/Buttons'
 import { CollectionForm } from '../../components/CustomForms'
 import { SearchField } from '../../components/sub-components/CustomTextField'
-import { OptionsStateContext, OptionsDispatchContext } from '../../reducers/context'
+import { OptionsContext } from '../../reducers/context'
 import { OptionsReducer } from '../../reducers/reducers'
 import { options } from '../../reducers/state'
 import { useReducer } from 'react'
@@ -12,8 +12,7 @@ import { useReducer } from 'react'
 export default function Collections() {
     const [optionsState, optionsDispatch] = useReducer(OptionsReducer, options)
     return (
-        <OptionsStateContext.Provider value={optionsState}>
-            <OptionsDispatchContext.Provider value={optionsDispatch}>
+        <OptionsContext.Provider value={{state: optionsState, dispatch: optionsDispatch}}>
                 <Grid container spacing={2}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={12} md={4} lg={4}>
@@ -54,7 +53,6 @@ export default function Collections() {
                         </Grid>
                     </Grid>
                 </Grid>
-            </OptionsDispatchContext.Provider>
-        </OptionsStateContext.Provider >
+        </OptionsContext.Provider >
     )
 }

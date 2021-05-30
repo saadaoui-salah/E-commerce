@@ -9,12 +9,11 @@ import {
     Fade,
     Slide,
 } from "@material-ui/core";
-import { OptionsStateContext } from '../../reducers/context'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grow } from '@material-ui/core'
 import CustomDialog from './Dialog'
 import { edit, cancel } from '../../reducers/actoins'
-import { OptionsDispatchContext } from '../../reducers/context'
+import { OptionsContext } from '../../reducers/context'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
@@ -50,7 +49,7 @@ const useStyle = makeStyles(() => ({
 
 export const SaveIconButton = ({ display }) => {
     const style = useStyle()
-    const dispatch = useContext(OptionsDispatchContext)
+    const { state, dispatch } = useContext(OptionsContext)
     return (
         <IconButton
             onClick={() => dispatch(edit(false))}
@@ -73,7 +72,7 @@ export const SaveIconButton = ({ display }) => {
 
 export const CancelIconButton = ({ display }) => {
     const style = useStyle()
-    const dispatch = useContext(OptionsDispatchContext)
+    const { state, dispatch } = useContext(OptionsContext)
     return (
         <IconButton
             onClick={() => dispatch(edit(false))}
@@ -93,7 +92,7 @@ export const CancelIconButton = ({ display }) => {
 
 export const EditIconButton = ({ id }) => {
     const style = useStyle()
-    const dispatch = useContext(OptionsDispatchContext)
+    const { state, dispatch } = useContext(OptionsContext)
     return (
         <IconButton
             onClick={() => dispatch(edit(id.id))}
@@ -110,7 +109,7 @@ export const EditIconButton = ({ id }) => {
 
 export const DeleteIconButton = () => {
     const style = useStyle()
-    const dispatch = useContext(OptionsDispatchContext)
+    const { state, dispatch } = useContext(OptionsContext)
     return (
         <IconButton onClick={() => dispatch(cancel())} style={{ backgroundColor: "#f50057" }} className={style.optionBtn} >
             <Fade in={true} timeout={600}>
@@ -120,7 +119,7 @@ export const DeleteIconButton = () => {
     )
 }
 export const TableOptions = ({ id }) => {
-    const state = useContext(OptionsStateContext)
+    const { state, dispatch } = useContext(OptionsContext)
     const displayEditOptions = state.edit.id === id
     return (
         <>
@@ -150,7 +149,7 @@ export const TableOptions = ({ id }) => {
 }
 
 export const CardOptions = ({ id }) => {
-    const state = useContext(OptionsStateContext)
+    const {state, dispatch} = useContext(OptionsContext)
     const displayEditOptions = state.id === id.id
     if (displayEditOptions) {
         return (

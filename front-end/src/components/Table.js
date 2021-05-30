@@ -6,8 +6,7 @@ import {
     TableHead,
     Paper,
     TableContainer,
-    TablePagination,
-    IconButton,
+    TablePagination
 } from "@material-ui/core";
 import { useState } from 'react'
 import { SearchField } from './sub-components/CustomTextField'
@@ -104,7 +103,7 @@ export default function CustomTable({ rows, columns, options, children, dropDown
     };
     return (
         <>
-            <Paper>
+            <Paper style={{backgroundColor:"#101b38", textColor:"#fff"}}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <div style={{ margin: '10px' }}>
                         {children}
