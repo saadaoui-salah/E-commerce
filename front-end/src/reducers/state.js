@@ -9,6 +9,6 @@ export const dropDown = {
     id: null
 }
 
-export const products= []
+export const productsState= []
 
 export const dark = false
