@@ -10,3 +10,5 @@ export const dropDown = {
 }
 
 export const products= []
+
+export const dark = false

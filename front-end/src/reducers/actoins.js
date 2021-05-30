@@ -53,3 +53,12 @@ export function addCategory(category){
         parendID:category.parentCategory.id
     }
 } 
+
+
+export const DARK = 'DARK'
+export function useDark(isDark){
+    return {
+        type: DARK,
+        dark: isDark
+    }
+}
