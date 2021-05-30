@@ -1,18 +1,13 @@
 import Table from '../../components/Table'
 import { AddButton, TableOptions, DeleteButton } from '../../components/sub-components/Buttons'
 import { ProductFrom } from '../../components/CustomForms'
-import {
-    ProductContext,
-} from '../../reducers/context'
-import {
-    productReducer,
-} from '../../reducers/reducers'
-import { products } from '../../reducers/state'
-import { useEffect, useReducer } from 'react'
-import { useQuery } from '@apollo/client'
+import { ProductContext } from '../../reducers/context'
+import { productReducer } from '../../reducers/reducers'
+import { productsState } from '../../reducers/state'
+import { useEffect, useMemo, useReducer } from 'react'
+import { useQuery, useLazyQuery } from '@apollo/client'
 import { addProduct } from '../../reducers/actoins'
 import { LOAD_PRODUCTS } from '../../graphql/queries'
-
 
 const columns = ["Image", "Product", "Category", "Quantity", "Price", "Benifits"];
 function createData(image, product, category, quantity, bPrice, vPrice) {
@@ -24,23 +19,19 @@ function createData(image, product, category, quantity, bPrice, vPrice) {
 
 
 export default function Products() {
-    const [productState, productDispatch] = useReducer(productReducer, products)
+    const [productState, productDispatch] = useReducer(productReducer, productsState)
     const options_ = { name: "Options", component: (id) => <TableOptions id={id} /> }
-    const { error, loading, data } = useQuery(LOAD_PRODUCTS)
-    useEffect(()=>{
-        if(!loading){
-            data.getProducts.map(product=>{
+    const { error, laoding, data } = useQuery(LOAD_PRODUCTS)
+    console.log(data)
+    useEffect(() => {
+        if (!laoding && data !== undefined ) {
+            data.getProducts.map(product => {
                 productDispatch(addProduct(product))
             })
-            
         }
-    }
-    ,[loading])
-    useEffect(()=>{
-
-    },[data])
+    }, [laoding])
     let rows = []
-    productState.map(product =>{
+    productState.map(product => {
         rows = [...rows, createData(
             product.image,
             product.name,
@@ -50,13 +41,12 @@ export default function Products() {
             product.vPrice
         )]
     })
-
     return (
-            <ProductContext.Provider value={{state: productState, dispatch: productDispatch}}>
-                        <Table columns={columns} rows={rows} options={options_}>
-                            <AddButton value="Product" content={<ProductFrom />} title="Create New Product" />
-                            <DeleteButton content="Are you sure" title="Delete Product" />
-                        </Table>
-            </ProductContext.Provider >
+        <ProductContext.Provider value={{ state: productState, dispatch: productDispatch }}>
+            <Table columns={columns} rows={rows} options={options_}>
+                <AddButton value="Product" content={<ProductFrom />} title="Create New Product" />
+                <DeleteButton content="Are you sure" title="Delete Product" />
+            </Table>
+        </ProductContext.Provider >
     )
 }
