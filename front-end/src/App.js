@@ -105,7 +105,7 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     height: '100vh',
     backgroundColor: theme.palette.primary.main,
-    zIndex: '1',
+    zIndex: '100',
     alignItems: 'center',
   },
   drawerPaperClose: {
@@ -194,8 +194,9 @@ function Navbar() {
             <Drawer
               color="primary"
               elevation={0}
-              variant="persistent"
-              open={true}
+              variant={tablette ? "temporary" : "persistent" }
+              onClose={() => setOpen(false)}
+              open={open}
               classes={{
                 paper: clsx(style.drawerPaper, {
                   [style.drawerPaperOpen]: open,
@@ -236,7 +237,7 @@ function Navbar() {
           <div className={style.content} >
             <div className={style.container}
               style={open ? {
-                margin: `80px 20px 0px ${drawerWidthOpen + 20}px `
+                margin: `80px 20px 0px ${tablette ? '0px' : drawerWidthOpen + 20}px `
               } : { margin: '80px 20px 0px 20px' }}
               >
               <Switch>
