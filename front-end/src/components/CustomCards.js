@@ -15,10 +15,10 @@ import theme from '../theme'
 import { CardOptions, EditIconButton } from './sub-components/Buttons'
 import {  useState } from 'react'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     card: {
         borderRadius: '50px',
-        backgroundColor: theme.palette.primary.dark,
+        backgroundColor: theme.palette.primary.main,
         minWidth: '200px'
     },
     text: {

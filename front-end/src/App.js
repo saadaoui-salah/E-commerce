@@ -1,7 +1,7 @@
 import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { makeStyles } from '@material-ui/core/styles'
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useReducer } from 'react'
 import { routers } from './routers/routersData'
 import clsx from 'clsx'
 import {
@@ -14,6 +14,7 @@ import {
   Toolbar,
   Typography,
   IconButton,
+  ThemeProvider,
 } from '@material-ui/core';
 import {
   BrowserRouter as Router,
@@ -22,6 +23,10 @@ import {
   Switch
 } from "react-router-dom";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { dark } from './reducers/state'
+import { DarkReducer } from './reducers/reducers'
+import { DarkContext } from './reducers/context'
+import { customTheme } from './themes';
 
 const drawerWidthOpen = 200
 /* const primary = "#131b2f" */
@@ -63,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold'
   },
   active: {
-    color: 'rgb(0 151 255) !important',
+    color: theme.palette.secondary.dark + '!important',
   },
   hover: {
     marginTop: '5px',
@@ -122,7 +127,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function App() {
+function Navbar() {
   const tablette = useMediaQuery('(max-width:900px)')
   const [open, setOpen] = useState(false)
   const [activeItem, setActiveItem] = useState(1)
@@ -132,12 +137,12 @@ function App() {
   const Item = ({ id, enName, icon, children }) => {
     return (
       <ListItem
-        onClick={() => setActiveItem(id)}
-        className={
-          clsx(style.hover, {
-            [style.active]: activeItem === id,
-            [style.openActive]: activeItem === id,
-          })}>
+      onClick={() => setActiveItem(id)}
+      className={
+        clsx(style.hover, {
+          [style.active]: activeItem === id,
+          [style.openActive]: activeItem === id,
+        })}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div className={style.navItem}>{icon}
             <Typography
@@ -166,7 +171,7 @@ function App() {
         }}>
         <Toolbar
           style={justifyCondition(open, 'flex-end', 'space-between')}
-        >
+          >
           {open ?
             null
             :
@@ -174,7 +179,7 @@ function App() {
               style={{ marginLeft: '-20px' }}
               className={style.hoverIcon}
               onClick={() => setOpen(true)}
-            >
+              >
               <Icon>
                 <MenuOutlinedIcon className={style.menuIcon} />
               </Icon>
@@ -198,12 +203,12 @@ function App() {
                 })
               }}
               anchor="left"
-            >
+              >
               {tablette ?
                 <IconButton
-                  style={{ marginTop: '10px' }}
-                  className={style.hoverIcon}
-                  onClick={() => setOpen(false)}
+                style={{ marginTop: '10px' }}
+                className={style.hoverIcon}
+                onClick={() => setOpen(false)}
                 >
                   <Icon>
                     <ChevronLeftIcon className={style.icon} />
@@ -221,7 +226,7 @@ function App() {
                         icon={item.icon(style, active)}
                         id={item.id}
                         enName={item.enName}
-                      />
+                        />
                     </Link>
                   )
                 })}
@@ -231,9 +236,9 @@ function App() {
           <div className={style.content} >
             <div className={style.container}
               style={open ? {
-                margin: `90px 20px 0px ${drawerWidthOpen + 20}px `
-              } : { margin: '90px 20px 0px 20px' }}
-            >
+                margin: `80px 20px 0px ${drawerWidthOpen + 20}px `
+              } : { margin: '80px 20px 0px 20px' }}
+              >
               <Switch>
                 {routers.pages.map(page => <Route key={page.id} exact={page.exact} path={page.path} component={page.component} />)}
               </Switch>
@@ -243,5 +248,14 @@ function App() {
       </Router>
     </>
   )
+}
+function App() {
+  const [state, dispatch] = useReducer(DarkReducer, dark)
+  return (
+    <ThemeProvider theme={customTheme}>
+      <DarkContext.Provider value={{ state: state, dispatch: dispatch }}>
+        <Navbar />
+      </DarkContext.Provider>
+    </ThemeProvider>)
 }
 export default App

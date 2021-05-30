@@ -16,8 +16,8 @@ import { edit, cancel } from '../../reducers/actoins'
 import { OptionsContext } from '../../reducers/context'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-
-
+import { useTheme, ThemeProvider } from '@material-ui/core/styles'
+import { customTheme } from '../../themes'
 const useStyle = makeStyles(() => ({
     optionBtn: {
         width: '30px',
@@ -52,6 +52,7 @@ export const SaveIconButton = ({ display }) => {
     const { state, dispatch } = useContext(OptionsContext)
     return (
         <IconButton
+
             onClick={() => dispatch(edit(false))}
             varialnt="outlined"
             style={{ backgroundColor: "#0063cc" }}
@@ -109,13 +110,20 @@ export const EditIconButton = ({ id }) => {
 
 export const DeleteIconButton = () => {
     const style = useStyle()
+    const theme = useTheme(customTheme)
     const { state, dispatch } = useContext(OptionsContext)
     return (
-        <IconButton onClick={() => dispatch(cancel())} style={{ backgroundColor: "#f50057" }} className={style.optionBtn} >
-            <Fade in={true} timeout={600}>
-                <DeleteIcon className={style.icon} />
-            </Fade>
-        </IconButton>
+        <ThemeProvider theme={theme}>
+            <IconButton
+                color="primary"
+                onClick={() => dispatch(cancel())}
+                className={style.optionBtn}
+            >
+                <Fade in={true} timeout={600}>
+                    <DeleteIcon className={style.icon} />
+                </Fade>
+            </IconButton>
+        </ThemeProvider>
     )
 }
 export const TableOptions = ({ id }) => {
@@ -149,7 +157,7 @@ export const TableOptions = ({ id }) => {
 }
 
 export const CardOptions = ({ id }) => {
-    const {state, dispatch} = useContext(OptionsContext)
+    const { state, dispatch } = useContext(OptionsContext)
     const displayEditOptions = state.id === id.id
     if (displayEditOptions) {
         return (

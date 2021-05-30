@@ -6,7 +6,8 @@ import {
     TableHead,
     Paper,
     TableContainer,
-    TablePagination
+    TablePagination,
+    Typography
 } from "@material-ui/core";
 import { useState } from 'react'
 import { SearchField } from './sub-components/CustomTextField'
@@ -75,7 +76,9 @@ const Body = (props) => {
                                         }
                                         return (
                                             <TableCell key={column.id} align="center">
-                                                {value}
+                                                <Typography>
+                                                    {value}
+                                                </Typography>
                                             </TableCell>
                                         )
                                     })}

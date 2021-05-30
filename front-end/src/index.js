@@ -1,7 +1,5 @@
-import { React, useContext, useReducer } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import { dark } from './reducers/state'
-import { DarkReducer } from './reducers/reducers'
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -12,10 +10,7 @@ import {
   HttpClient,
   from
 } from '@apollo/client'
-import { onError } from '@apollo/client/link/error'
-import { customTheme } from './themes'
-import { ThemeProvider } from '@material-ui/core/styles/'
-import { DarkContext } from './reducers/context';
+import {onError} from '@apollo/client/link/error'
 
 /* const errorLink = onError(({graphqlErrors, networkError})=>{
   if (graphqlErrors){
@@ -32,26 +27,14 @@ const link = from([
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  uri: "http://127.0.0.1:8000/graphql"
+  uri:"http://127.0.0.1:8000/graphql"
 })
 
-const DarkMood = ({ children }) => {
-  const [state, dispatch] = useReducer(DarkReducer, dark)
-  return (
-    <DarkContext value={{ state: state, dispatch: dispatch }}>
-      {children}
-    </DarkContext>
-  )
-}
 
 ReactDOM.render(
-  <ThemeProvider theme={customTheme}>
-    <DarkMood>
-      <React.StrictMode>
-        <ApolloProvider client={client}><App /></ApolloProvider>
-      </React.StrictMode>
-    </DarkMood>
-  </ThemeProvider>,
+  <React.StrictMode>
+      <ApolloProvider client={client}><App /></ApolloProvider>
+  </React.StrictMode>,
   document.getElementById('root')
 );
 
