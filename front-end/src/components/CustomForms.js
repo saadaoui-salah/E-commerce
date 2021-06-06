@@ -34,7 +34,7 @@ export function ProductFrom() {
             setParentCategories(response.data.getCategories)
         }
     }, [product.category, response.data])
-
+    
     function setCategory(e) {
         setProduct({
             ...product,
@@ -87,8 +87,8 @@ export function ProductFrom() {
                                 {paretnCategoriesState.map(category => {
                                     return (
                                         <MenuItem value={category} key={category.id}>{category.category}</MenuItem>
-                                    )
-                                })
+                                        )
+                                    })
                                 }
                             </TextField>
                         </Grid>
@@ -102,44 +102,49 @@ export function ProductFrom() {
                                 onChange={(e) => setProduct({ ...product, quantity: e.target.value })}
                                 label="Quantity"
                                 variant="outlined"
-                            />
+                                />
                         </Grid>
                         <Grid item>
                             <TextField
                                 onChange={(e) => setProduct({ ...product, bPrice: e.target.value })}
                                 label="Buy Price"
                                 variant="outlined"
-                            />
+                                />
                         </Grid>
                         <Grid item>
                             <TextField
                                 onChange={(e) => setProduct({ ...product, vPrice: e.target.value })}
                                 label="Vendre"
                                 variant="outlined"
-                            />
+                                />
                         </Grid>
                     </Grid>
                 </Grid>
             </Grid>
+
         </>
     )
 }
 
 export function GlobalCategoryForm() {
+    const [category, setCategory] = useState()
     return (
         <Grid container direction="row" justify="center" align="center" spacing={2}>
             <Grid item xs={12} md={6}>
                 <TextField
+                    onChange={(e) => setCategory(e.target.value)}
                     style={{ width: '100%' }}
                     label={"Sub Category"}
                     variant="outlined"
-                />
+                    />
             </Grid>
         </Grid>
     )
 }
 
 export function SubCategoryForm() {
+    const [category, setCategory] = useState()
+    const { error, loading, data } = useQuery(LOAD_CATEGORIES)
     return (
         <Grid container direction="row" justify="center" align="center" spacing={2}>
             <Grid item xs={12} md={6}>
@@ -148,17 +153,18 @@ export function SubCategoryForm() {
                     label="Category"
                     style={{ width: '100%' }}
                     variant="outlined"
-                >
-                    <MenuItem>like</MenuItem>
-                    <MenuItem>like</MenuItem>
-                    <MenuItem>like</MenuItem>
-                    <MenuItem>like</MenuItem>
-                    <MenuItem>like</MenuItem>
-                    <MenuItem>like</MenuItem>
+                >{ data ?
+                    data.getCategories.map(category =>{
+                        <MenuItem key={category.id}>{category.category}</MenuItem>
+
+                    }):
+                    "Nothing to select"
+                }
                 </TextField>
             </Grid>
             <Grid item xs={12} md={6}>
                 <TextField
+                    onChange={e => setCategory(e.target.value)}
                     style={{ width: '100%' }}
                     label={"Sub Category"}
                     variant="outlined"
