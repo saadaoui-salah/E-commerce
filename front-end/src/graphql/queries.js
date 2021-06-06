@@ -39,8 +39,8 @@ export const LOAD_CATEGORIES = gql`
 `
 
 export const LOAD_PARENT_CATEGORIES = gql`
-    query{
-        getCategories(parentCategoryId:1){
+    query ($id: ID!){
+        getCategories(parentCategoryId:$id){
             id,
             category
         }
