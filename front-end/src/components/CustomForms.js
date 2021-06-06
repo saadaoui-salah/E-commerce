@@ -21,14 +21,12 @@ export function ProductFrom() {
     })
     useEffect(() => {
         if (!loading && data !== undefined) {
-            data.getCategories.map(category => {
-                setCategories([...categoriesState, category])
-            })
+            setCategories(data.getCategories)
         }
     }, [data])
     const [getParentCategories, response] = useLazyQuery(LOAD_PARENT_CATEGORIES)
     useEffect(() => {
-        if (product.category !== "" ) {
+        if (product.category === "" ) {
             getParentCategories({variables: product.category.id})
             console.log(response.data)
         }
@@ -64,11 +62,8 @@ export function ProductFrom() {
                         <Grid item>
                             <TextField
                                 style={{ width: '100%' }}
-                                size="medium"
-                                variant="outlined"
-                                onChange={setCategory}
-                                value={product.category ? product.category.category : null}
                                 select
+                                variant="outlined"
                                 label="Select Category">
                                 {categoriesState.map(category => {
                                     return (
