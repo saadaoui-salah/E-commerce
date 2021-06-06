@@ -1,5 +1,6 @@
 import {
     Grid,
+    Button,
     MenuItem,
     TextField,
 } from '@material-ui/core'
@@ -11,6 +12,7 @@ export function ProductFrom() {
     const [categoriesState, setCategories] = useState([])
     const [paretnCategoriesState, setParentCategories] = useState([])
     const { error, loading, data } = useQuery(LOAD_CATEGORIES)
+    const [getParentCategories, response] = useLazyQuery(LOAD_PARENT_CATEGORIES)
     const [product, setProduct] = useState({
         name: '',
         parentCategory: '',
@@ -24,11 +26,9 @@ export function ProductFrom() {
             setCategories(data.getCategories)
         }
     }, [data])
-    const [getParentCategories, response] = useLazyQuery(LOAD_PARENT_CATEGORIES)
     useEffect(() => {
-        if (product.category === "" ) {
-            getParentCategories({variables: product.category.id})
-            console.log(response.data)
+        if (product.category !== "" ) {
+            getParentCategories({variables: {id: product.category.id}})
         }
         if (response.data !== undefined){
             setParentCategories(response.data.getCategories)
@@ -40,12 +40,14 @@ export function ProductFrom() {
             ...product,
             category: e.target.value
         })
+        console.log(product)
     }
     function setParentCategory(e) {
         setProduct({
             ...product,
-            category: e.target.value
+            parentCategory: e.target.value
         })
+        console.log(product)
     }
     return (
         <>
@@ -64,12 +66,13 @@ export function ProductFrom() {
                                 style={{ width: '100%' }}
                                 select
                                 variant="outlined"
-                                label="Select Category">
+                                onChange={setCategory}
+                                label="Category">
                                 {categoriesState.map(category => {
                                     return (
                                         <MenuItem value={category} key={category.id}>{category.category}</MenuItem>
-                                    )
-                                })
+                                        )
+                                    })
                                 }
                             </TextField>
                         </Grid>
@@ -77,7 +80,8 @@ export function ProductFrom() {
                             <TextField
                                 style={{ width: '100%' }}
                                 select
-                                label="Child Category"
+                                onChange={setParentCategory}
+                                label="Parent Category"
                                 variant="outlined"
                                 >
                                 {paretnCategoriesState.map(category => {
