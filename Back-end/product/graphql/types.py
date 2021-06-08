@@ -15,6 +15,7 @@ class ProductType(DjangoObjectType):
             'price_vender',
             'price_achat',
             'category',
+            'parent_category',
             'quantity',
             )
 

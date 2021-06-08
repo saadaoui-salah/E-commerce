@@ -16,17 +16,18 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    vendor        = models.ForeignKey('account.Vendor', on_delete=models.CASCADE)
-    category      = models.ForeignKey(Category,on_delete=models.CASCADE,related_name="product_parent_category",null=True,blank=True,limit_choices_to={"parent_category__isnull":False})
-    name          = models.CharField(max_length=100)
-    price_vender  = models.DecimalField(decimal_places=2,max_digits=10)
-    price_achat   = models.DecimalField(decimal_places=2,max_digits=10)
-    detail        = models.TextField(null=True,blank=True)
-    image         = models.ImageField(upload_to="products",null=True,blank=True)
-    quantity      = models.PositiveIntegerField()
-    date          = models.DateField(verbose_name="Date",auto_now_add=True)
-    rating        = models.IntegerField(default=0)
-    objects       = ProductManager()
+    vendor          = models.ForeignKey('account.Vendor', on_delete=models.CASCADE)
+    parent_category = models.ForeignKey(Category,on_delete=models.CASCADE,related_name="product_parent_category",null=True,blank=True,limit_choices_to={"parent_category__isnull":True})
+    category        = models.ForeignKey(Category,on_delete=models.CASCADE,related_name="product_category",null=True,blank=True,limit_choices_to={"parent_category__isnull":False})
+    name            = models.CharField(max_length=100)
+    price_vender    = models.DecimalField(decimal_places=2,max_digits=10)
+    price_achat     = models.DecimalField(decimal_places=2,max_digits=10)
+    detail          = models.TextField(null=True,blank=True)
+    image           = models.ImageField(upload_to="products",null=True,blank=True)
+    quantity        = models.PositiveIntegerField()
+    date            = models.DateField(verbose_name="Date",auto_now_add=True)
+    rating          = models.IntegerField(default=0)
+    objects         = ProductManager()
     # models methods
     def __str__(self):
         return self.name

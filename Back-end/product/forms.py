@@ -6,12 +6,12 @@ class ProductForm(forms.ModelForm):
         model  = Product
         fields = [
             'vendor',
+            'parent_category',
             'category',
             'name',
             'price_vender',
             'price_achat',
             'detail',
-            'image',
             'quantity'
         ]
 
