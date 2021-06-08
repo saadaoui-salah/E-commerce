@@ -1,12 +1,8 @@
 import Table from '../../components/Table'
 import { AddButton, TableOptions, DeleteButton } from '../../components/sub-components/Buttons'
 import { ProductFrom } from '../../components/CustomForms'
-import { ProductContext } from '../../reducers/context'
-import { productReducer } from '../../reducers/reducers'
-import { productsState } from '../../reducers/state'
-import { useEffect, useMemo, useReducer } from 'react'
+import { useEffect, useState } from 'react'
 import { useQuery, useLazyQuery } from '@apollo/client'
-import { addProduct } from '../../reducers/actoins'
 import { LOAD_PRODUCTS } from '../../graphql/queries'
 
 const columns = ["Image", "Product", "Category", "Quantity", "Price", "Benifits"];
@@ -19,18 +15,16 @@ function createData(image, product, category, quantity, bPrice, vPrice) {
 
 
 export default function Products() {
-    const [productState, productDispatch] = useReducer(productReducer, productsState)
+    const [products, setProducts] = useState([])
     const options_ = { name: "Options", component: (id) => <TableOptions id={id} /> }
     const { error, laoding, data } = useQuery(LOAD_PRODUCTS)
     useEffect(() => {
-        if (!laoding && data !== undefined ) {
-            data.getProducts.map(product => {
-                productDispatch(addProduct(product))
-            })
+        if (!laoding && data !== undefined) {
+            setProducts(data.getProducts)
         }
-    }, [laoding])
-    let rows = []
-    productState.map(product => {
+    }, [data])
+    var rows = []
+    products.map(product => {
         rows = [...rows, createData(
             product.image,
             product.name,
@@ -41,11 +35,9 @@ export default function Products() {
         )]
     })
     return (
-        <ProductContext.Provider value={{ state: productState, dispatch: productDispatch }}>
-            <Table columns={columns} rows={rows} options={options_}>
-                <AddButton value="Product" content={<ProductFrom />} title="Create New Product" />
-                <DeleteButton content="Are you sure" title="Delete Product" />
-            </Table>
-        </ProductContext.Provider >
+        <Table columns={columns} rows={rows} options={options_}>
+            <AddButton value="Product" content={<ProductFrom />} title="Create New Product" />
+            <DeleteButton content="Are you sure" title="Delete Product" />
+        </Table>
     )
 }
