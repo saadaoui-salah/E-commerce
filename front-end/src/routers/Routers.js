@@ -13,13 +13,13 @@ const useStyles = makeStyles(() => ({
         color: "#888",
         marginLeft: '5px',
         '&:hover': {
-            transition: '0.5s',
-            color: "#202020"
+            transition: '0.3s',
+            color: "#fff"
         }
     },
     slash: {
         marginLeft:'5px',
-        color: '#111',
+        color: '#888',
         fontWeight: 'bold'
     }
 }))
