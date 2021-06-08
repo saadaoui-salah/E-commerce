@@ -8,6 +8,7 @@ import {
   Avatar,
   ListItem,
   List,
+  Switch as MuiSwitch, 
   Drawer,
   AppBar,
   Slide,
@@ -186,7 +187,6 @@ function Navbar() {
               </Icon>
             </IconButton>
           }
-          <Avatar style={{ marginRight: '-10px' }} />
         </Toolbar>
       </AppBar>
       <Router>
@@ -211,9 +211,9 @@ function Navbar() {
                 >
                   {tablette ?
                     <IconButton
-                      style={{ marginTop: '10px' }}
-                      className={style.hoverIcon}
-                      onClick={() => setOpen(false)}
+                    style={{ marginTop: '10px' }}
+                    className={style.hoverIcon}
+                    onClick={() => setOpen(false)}
                     >
                       <Icon>
                         <ChevronLeftIcon className={style.icon} />
@@ -221,6 +221,9 @@ function Navbar() {
                     </IconButton>
                     : null
                   }
+                  <Avatar style={{ marginTop: '20px', width:'70px', height:'70px' }} />
+                  <Typography style={{color:"#fff", marginTop:"5px"}} variant="h6">Salah Saadaoui</Typography>
+                  <MuiSwitch/>
                   <List
                     className={style.list}
                     style={tablette ? {} : { marginTop: '45px' }}
