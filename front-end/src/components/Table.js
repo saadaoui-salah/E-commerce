@@ -23,7 +23,7 @@ const Header = ({ columns }) => {
                         key={index}
                         align="center"
                     >
-                        {column}
+                        <Typography style={{color: "#fff"}}>{column}</Typography>
                     </TableCell>
                 ))}
             </TableRow>
@@ -76,7 +76,7 @@ const Body = (props) => {
                                         }
                                         return (
                                             <TableCell key={column.id} align="center">
-                                                <Typography>
+                                                <Typography style={{color: "#fff"}}>
                                                     {value}
                                                 </Typography>
                                             </TableCell>
@@ -132,6 +132,7 @@ export default function CustomTable({ rows, columns, options, children, dropDown
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 15, 20, 25, 30]}
                     component="div"
+                    style={{color:"#fff"}}
                     count={rows ? rows.length : 0}
                     rowsPerPage={rowsPerPage}
                     page={page}
