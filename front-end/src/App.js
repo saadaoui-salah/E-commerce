@@ -8,7 +8,7 @@ import {
   Avatar,
   ListItem,
   List,
-  Switch as MuiSwitch, 
+  Switch as MuiSwitch,
   Drawer,
   AppBar,
   Slide,
@@ -107,7 +107,7 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     height: '100vh',
     backgroundColor: theme.palette.primary.main,
-    zIndex: '100',
+    zIndex: 1,
     alignItems: 'center',
   },
   drawerPaperClose: {
@@ -192,15 +192,15 @@ function Navbar() {
       <Router>
         <div className={style.component} style={justifyCondition(open, 'flex-end', 'center')}>
           <div className={style.side}>
-            <Slide direction="right" in={open} timeout={3000}>
+            <Slide direction="right" in={open} timeout={300}>
               <div>
                 <Drawer
                   color="primary"
                   elevation={0}
                   variant={tablette ? "temporary" : "persistent"}
                   onClose={() => setOpen(false)}
-                  open={open}
-                  style={{ duration: '1.3s !important' }}
+                  open={true}
+                  style={{ duration: '0.3s !important' }}
                   classes={{
                     paper: clsx(style.drawerPaper, {
                       [style.drawerPaperOpen]: open,
@@ -209,21 +209,18 @@ function Navbar() {
                   }}
                   anchor="left"
                 >
-                  {tablette ?
-                    <IconButton
+                  <IconButton
                     style={{ marginTop: '10px' }}
                     className={style.hoverIcon}
                     onClick={() => setOpen(false)}
-                    >
-                      <Icon>
-                        <ChevronLeftIcon className={style.icon} />
-                      </Icon>
-                    </IconButton>
-                    : null
-                  }
-                  <Avatar style={{ marginTop: '20px', width:'70px', height:'70px' }} />
-                  <Typography style={{color:"#fff", marginTop:"5px"}} variant="h6">Salah Saadaoui</Typography>
-                  <MuiSwitch/>
+                  >
+                    <Icon>
+                      <ChevronLeftIcon className={style.icon} />
+                    </Icon>
+                  </IconButton>
+                  <Avatar style={{ marginTop: '20px', width: '70px', height: '70px' }} />
+                  <Typography style={{ color: "#fff", marginTop: "5px" }} variant="h6">Salah Saadaoui</Typography>
+                  <MuiSwitch />
                   <List
                     className={style.list}
                     style={tablette ? {} : { marginTop: '45px' }}
