@@ -9,7 +9,7 @@ import {
     TablePagination,
     Typography
 } from "@material-ui/core";
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { SearchField } from './sub-components/CustomTextField'
 import { ArrowIconButton } from './sub-components/Buttons'
 
@@ -97,6 +97,17 @@ const Body = (props) => {
 export default function CustomTable({ rows, columns, options, children, dropDown }) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
+    const searchInput = useRef()
+    useEffect(()=>{
+        searchInput.current.focus()
+    },[searchInput.value])
+    function search(){
+        console.log(searchInput.current.value)
+        if ( searchInput.current.value !== ""){
+            return rows.filter(row => row === searchInput.current.value)
+        }
+        return rows
+    }
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -104,6 +115,7 @@ export default function CustomTable({ rows, columns, options, children, dropDown
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
+
     return (
         <>
             <Paper style={{backgroundColor:"#101b38", textColor:"#fff"}}>
@@ -112,7 +124,7 @@ export default function CustomTable({ rows, columns, options, children, dropDown
                         {children}
                     </div>
                     <div style={{ width: '280px', margin: '10px' }}>
-                        <SearchField />
+                        <SearchField onChange={search} textRef={searchInput} />
                     </div>
                 </div>
                 <TableContainer>

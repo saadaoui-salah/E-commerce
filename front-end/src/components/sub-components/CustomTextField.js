@@ -24,7 +24,7 @@ export const SelectField = (props) => {
 }
 
 
-export const SearchField = () => {
+export const SearchField = ({textRef, onChange}) => {
     return (
         <>
             <TextField
@@ -33,6 +33,8 @@ export const SearchField = () => {
                     backgroundColor: '#fff',
                     borderRadius: '5px',
                 }}
+                onChange={onChange}
+                inputRef={textRef}
                 size="small"
                 placeholder="Search"
                 variant="outlined"
