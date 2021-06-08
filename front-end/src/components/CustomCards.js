@@ -70,15 +70,15 @@ export function CollectionCard({ id }) {
             <Card
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
+                onClick={() => setChecked(!checked)}
                 id="card"
                 className={style.collectionCard}
-                style={checked ? { backgroundColor: '#000', transition: '0.2s', cursor: "pointer" } : { cursor: "pointer" }}
+                style={checked ? { backgroundColor: '#2d3856', transition: '0.2s', cursor: "pointer" } : { cursor: "pointer" }}
             >
                 <Grid container justify="space-between" alignItems="center" >
                     <Grid item >
                         <CardHeader
                             className={style.MuiCardHeaderSubheader}
-                            onClick={() => setChecked(!checked)}
                             style={{color:"#fff"}}
                             title="Collection"
                             subheader="22 products"
@@ -87,15 +87,13 @@ export function CollectionCard({ id }) {
                     {hover ?
                         <Slide in={hover} direction="left" >
                             <Grid item >
-                                <CardOptions id={id} />
+                                <CardOptions onClick={()=>setChecked(!checked)} id={id} />
                             </Grid>
                         </Slide>
                         : null
                     }
                 </Grid>
-                <CardContent
-                    onClick={() => setChecked(!checked)}
-                >
+                <CardContent>
                     <List >
                         <ListItemText >
                             <div style={{ display: 'flex', alignItems: 'center' }}>
