@@ -13,9 +13,16 @@ import {
 } from '@material-ui/core'
 import theme from '../theme'
 import { CardOptions, EditIconButton } from './sub-components/Buttons'
-import {  useState } from 'react'
+import { useState } from 'react'
 
 const useStyles = makeStyles((theme) => ({
+    collectionCard:{
+        backgroundColor: theme.palette.primary.main,
+
+    },
+    MuiCardHeaderSubheader:{
+        color:"#fff"
+    },
     card: {
         borderRadius: '50px',
         backgroundColor: theme.palette.primary.main,
@@ -34,10 +41,9 @@ const useStyles = makeStyles((theme) => ({
 
 
 export function HomeCard(props) {
-    const style = useStyles
-        ()
+    const style = useStyles()
     return (
-
+        
         <Card elevation={0} className={style.card}>
             <Grid alignItems="center" direction='row' justify='center' container spacing={4}>
                 <Grid item md={3} xs={3} >
@@ -51,11 +57,12 @@ export function HomeCard(props) {
             </Grid>
         </Card>
 
-    )
+)
 }
 
 
-export function CollectionCard({id}) {
+export function CollectionCard({ id }) {
+    const style = useStyles()
     const [checked, setChecked] = useState(false)
     const [hover, setHover] = useState(false)
     return (
@@ -64,23 +71,26 @@ export function CollectionCard({id}) {
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
                 id="card"
-                style={checked ? { backgroundColor: '#f1f1f1', transition: '0.2s', cursor: "pointer" } : {cursor: "pointer"}}
+                className={style.collectionCard}
+                style={checked ? { backgroundColor: '#000', transition: '0.2s', cursor: "pointer" } : { cursor: "pointer" }}
             >
                 <Grid container justify="space-between" alignItems="center" >
                     <Grid item >
                         <CardHeader
+                            className={style.MuiCardHeaderSubheader}
                             onClick={() => setChecked(!checked)}
+                            style={{color:"#fff"}}
                             title="Collection"
                             subheader="22 products"
                         />
                     </Grid>
-                    {hover?
+                    {hover ?
                         <Slide in={hover} direction="left" >
                             <Grid item >
                                 <CardOptions id={id} />
                             </Grid>
                         </Slide>
-                        :null
+                        : null
                     }
                 </Grid>
                 <CardContent
@@ -90,24 +100,23 @@ export function CollectionCard({id}) {
                         <ListItemText >
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <Avatar />
-                                <h3 style={{ marginLeft: '10px' }}>chose</h3>
+                                <h3 style={{ marginLeft: '10px', color:"#fff" }}>chose</h3>
                             </div>
                         </ListItemText>
-
                         <ListItemText >
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <Avatar />
-                                <h3 style={{ marginLeft: '10px' }}>chose</h3>
+                                <h3 style={{ marginLeft: '10px', color:"#fff" }}>chose</h3>
                             </div>
                         </ListItemText>
-
                         <ListItemText >
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <Avatar />
-                                <h3 style={{ marginLeft: '10px' }}>chose</h3>
+                                <h3 style={{ marginLeft: '10px', color:"#fff" }}>chose</h3>
                             </div>
                         </ListItemText>
 
+ 
                     </List>
                 </CardContent>
             </Card>

@@ -5,8 +5,9 @@ import {
     TextField,
 } from '@material-ui/core'
 import { useEffect, useState } from 'react'
-import { useQuery, useLazyQuery} from '@apollo/client'
+import { useQuery, useLazyQuery, useMutation } from '@apollo/client'
 import { LOAD_CATEGORIES, LOAD_PARENT_CATEGORIES } from '../graphql/queries'
+import { ADD_PRODUCT } from '../graphql/mutations'
 
 export function ProductFrom() {
     const [categoriesState, setCategories] = useState([])
@@ -14,13 +15,18 @@ export function ProductFrom() {
     const { error, loading, data } = useQuery(LOAD_CATEGORIES)
     const [getParentCategories, response] = useLazyQuery(LOAD_PARENT_CATEGORIES)
     const [product, setProduct] = useState({
+        id:61,
+        vendor:5,
         name: '',
         parentCategory: '',
         category: '',
         quantity: '',
-        vPrice: '',
-        bPrice: '',
+        detail: '',
+        priceVender: '',
+        priceAchat: '',
     })
+    const [addProduct, { newData, Error }] = useMutation(ADD_PRODUCT)
+    console.log(newData)
     useEffect(() => {
         if (!loading && data !== undefined) {
             setCategories(data.getCategories)
@@ -67,7 +73,7 @@ export function ProductFrom() {
                                 select
                                 variant="outlined"
                                 onChange={setCategory}
-                                label="Category">
+                                label="Parent Category">
                                 {categoriesState.map(category => {
                                     return (
                                         <MenuItem value={category} key={category.id}>{category.category}</MenuItem>
@@ -81,7 +87,7 @@ export function ProductFrom() {
                                 style={{ width: '100%' }}
                                 select
                                 onChange={setParentCategory}
-                                label="Parent Category"
+                                label="Category"
                                 variant="outlined"
                                 >
                                 {paretnCategoriesState.map(category => {
@@ -106,14 +112,14 @@ export function ProductFrom() {
                         </Grid>
                         <Grid item>
                             <TextField
-                                onChange={(e) => setProduct({ ...product, bPrice: e.target.value })}
+                                onChange={(e) => setProduct({ ...product, priceAchat: e.target.value })}
                                 label="Buy Price"
                                 variant="outlined"
                                 />
                         </Grid>
                         <Grid item>
                             <TextField
-                                onChange={(e) => setProduct({ ...product, vPrice: e.target.value })}
+                                onChange={(e) => setProduct({ ...product, priceVender: e.target.value })}
                                 label="Vendre"
                                 variant="outlined"
                                 />
@@ -121,7 +127,7 @@ export function ProductFrom() {
                     </Grid>
                 </Grid>
             </Grid>
-
+            <Button onClick={addProduct}>ADD</Button>
         </>
     )
 }
