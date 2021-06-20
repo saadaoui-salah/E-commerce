@@ -4,6 +4,7 @@ import { ProductFrom } from '../../components/CustomForms'
 import { useEffect, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { LOAD_PRODUCTS } from '../../graphql/queries'
+import { Typography, Container } from '@material-ui/core'
 
 const columns = ["Image", "Product", "Category", "Quantity", "Price", "Benifits"];
 function createData(image, product, category, parentCategory, quantity, bPrice, vPrice) {
@@ -36,9 +37,14 @@ export default function Products() {
         )]
     })
     return (
-        <Table columns={columns} rows={rows} options={options_}>
-            <AddButton value="Product" content={<ProductFrom />} title="Create New Product" />
-            <DeleteButton content="Are you sure" title="Delete Product" />
-        </Table>
+        <Container >
+            <Typography variant="h4" style={{ color: "#fff", marginBottom: "30px", paddingTop:"20px" }}>Manage Your Products</Typography>
+            <div style={{ display:"flex", justifyContent:"space-around", marginBottom: "10px" }}>
+                <AddButton value="Product" content={<ProductFrom />} title="Create New Product" style={{marginRight:"100px"}} />
+                <DeleteButton content="Are you sure" title="Delete Product" />
+            </div>
+            <Table columns={columns} style={{width:"100%"}} rows={rows} options={options_}>
+            </Table>
+        </Container>
     )
 }
