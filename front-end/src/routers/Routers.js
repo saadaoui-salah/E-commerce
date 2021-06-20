@@ -2,6 +2,7 @@ import {
     Switch,
     Route,
     Link,
+    useLocation
 } from 'react-router-dom'
 import { Grid, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -23,13 +24,28 @@ const useStyles = makeStyles(() => ({
         fontWeight: 'bold'
     },
     active: {
+        textDecoration: 'none',
+        fontWeight: 'bold',
+        marginLeft: '5px',
         color: "#0af"
     }
 
 }))
 
+export const activatePath = (location, path, style) => {
+    path = path.split("/")[1]
+    console.log(`${location} ==== ${path}`)
+    if (path === location ){
+        console.log("PAth")
+        return style.active
+    }
+    return style.link
+}
+
 export default function Routers({ link, data }) {
     const style = useStyles()
+    const location = useLocation()
+    const locationPath = location.pathname.split("/")[2]
     return (
         <Grid>
             <Paper style={{ backgroundColor: "#4c5364", marginBottom: "10px" }}>
@@ -42,7 +58,7 @@ export default function Routers({ link, data }) {
                                     key={item.id}
                                     to={`/${link}${item.to}`}>
                                     <div style={{ display: 'flex' }}>
-                                        <p className={style.link}>{item.enName}</p>
+                                        <p className={activatePath(locationPath, item.to, style)}>{item.enName}</p>
                                         <p className={style.slash}>/ </p>
                                     </div>
                                 </Link>
@@ -52,7 +68,7 @@ export default function Routers({ link, data }) {
                     }
                 </Grid>
             </Paper>
-            <Paper style={{ backgroundColor: "grey" }}>
+            <Paper style={{ backgroundColor: "#4c5364", height: "80vh" }}>
                 <Switch>
                     {data.pages.map(page => {
                         return (
