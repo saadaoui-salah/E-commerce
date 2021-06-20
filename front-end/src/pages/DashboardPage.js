@@ -1,5 +1,5 @@
 import { HomeCard } from '../components/CustomCards'
-import { Grid } from '@material-ui/core'
+import { Divider, Grid, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import PeopleIcon from '@material-ui/icons/People';
@@ -12,7 +12,7 @@ import TabletIcon from '@material-ui/icons/Tablet';
 import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 import LineChart from '../components/LineChart'
 import { useQuery } from '@apollo/client'
-import {HOME_COUNTERS} from '../graphql/queries'
+import { HOME_COUNTERS } from '../graphql/queries'
 
 
 const useStyles = makeStyles(() => ({
@@ -55,38 +55,38 @@ function DashboardPage() {
             <Grid alignItems="center" direction='row' justify='center' container spacing={2}>
                 <Grid item sm={4} md={3} xs={6}>
                     {loading ? null :
-                     <HomeCard 
-                        name="Products"
-                        number={data.productsCounter} 
-                        bgColor='#0af' 
-                        icon={<LocalMallIcon className={style.icon} />} />
+                        <HomeCard
+                            name="Products"
+                            number={data.productsCounter}
+                            bgColor='#0af'
+                            icon={<LocalMallIcon className={style.icon} />} />
                     }
                 </Grid>
                 <Grid item sm={4} md={3} xs={6}>
                     {loading ? null :
-                     <HomeCard 
-                        name="consumers"
-                        number={data.consumersCounter} 
-                        bgColor='red' 
-                        icon={<PeopleIcon className={style.icon} />} />
+                        <HomeCard
+                            name="consumers"
+                            number={data.consumersCounter}
+                            bgColor='red'
+                            icon={<PeopleIcon className={style.icon} />} />
                     }
                 </Grid>
                 <Grid item sm={4} md={3} xs={6}>
                     {loading ? null :
-                     <HomeCard 
-                        name="Orders"
-                        number={data.ordersCounter} 
-                        bgColor='#ffc23e' 
-                        icon={<ShoppingCartIcon className={style.icon} />} />
+                        <HomeCard
+                            name="Orders"
+                            number={data.ordersCounter}
+                            bgColor='#ffc23e'
+                            icon={<ShoppingCartIcon className={style.icon} />} />
                     }
                 </Grid>
                 <Grid item sm={4} md={3} xs={6}>
                     {loading ? null :
-                     <HomeCard 
-                        name="Benifits"
-                        number={data.benifitsCounter} 
-                        bgColor='#36ff36b8' 
-                        icon={<AttachMoneyIcon className={style.icon} />} />
+                        <HomeCard
+                            name="Benifits"
+                            number={data.benifitsCounter}
+                            bgColor='#36ff36b8'
+                            icon={<AttachMoneyIcon className={style.icon} />} />
                     }
                 </Grid>
                 <Grid alignItems="center" direction='row' justify='center' container style={{ marginTop: '35px' }}>
@@ -97,7 +97,13 @@ function DashboardPage() {
                         <Table rows={rows} columns={columns} />
                     </Grid>
                     <Grid item sm={6} xs={12} md={6}>
-                        <LineChart/>
+                        <Paper style={{backgroundColor:"#4c5364" }}>
+                            <LineChart />
+                        </Paper>
+                        <Divider/>
+                        <Paper style={{backgroundColor:"#4c5364" }}>
+                            <LineChart />
+                        </Paper>
                     </Grid>
                 </Grid>
             </Grid>
