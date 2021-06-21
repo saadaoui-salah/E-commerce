@@ -29,16 +29,16 @@ export const HOME_COUNTERS = gql`
 
     }
 `
-export const LOAD_CATEGORIES = gql`
-    query{
-        getCategories{
-            id,
-            category
-        }
+export const LOAD_PARENT_CATEGORIES = gql`
+query{
+    getCategories{
+        id,
+        category
     }
+}
 `
 
-export const LOAD_PARENT_CATEGORIES = gql`
+export const LOAD_CATEGORIES = gql`
     query ($id: ID!){
         getCategories(parentCategoryId:$id){
             id,

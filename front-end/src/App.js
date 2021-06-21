@@ -5,24 +5,14 @@ import { useMemo, useState, useReducer } from 'react'
 import { routers } from './routers/routersData'
 import clsx from 'clsx'
 import {
-  Avatar,
-  ListItem,
-  List,
+  Avatar, ListItem, List,
   Switch as MuiSwitch,
-  Drawer,
-  AppBar,
-  Slide,
-  Icon,
-  Toolbar,
-  Typography,
-  IconButton,
-  ThemeProvider,
+  Drawer, AppBar, Slide, Icon,
+  Toolbar, Typography, IconButton, ThemeProvider,
 } from '@material-ui/core';
 import {
   BrowserRouter as Router,
-  Link,
-  Route,
-  Switch
+  Link, Route, Switch, 
 } from "react-router-dom";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { dark } from './reducers/state'
@@ -111,12 +101,10 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   drawerPaperClose: {
-    transition: '0.3s !important',
     width: '0px',
   },
   drawerPaperOpen: {
     zIndex: 1,
-    transition: '0.3s !important',
     width: `${drawerWidthOpen}px`
   },
   leftIcon: {
@@ -125,8 +113,6 @@ const useStyles = makeStyles((theme) => ({
     height: '35px',
   },
 }))
-
-
 
 
 function Navbar() {
@@ -159,7 +145,6 @@ function Navbar() {
       </ListItem>
     )
   }
-
   return (
     <>
       <AppBar
@@ -197,9 +182,8 @@ function Navbar() {
                 <Drawer
                   color="primary"
                   elevation={0}
-                  variant={tablette ? "temporary" : "persistent"}
                   onClose={() => setOpen(false)}
-                  open={true}
+                  open={open}
                   style={{ duration: '0.3s !important' }}
                   classes={{
                     paper: clsx(style.drawerPaper, {
