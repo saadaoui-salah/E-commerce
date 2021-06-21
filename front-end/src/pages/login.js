@@ -1,8 +1,25 @@
 import { Grid, TextField, Paper, Button } from "@material-ui/core"
+import { useForm } from "../hooks"
+import { useMutation } from "@apollo/client"
+import { LOGIN } from "../graphql/mutations"
+import { useEffect } from "react"
 
-
-
-export const Login = () => {
+export const Login = (props) => {
+    
+    const {values, onChange, onSubmit} = useForm(authenticate, {
+        email:"",
+        password:"",
+    })
+    const [login, {data, error}] = useMutation(LOGIN, {variables: values})
+    console.log(error)
+    function authenticate(){
+        login()
+    }
+    useEffect(()=>{
+        if (data && data.success){
+            props.history.push("/")
+        }
+    }, [data])
     return (
         <Grid container justify="center" align="center">
             <Paper
@@ -11,25 +28,32 @@ export const Login = () => {
                 <div
                     style={{ display: 'flex' }}
                 >
-                    <div>
+                    <form>
                         <h1 style={{color:'white'}}>Welcome !</h1>
                         <h3 style={{color:'white'}}>Sign In</h3>
                         <TextField
+                            onChange={e => onChange(e)}
                             variant="outlined"
+                            name="email"
+                            type="email"
                             label="Email"
-                        />
+                            />
                         <br />
                         <TextField
-                            
+                            onChange={e => onChange(e)}
+                            type="password"
                             variant="outlined"
+                            name="password"
                             label="Password"
                         />
                         <br />
                         <Button
+                            type="submit"
+                            onClick={(e) => onSubmit(e)}
                             variant="contained"
                             color="success.main"
                         >Login</Button>
-                    </div>
+                    </form>
                     <div></div>
                 </div>
             </Paper>
