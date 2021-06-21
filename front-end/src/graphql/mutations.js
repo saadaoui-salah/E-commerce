@@ -30,3 +30,18 @@ mutation addProduct(
     }
 }
 `
+
+export const LOGIN = gql`
+mutation tokenAuth(
+    $username: String!
+    $password: String!
+    ){
+        tokenAuth(
+            username: $username
+            password: $password
+            ){
+                success
+                token
+            }
+    }
+`
