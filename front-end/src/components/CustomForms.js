@@ -8,15 +8,14 @@ import { useEffect, useState } from 'react'
 import { useQuery, useLazyQuery, useMutation } from '@apollo/client'
 import { LOAD_CATEGORIES, LOAD_PARENT_CATEGORIES } from '../graphql/queries'
 import { ADD_PRODUCT } from '../graphql/mutations'
+import { useForm } from '../hooks'
 
 export function ProductFrom() {
     const [categoriesState, setCategories] = useState([])
-    const [paretnCategoriesState, setParentCategories] = useState([])
-    const { error, loading, data } = useQuery(LOAD_CATEGORIES)
-    const [getParentCategories, response] = useLazyQuery(LOAD_PARENT_CATEGORIES)
-    const [product, setProduct] = useState({
-        id:61,
-        vendor:5,
+    const [parentCategoriesState, setParentCategories] = useState([])
+    const { values, onChange, onSubmit } = useForm(createProduct, {
+        id: 61,
+        vendor: 5,
         name: '',
         parentCategory: '',
         category: '',
@@ -25,36 +24,30 @@ export function ProductFrom() {
         priceVender: '',
         priceAchat: '',
     })
-    const [addProduct, { newData, Error }] = useMutation(ADD_PRODUCT)
-    console.log(newData)
+    const { error, loading, data } = useQuery(LOAD_PARENT_CATEGORIES)
+    const [getCategories, response] = useLazyQuery(LOAD_CATEGORIES)
+
+    const [addProduct, { newData, Error }] = useMutation(ADD_PRODUCT, { variales: values })
+
+    function createProduct() {
+        addProduct()
+    }
     useEffect(() => {
         if (!loading && data !== undefined) {
-            setCategories(data.getCategories)
+            setParentCategories(data.getCategories)
         }
     }, [data])
     useEffect(() => {
-        if (product.category !== "" ) {
-            getParentCategories({variables: {id: product.category.id}})
+        console.log(values)
+        if (values.parentCategory !== []) {
+            getCategories({ variables: { id: values.parentCategory[0].id } })
         }
-        if (response.data !== undefined){
-            setParentCategories(response.data.getCategories)
+        if (response.data !== undefined) {
+            setCategories(response.data.getCategories)
+            console.log(response.error)
         }
-    }, [product.category, response.data])
-    
-    function setCategory(e) {
-        setProduct({
-            ...product,
-            category: e.target.value
-        })
-        console.log(product)
-    }
-    function setParentCategory(e) {
-        setProduct({
-            ...product,
-            parentCategory: e.target.value
-        })
-        console.log(product)
-    }
+    }, [values.parentCategory, response.data])
+    console.log(response.data)
     return (
         <>
             <Grid container spacing={2} direction="row">
@@ -62,23 +55,25 @@ export function ProductFrom() {
                     <Grid container spacing={2} justify="center" align="center" direction="column">
                         <Grid item>
                             <TextField
-                                onChange={(e) => setProduct({ ...product, name: e.target.value })}
+                                onChange={(e) => onChange(e)}
                                 label="Name"
+                                name="name"
                                 variant="outlined"
                             />
                         </Grid>
                         <Grid item>
                             <TextField
+                                onChange={(e) => onChange(e)}
                                 style={{ width: '100%' }}
                                 select
+                                name="parentCategory"
                                 variant="outlined"
-                                onChange={setCategory}
                                 label="Parent Category">
-                                {categoriesState.map(category => {
+                                {parentCategoriesState.map(category => {
                                     return (
                                         <MenuItem value={category} key={category.id}>{category.category}</MenuItem>
-                                        )
-                                    })
+                                    )
+                                })
                                 }
                             </TextField>
                         </Grid>
@@ -86,48 +81,54 @@ export function ProductFrom() {
                             <TextField
                                 style={{ width: '100%' }}
                                 select
-                                onChange={setParentCategory}
+                                name="category"
+                                onChange={(e) => onChange(e)}
                                 label="Category"
                                 variant="outlined"
-                                >
-                                {paretnCategoriesState.map(category => {
+                            >
+                                {categoriesState.map(category => {
                                     return (
                                         <MenuItem value={category} key={category.id}>{category.category}</MenuItem>
-                                        )
-                                    })
+                                    )
+                                })
                                 }
                             </TextField>
                         </Grid>
                     </Grid>
                 </Grid>
-
                 <Grid item>
                     <Grid container spacing={2} justify="center" align="center" direction="column">
                         <Grid item>
                             <TextField
-                                onChange={(e) => setProduct({ ...product, quantity: e.target.value })}
+                                onChange={(e) => onChange(e)}
                                 label="Quantity"
+                                name="quantity"
+                                type="number"
                                 variant="outlined"
-                                />
+                            />
                         </Grid>
                         <Grid item>
                             <TextField
-                                onChange={(e) => setProduct({ ...product, priceAchat: e.target.value })}
+                                onChange={(e) => onChange(e)}
                                 label="Buy Price"
+                                name="priceAchat"
+                                type="number"
                                 variant="outlined"
-                                />
+                            />
                         </Grid>
                         <Grid item>
                             <TextField
-                                onChange={(e) => setProduct({ ...product, priceVender: e.target.value })}
+                                onChange={(e) => onChange(e)}
+                                name="priceVendre"
                                 label="Vendre"
+                                type="number"
                                 variant="outlined"
-                                />
+                            />
                         </Grid>
                     </Grid>
                 </Grid>
             </Grid>
-            <Button onClick={addProduct}>ADD</Button>
+            <Button onClick={(e) => onSubmit(e)}>ADD</Button>
         </>
     )
 }
@@ -142,7 +143,7 @@ export function GlobalCategoryForm() {
                     style={{ width: '100%' }}
                     label={"Sub Category"}
                     variant="outlined"
-                    />
+                />
             </Grid>
         </Grid>
     )
@@ -159,13 +160,13 @@ export function SubCategoryForm() {
                     label="Category"
                     style={{ width: '100%' }}
                     variant="outlined"
-                >{ data ?
-                    data.getCategories.map(category =>{
+                >{data ?
+                    data.getCategories.map(category => {
                         <MenuItem key={category.id}>{category.category}</MenuItem>
 
-                    }):
+                    }) :
                     "Nothing to select"
-                }
+                    }
                 </TextField>
             </Grid>
             <Grid item xs={12} md={6}>
