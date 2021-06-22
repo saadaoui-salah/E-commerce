@@ -11,20 +11,17 @@ import {
     Avatar,
     Slide,
 } from '@material-ui/core'
-import theme from '../theme'
 import { CardOptions, EditIconButton } from './sub-components/Buttons'
 import { useState } from 'react'
 
 const useStyles = makeStyles((theme) => ({
     collectionCard:{
-        backgroundColor: theme.palette.primary.main,
-
+        backgroundColor: theme.palette.primary.main
     },
     MuiCardHeaderSubheader:{
         color:"#fff"
     },
     card: {
-        borderRadius: '50px',
         backgroundColor: theme.palette.primary.main,
         minWidth: '200px'
     },
@@ -43,9 +40,8 @@ const useStyles = makeStyles((theme) => ({
 export function HomeCard(props) {
     const style = useStyles()
     return (
-        
         <Card elevation={0} className={style.card}>
-            <Grid alignItems="center" direction='row' justify='center' container spacing={4}>
+            <Grid alignItems="center" direction='row' justify='center' container>
                 <Grid item md={3} xs={3} >
                     <div className={style.icon} style={{ backgroundColor: props.bgColor }}>{props.icon}</div>
                 </Grid>
