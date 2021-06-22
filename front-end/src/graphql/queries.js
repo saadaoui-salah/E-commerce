@@ -38,6 +38,14 @@ query{
 }
 `
 
+export const ME = gql`
+query{
+    me{
+        id
+    }
+}
+`
+
 export const LOAD_CATEGORIES = gql`
     query ($id: ID!){
         getCategories(parentCategoryId:$id){
