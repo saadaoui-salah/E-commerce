@@ -1,8 +1,10 @@
 import { useContext, useState } from 'react'
-import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import SaveAltOutlinedIcon from '@material-ui/icons/SaveAltOutlined';
+import DeleteIcon from '@material-ui/icons/Delete';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import {
     IconButton,
     Button,
@@ -14,8 +16,6 @@ import { Grow } from '@material-ui/core'
 import CustomDialog from './Dialog'
 import { edit, cancel } from '../../reducers/actoins'
 import { OptionsContext } from '../../reducers/context'
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { useTheme, ThemeProvider } from '@material-ui/core/styles'
 import { customTheme } from '../../themes'
 const useStyle = makeStyles(() => ({
@@ -30,18 +30,21 @@ const useStyle = makeStyles(() => ({
         height: '20px'
     },
     addBtn: {
-        backgroundColor: '#0af',
-        color: "#fff",
+        backgroundColor: "#0062a77a",
+        marginRight:"10px",
+        color: "#0af",
+        fontWeight:"bold",
         '&:hover': {
             transition: '0.5s',
             backgroundColor: '#0260a7'
         }
     },
     deleteBtn: {
-        backgroundColor: '#f50057',
-        color: '#fff',
+        fontWeight:"bold",
+        backgroundColor: '#96365891',
+        color: '#ff4487',
         '&:hover': {
-            backgroundColor: '#c50046'
+            backgroundColor: '#9a2b53e3'
         }
     }
 
@@ -187,6 +190,7 @@ export const AddButton = ({ value, content, title }) => {
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
+    console.log(`open ${open}`)
     return (
         <>
             <Button
@@ -195,14 +199,16 @@ export const AddButton = ({ value, content, title }) => {
             >
                 New {value} +
             </Button>
-            <CustomDialog
-                open={open}
-                handleClose={handleClose}
-                title={title}
-                content={content}
-                agree="Save"
-                disagree="Cancel"
-            />
+            <Fade in={open} timeout={10000}>
+                <CustomDialog
+                    open={open}
+                    handleClose={handleClose}
+                    title={title}
+                    content={content}
+                    agree="Save"
+                    disagree="Cancel"
+                />
+            </Fade>
         </>
     )
 }
@@ -214,7 +220,12 @@ export const DeleteButton = ({ title, content }) => {
     const handleClose = () => setOpen(false)
     return (
         <>
-            <Button className={style.deleteBtn} onClick={handleOpen} >delete</Button>
+            <Button
+            className={style.deleteBtn} 
+            onClick={handleOpen} 
+            >
+                delete <DeleteIcon />
+            </Button>
             <CustomDialog
                 open={open}
                 handleClose={handleClose}
