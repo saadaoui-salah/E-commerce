@@ -7,16 +7,18 @@ import { useEffect } from "react"
 export const Login = (props) => {
     
     const {values, onChange, onSubmit} = useForm(authenticate, {
-        email:"",
+        username:"",
         password:"",
     })
-    const [login, {data, error}] = useMutation(LOGIN, {variables: values})
+    const [login, {loading, data, error}] = useMutation(LOGIN, {variables: values})
     console.log(error)
     function authenticate(){
         login()
     }
     useEffect(()=>{
-        if (data && data.success){
+        console.log(data)
+        if ( data && data.tokenAuth.success){
+            
             props.history.push("/")
         }
     }, [data])
