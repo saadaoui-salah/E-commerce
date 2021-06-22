@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
         color:"#fff"
     },
     card: {
+        borderRadius: 0,
         backgroundColor: theme.palette.primary.main,
         minWidth: '200px'
     },
