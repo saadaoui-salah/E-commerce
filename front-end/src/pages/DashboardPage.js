@@ -52,56 +52,66 @@ function DashboardPage() {
     const { error, loading, data } = useQuery(HOME_COUNTERS)
     return (
         <>
-            <Grid alignItems="center" direction='row' justify='center' container spacing={2}>
-                <Grid item sm={4} md={3} xs={6}>
-                    {loading ? null :
-                        <HomeCard
-                            name="Products"
-                            number={data.productsCounter}
-                            bgColor='#0af'
-                            icon={<LocalMallIcon className={style.icon} />} />
-                    }
-                </Grid>
-                <Grid item sm={4} md={3} xs={6}>
-                    {loading ? null :
-                        <HomeCard
-                            name="consumers"
-                            number={data.consumersCounter}
-                            bgColor='red'
-                            icon={<PeopleIcon className={style.icon} />} />
-                    }
-                </Grid>
-                <Grid item sm={4} md={3} xs={6}>
-                    {loading ? null :
-                        <HomeCard
-                            name="Orders"
-                            number={data.ordersCounter}
-                            bgColor='#ffc23e'
-                            icon={<ShoppingCartIcon className={style.icon} />} />
-                    }
-                </Grid>
-                <Grid item sm={4} md={3} xs={6}>
-                    {loading ? null :
-                        <HomeCard
-                            name="Benifits"
-                            number={data.benifitsCounter}
-                            bgColor='#36ff36b8'
-                            icon={<AttachMoneyIcon className={style.icon} />} />
-                    }
-                </Grid>
-                <Grid alignItems="center" direction='row' justify='center' container style={{ marginTop: '35px' }}>
-                    <Map />
-                </Grid>
+            <Grid alignItems="center" direction='row' justify='center' spacing={2}>
+                <Paper>
+                    <Divider style={{ backgroundColor: "#fff", padding: "0.5px" }} />
+                    <Grid alignItems="center" direction='row' justify='center' container >
+                        <Grid item md={3} xs={6}>
+                            <div>
+                            {loading ? null :
+                                <HomeCard
+                                name="Products"
+                                number={data === undefined ? 0 : data.productsCounter}
+                                bgColor='#0af'
+                                icon={<LocalMallIcon className={style.icon} />} />
+                            }
+                            </div>
+                            <Divider orientation="vertical" style={{ backgroundColor: "#fff", width: "10px" }} />
+                        </Grid>
+                        <Grid item md={3} xs={6}>
+                            {loading ? null :
+                                <HomeCard
+                                    name="consumers"
+                                    number={data === undefined ? 0 : data.consumersCounter}
+                                    bgColor='red'
+                                    icon={<PeopleIcon className={style.icon} />} />
+                            }
+                            <Divider orientation="vertical" style={{ backgroundColor: "#fff", width: "10px" }} />
+                        </Grid>
+                        <Grid item md={3} xs={6}>
+                            {loading ? null :
+                                <HomeCard
+                                    name="Orders"
+                                    number={data === undefined ? 0 : data.ordersCounter}
+                                    bgColor='#ffc23e'
+                                    icon={<ShoppingCartIcon className={style.icon} />} />
+                            }
+                        </Grid>
+                        <Grid item md={3} xs={6}>
+                            {loading ? null :
+                                <HomeCard
+                                    name="Benifits"
+                                    number={data === undefined ? 0 : data.benifitsCounter}
+                                    bgColor='#36ff36b8'
+                                    icon={<AttachMoneyIcon className={style.icon} />} />
+                            }
+                        </Grid>
+                        <Divider style={{ backgroundColor: "#fff", padding: "0.5px" }} />
+                        <Grid direction='row' justify='content' container >
+                            <Map />
+                        </Grid>
+                    </Grid>
+                </Paper>
                 <Grid alignItems="center" direction='row' justify='center' container style={{ marginTop: '35px' }}>
                     <Grid item sm={6} xs={12} md={6}>
                         <Table rows={rows} columns={columns} />
                     </Grid>
                     <Grid item sm={6} xs={12} md={6}>
-                        <Paper style={{backgroundColor:"#4c5364" }}>
+                        <Paper style={{ backgroundColor: "#4c5364" }}>
                             <LineChart />
                         </Paper>
-                        <Divider/>
-                        <Paper style={{backgroundColor:"#4c5364" }}>
+                        <Divider />
+                        <Paper style={{ backgroundColor: "#4c5364" }}>
                             <LineChart />
                         </Paper>
                     </Grid>
