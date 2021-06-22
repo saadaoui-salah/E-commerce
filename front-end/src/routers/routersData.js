@@ -21,7 +21,6 @@ import Consumers from '../pages/Users/Consumers'
 import Vendors from '../pages/Users/Vendors'
 // auth 
 import {Login} from '../pages/login'
-import {Register} from '../pages/register'
 // router
 import Routers from './Routers'
 
@@ -212,17 +211,11 @@ export var routers = {
         {
             id: 5,
             exact: false,
-            path: '/register',
-            component: () => <Register />,
-        },
-        {
-            id: 6,
-            exact: false,
             path: '/login',
             component: () => <Login />,
         },
         {
-            id: 7,
+            id: 6,
             exact: false,
             path: '/chat',
         },
