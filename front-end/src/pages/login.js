@@ -3,23 +3,22 @@ import { useForm } from "../hooks"
 import { useMutation } from "@apollo/client"
 import { LOGIN } from "../graphql/mutations"
 import { useEffect } from "react"
+import { useHistory } from "react-router-dom"
 
-export const Login = (props) => {
-    
+export const Login = props => {
+    const history = useHistory()
     const {values, onChange, onSubmit} = useForm(authenticate, {
         username:"",
         password:"",
     })
     const [login, {loading, data, error}] = useMutation(LOGIN, {variables: values})
-    console.log(error)
     function authenticate(){
         login()
     }
     useEffect(()=>{
-        console.log(data)
         if ( data && data.tokenAuth.success){
-            
-            props.history.push("/")
+            console.log(props)
+            history.push("/")
         }
     }, [data])
     return (
@@ -36,7 +35,7 @@ export const Login = (props) => {
                         <TextField
                             onChange={e => onChange(e)}
                             variant="outlined"
-                            name="email"
+                            name="username"
                             type="email"
                             label="Email"
                             />
