@@ -39,7 +39,7 @@ export default function Products() {
     return (
         <Container >
             <Typography variant="h4" style={{ color: "#fff", marginBottom: "30px", paddingTop:"20px" }}>Manage Your Products</Typography>
-            <div style={{ display:"flex", justifyContent:"space-around", marginBottom: "10px" }}>
+            <div style={{ marginBottom: "10px" }}>
                 <AddButton value="Product" content={<ProductFrom />} title="Create New Product" style={{marginRight:"100px"}} />
                 <DeleteButton content="Are you sure" title="Delete Product" />
             </div>
