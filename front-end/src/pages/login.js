@@ -17,7 +17,6 @@ export const Login = props => {
     }
     useEffect(()=>{
         if ( data && data.tokenAuth.success){
-            console.log(props)
             history.push("/")
         }
     }, [data])

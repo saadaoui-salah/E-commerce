@@ -38,17 +38,14 @@ export function ProductFrom() {
         }
     }, [data])
     useEffect(() => {
-        console.log(values)
         if (values.parentCategory !== '') {
             window.alert(values.parentCategory)
             getCategories({ variables: { id: values.parentCategory[0].id } })
         }
         if (response.data !== undefined) {
             setCategories(response.data.getCategories)
-            console.log(response.error)
         }
     }, [values.parentCategory, response.data])
-    console.log(response.data)
     return (
         <>
             <Grid container spacing={2} direction="row">

@@ -190,7 +190,6 @@ export const AddButton = ({ value, content, title }) => {
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
-    console.log(`open ${open}`)
     return (
         <>
             <Button

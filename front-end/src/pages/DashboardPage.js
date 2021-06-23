@@ -57,7 +57,7 @@ function DashboardPage() {
                     <Divider style={{ backgroundColor: "#fff", padding: "0.5px" }} />
                     <Grid alignItems="center" direction='row' justify='center' container >
                         <Grid item md={3} xs={6}>
-                            <div>
+                            <div style={{ border:"5px #fff"}}>
                             {loading ? null :
                                 <HomeCard
                                 name="Products"

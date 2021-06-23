@@ -34,9 +34,7 @@ const useStyles = makeStyles(() => ({
 
 export const activatePath = (location, path, style) => {
     path = path.split("/")[1]
-    console.log(`${location} ==== ${path}`)
     if (path === location ){
-        console.log("PAth")
         return style.active
     }
     return style.link
@@ -48,7 +46,7 @@ export default function Routers({ link, data }) {
     const locationPath = location.pathname.split("/")[2]
     return (
         <Grid>
-            <Paper style={{ backgroundColor: "#4c5364", marginBottom: "10px" }}>
+            <Paper style={{ backgroundColor: "#4c5364", marginBottom: "10px", paddingLeft:"20px" }}>
                 <Grid container justify="flex-start">
                     {
                         data.items.map(item => {
@@ -68,7 +66,6 @@ export default function Routers({ link, data }) {
                     }
                 </Grid>
             </Paper>
-            <Paper style={{ backgroundColor: "#4c5364", height: "80vh" }}>
                 <Switch>
                     {data.pages.map(page => {
                         return (
@@ -78,7 +75,6 @@ export default function Routers({ link, data }) {
                     )
                     }
                 </Switch>
-            </Paper>
         </Grid>
     )
 }
