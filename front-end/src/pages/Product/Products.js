@@ -26,7 +26,6 @@ export default function Products() {
     }, [data])
     var rows = []
     products.map(product => {
-        console.log(product.image)
         rows = [...rows, createData(
             product.image,
             product.name,

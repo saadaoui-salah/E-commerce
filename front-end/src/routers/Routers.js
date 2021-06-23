@@ -34,9 +34,7 @@ const useStyles = makeStyles(() => ({
 
 export const activatePath = (location, path, style) => {
     path = path.split("/")[1]
-    console.log(`${location} ==== ${path}`)
     if (path === location ){
-        console.log("PAth")
         return style.active
     }
     return style.link

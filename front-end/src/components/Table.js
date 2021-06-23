@@ -102,7 +102,6 @@ export default function CustomTable({ rows, columns, options, children, dropDown
         searchInput.current.focus()
     },[searchInput.value])
     function search(){
-        console.log(searchInput.current.value)
         if ( searchInput.current.value !== ""){
             return rows.filter(row => row === searchInput.current.value)
         }
