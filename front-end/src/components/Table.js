@@ -9,13 +9,14 @@ import {
     TablePagination,
     Typography
 } from "@material-ui/core";
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useContext } from 'react'
 import { SearchField } from './sub-components/CustomTextField'
 import { ArrowIconButton } from './sub-components/Buttons'
+import { DarkContext } from "../reducers/context";
 
 const Header = ({ columns }) => {
+    const {state, dispatch} = useContext(DarkContext)
     return (
-
         <TableHead>
             <TableRow>
                 {columns.map((column, index) => (
@@ -23,7 +24,7 @@ const Header = ({ columns }) => {
                         key={index}
                         align="center"
                     >
-                        <Typography style={{color: "#fff"}}>{column}</Typography>
+                        <Typography style={{color:state ? "#fff" : "#000"}}>{column}</Typography>
                     </TableCell>
                 ))}
             </TableRow>
@@ -44,6 +45,7 @@ const DropDown = ({ DropDown }) => {
 }
 
 const Body = (props) => {
+    const {state, dispatch} = useContext(DarkContext)
     const [select, setSelect] = useState([])
     const handleSelect = (id) => {
         if (id in select) {
@@ -76,7 +78,7 @@ const Body = (props) => {
                                         }
                                         return (
                                             <TableCell key={column.id} align="center">
-                                                <Typography style={{color: "#fff"}}>
+                                                <Typography style={{color: state ? "#fff" : "#494949f2"}}>
                                                     {value}
                                                 </Typography>
                                             </TableCell>
@@ -96,6 +98,7 @@ const Body = (props) => {
 
 export default function CustomTable({ rows, columns, options, children, dropDown }) {
     const [page, setPage] = useState(0);
+    const {state, dispatch} = useContext(DarkContext)
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const searchInput = useRef()
     useEffect(()=>{
@@ -117,7 +120,11 @@ export default function CustomTable({ rows, columns, options, children, dropDown
 
     return (
         <>
-            <Paper style={{backgroundColor:"#101b38", textColor:"#fff"}}>
+            <Paper 
+            elevation={6}
+            style={{
+                backgroundColor: state ? "#101b38" : "#fff" 
+                }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <div style={{ margin: '10px' }}>
                         {children}
@@ -143,7 +150,7 @@ export default function CustomTable({ rows, columns, options, children, dropDown
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 15, 20, 25, 30]}
                     component="div"
-                    style={{color:"#fff"}}
+                    style={{color: state ? "#fff" : "#494949f2"}}
                     count={rows ? rows.length : 0}
                     rowsPerPage={rowsPerPage}
                     page={page}
