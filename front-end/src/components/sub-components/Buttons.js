@@ -15,9 +15,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Grow } from '@material-ui/core'
 import CustomDialog from './Dialog'
 import { edit, cancel } from '../../reducers/actoins'
-import { OptionsContext } from '../../reducers/context'
-import { useTheme, ThemeProvider } from '@material-ui/core/styles'
-import { customTheme } from '../../themes'
+import { DarkContext, OptionsContext } from '../../reducers/context'
+
+
 const useStyle = makeStyles(() => ({
     optionBtn: {
         width: '30px',
@@ -29,18 +29,8 @@ const useStyle = makeStyles(() => ({
         width: '20px',
         height: '20px'
     },
-    addBtn: {
-        backgroundColor: "#0062a77a",
-        marginRight:"10px",
-        color: "#0af",
-        fontWeight:"bold",
-        '&:hover': {
-            transition: '0.5s',
-            backgroundColor: '#0260a7'
-        }
-    },
     deleteBtn: {
-        fontWeight:"bold",
+        fontWeight: "bold",
         backgroundColor: '#96365891',
         color: '#ff4487',
         '&:hover': {
@@ -113,20 +103,17 @@ export const EditIconButton = ({ id }) => {
 
 export const DeleteIconButton = () => {
     const style = useStyle()
-    const theme = useTheme(customTheme)
     const { state, dispatch } = useContext(OptionsContext)
     return (
-        <ThemeProvider theme={theme}>
-            <IconButton
-                color="primary"
-                onClick={() => dispatch(cancel())}
-                className={style.optionBtn}
-            >
-                <Fade in={true} timeout={600}>
-                    <DeleteIcon className={style.icon} />
-                </Fade>
-            </IconButton>
-        </ThemeProvider>
+        <IconButton
+            color="primary"
+            onClick={() => dispatch(cancel())}
+            className={style.optionBtn}
+        >
+            <Fade in={true} timeout={600}>
+                <DeleteIcon className={style.icon} />
+            </Fade>
+        </IconButton>
     )
 }
 export const TableOptions = ({ id }) => {
@@ -186,13 +173,20 @@ export const CardOptions = ({ id }) => {
 }
 
 export const AddButton = ({ value, content, title }) => {
-    const style = useStyle()
+    const { state, dispatch } = useContext(DarkContext)
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
+    const useStyle = makeStyles(() => ({
+        addBtn: {
+            marginRight: "10px",
+        },
+    }))
+    const style = useStyle()
     return (
         <>
             <Button
+                color="primary"
                 onClick={handleOpen}
                 className={style.addBtn}
             >
@@ -220,8 +214,8 @@ export const DeleteButton = ({ title, content }) => {
     return (
         <>
             <Button
-            className={style.deleteBtn} 
-            onClick={handleOpen} 
+                className={style.deleteBtn}
+                onClick={handleOpen}
             >
                 delete <DeleteIcon />
             </Button>
