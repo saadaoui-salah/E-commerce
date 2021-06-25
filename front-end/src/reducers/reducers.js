@@ -1,5 +1,4 @@
 import { EDIT, DARK, REMOVE, OPEN, CLOSE } from './actoins'
-import { UPDATE_PRODUCT, ADD_PRODUCT, ADD_CATEGORY, ADD_PARENT_CATEGORY } from './actoins'
 
 export function DarkReducer(state, action){
     switch (action.type){
