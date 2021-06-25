@@ -56,7 +56,7 @@ export function addCategory(category){
 
 
 export const DARK = 'DARK'
-export function useDark(isDark){
+export function setDark(isDark){
     return {
         type: DARK,
         dark: isDark
