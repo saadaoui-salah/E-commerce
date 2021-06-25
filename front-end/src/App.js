@@ -1,121 +1,120 @@
 import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { makeStyles } from '@material-ui/core/styles'
-import { useMemo, useState, useReducer } from 'react'
+import { useMemo, useState, useContext } from 'react'
 import { routers } from './routers/routersData'
 import clsx from 'clsx'
 import {
   Avatar, ListItem, List,
   Switch as MuiSwitch,
   Drawer, AppBar, Slide, Icon,
-  Toolbar, Typography, IconButton, ThemeProvider,
+  Toolbar, Typography, IconButton,
 } from '@material-ui/core';
 import {
   BrowserRouter as Router,
-  Link, Route, Switch, 
+  Link, Route, Switch,
 } from "react-router-dom";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { dark } from './reducers/state'
-import { DarkReducer } from './reducers/reducers'
 import { DarkContext } from './reducers/context'
-import { customTheme } from './themes';
+import { setDark } from './reducers/actoins';
+import { Provider } from './themes';
 
 const drawerWidthOpen = 200
 /* const primary = "#131b2f" */
 /* const primary = "#101b38" */
 /* const primary = "#f5f6ff" */
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    zIndex: '30',
-    transition: '0.3s'
-  },
-  appBarClose: {
-    zIndex: '30',
-    width: '100%',
-    transition: '0.3s !important'
-  },
-  component: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-  content: {
-    display: 'contents',
-  },
-  container: {
-    width: '100%',
-    height: 'calc(100% - 90px)',
-    margin: '90px 0px 0px 0px ',
-    transition: '0.3s'
-  },
-  icon: {
-    color: theme.palette.secondary.main,
-    cursor: 'pointer',
-  },
-  arrowActive: {
-    transform: 'rotateX(180deg)'
-  },
-  menuIcon: {
-    color: theme.palette.secondary.main,
-    cursor: 'pointer',
-    fontWeight: 'bold'
-  },
-  active: {
-    color: theme.palette.secondary.dark + '!important',
-  },
-  hover: {
-    marginTop: '5px',
-    padding: '5px 10px',
-    transition: '0.2s all',
-    borderRadius: '5px',
-    '&:hover': {
-      paddingLeft: '4px',
-      backgroundColor: theme.palette.secondary.light,
-      cursor: 'pointer',
-    }
-  },
-  hoverIcon: {
-    marginTop: '5px',
-    padding: '5px 10px',
-    transition: '0.3s all',
-    borderRadius: '5px',
-    '&:hover': {
-      transition: '0.5s',
-      backgroundColor: theme.palette.secondary.light,
-      cursor: 'pointer',
-    }
-  },
-  navItem: {
-    display: 'flex',
-  },
-  textList: {
-    marginLeft: '15px',
-    marginRight: '5px',
-    fontWeight: 'bold',
-    color: theme.palette.secondary.main,
-    userSelect: 'none'
-  },
-  drawerPaper: {
-    height: '100vh',
-    backgroundColor: theme.palette.primary.main,
-    zIndex: 1,
-    alignItems: 'center',
-  },
-  drawerPaperClose: {
-    width: '0px',
-  },
-  drawerPaperOpen: {
-    zIndex: 1,
-    width: `${drawerWidthOpen}px`
-  },
-  leftIcon: {
-    color: 'white',
-    width: '35px',
-    height: '35px',
-  },
-}))
 
 
 function Navbar() {
+  const { state, dispatch } = useContext(DarkContext)
+  const useStyles = makeStyles((theme) => ({
+    appBar: {
+      zIndex: '30',
+      transition: '0.3s',
+      backgroundColor: state ? '#101b38' : '#f0f0f0'
+    },
+    appBarClose: {
+      zIndex: '30',
+      width: '100%',
+    },
+    component: {
+      display: 'flex',
+      alignItems: 'center'
+    },
+    content: {
+      display: 'contents',
+    },
+    container: {
+      width: '100%',
+      height: 'calc(100% - 90px)',
+      margin: '90px 0px 0px 0px ',
+      transition: '0.3s'
+    },
+    icon: {
+      color: state ? "#7bc3f5b5" : "grey" ,
+      cursor: 'pointer',
+    },
+    arrowActive: {
+      transform: 'rotateX(180deg)'
+    },
+    menuIcon: {
+      color: state ? "#7bc3f5b5" :"grey",
+      cursor: 'pointer',
+      fontWeight: 'bold'
+    },
+    active: {
+      color: state ? "#0097ff" : '#000',
+    },
+    hover: {
+      marginTop: '5px',
+      padding: '5px 10px',
+      transition: '0.2s all',
+      borderRadius: '5px',
+      '&:hover': {
+        paddingLeft: '4px',
+        backgroundColor: state ? "#0085ea57": "#c0c0c0a6",
+        cursor: 'pointer',
+      }
+    },
+    hoverIcon: {
+      marginTop: '5px',
+      padding: '5px 10px',
+      transition: '0.3s all',
+      borderRadius: '5px',
+      '&:hover': {
+        transition: '0.5s',
+        cursor: 'pointer',
+      }
+    },
+    navItem: {
+      display: 'flex',
+    },
+    textList: {
+      marginLeft: '15px',
+      marginRight: '5px',
+      fontWeight: 'bold',
+      color: state ? "#7bc3f5b5" : "grey",
+      userSelect: 'none'
+    },
+    drawerPaper: {
+      height: '100vh',
+      backgroundColor: state ? "#101b38" : "#fff",
+      zIndex: 1,
+      alignItems: 'center',
+    },
+    drawerPaperOpen: {
+      zIndex: 1,
+      width: `${drawerWidthOpen}px`
+    },
+    leftIcon: {
+      color: 'white',
+      width: '35px',
+      height: '35px',
+    },
+  }))
+  useMemo(() =>{
+    document.body.style.backgroundColor = state ? "#2c303a" : "#fff" 
+  },[state])
   const tablette = useMediaQuery('(max-width:900px)')
   const [open, setOpen] = useState(false)
   const [activeItem, setActiveItem] = useState(1)
@@ -123,6 +122,7 @@ function Navbar() {
   useMemo(() => setOpen(true), [tablette])
   const style = useStyles()
   const Item = ({ id, enName, icon, children }) => {
+    console.log( activeItem === id)
     return (
       <ListItem
         onClick={() => { setActiveItem(id); setOpen(false) }}
@@ -149,7 +149,7 @@ function Navbar() {
     <>
       <AppBar
         color="primary"
-        elevation={0}
+        elevation={1}
         position='fixed'
         classes={{
           root: clsx(style.appBar, {
@@ -204,7 +204,7 @@ function Navbar() {
                   </IconButton>
                   <Avatar style={{ marginTop: '20px', width: '70px', height: '70px' }} />
                   <Typography style={{ color: "#fff", marginTop: "5px" }} variant="h6">Salah Saadaoui</Typography>
-                  <MuiSwitch />
+                  <MuiSwitch value={state} onChange={() => dispatch(setDark(!state))} />
                   <List
                     className={style.list}
                     style={tablette ? {} : { marginTop: '45px' }}
@@ -243,12 +243,10 @@ function Navbar() {
   )
 }
 function App() {
-  const [state, dispatch] = useReducer(DarkReducer, dark)
+
   return (
-    <ThemeProvider theme={customTheme}>
-      <DarkContext.Provider value={{ state: state, dispatch: dispatch }}>
-        <Navbar />
-      </DarkContext.Provider>
-    </ThemeProvider>)
+    <Provider>
+      <Navbar />
+    </Provider>)
 }
 export default App
