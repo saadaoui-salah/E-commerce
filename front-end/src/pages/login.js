@@ -24,11 +24,11 @@ export const Login = props => {
         <Grid container justify="center" align="center">
             <Paper
                 style={{ backgroundColor: "#101b38" }}
-                elevation={3}>
+                elevation={4}>
                 <div
                     style={{ display: 'flex' }}
                 >
-                    <form>
+                    <form method="POST">
                         <h1 style={{color:'white'}}>Welcome !</h1>
                         <h3 style={{color:'white'}}>Sign In</h3>
                         <TextField
@@ -52,7 +52,9 @@ export const Login = props => {
                             onClick={(e) => onSubmit(e)}
                             variant="contained"
                             color="success.main"
-                        >Login</Button>
+                        >
+                            Login
+                        </Button>
                     </form>
                     <div></div>
                 </div>
