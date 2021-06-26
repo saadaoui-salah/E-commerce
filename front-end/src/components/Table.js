@@ -15,7 +15,7 @@ import { ArrowIconButton } from './sub-components/Buttons'
 import { DarkContext } from "../reducers/context";
 
 const Header = ({ columns }) => {
-    const {state, dispatch} = useContext(DarkContext)
+    const { state } = useContext(DarkContext)
     return (
         <TableHead>
             <TableRow>
@@ -24,7 +24,7 @@ const Header = ({ columns }) => {
                         key={index}
                         align="center"
                     >
-                        <Typography style={{color:state ? "#fff" : "#000"}}>{column}</Typography>
+                        <Typography style={{ color: state ? "#fff" : "#000" }}>{column}</Typography>
                     </TableCell>
                 ))}
             </TableRow>
@@ -45,7 +45,7 @@ const DropDown = ({ DropDown }) => {
 }
 
 const Body = (props) => {
-    const {state, dispatch} = useContext(DarkContext)
+    const { state } = useContext(DarkContext)
     const [select, setSelect] = useState([])
     const handleSelect = (id) => {
         if (id in select) {
@@ -64,27 +64,27 @@ const Body = (props) => {
                         props.page * props.rowsPerPage + props.rowsPerPage
                     ).map((row, rIndex) => {
                         return (
-                                <TableRow key={rIndex} hover role="checkbox" tabIndex={-1} >
-                                    {props.columns.map((column, index) => {
-                                        const value = row[index];
-                                        if (column === props.options.name) {
-                                            return (
-                                                <TableCell key={index} align="center">
-                                                    <div key={index} style={{ display: 'flex', justifyContent: 'center' }}>
-                                                        {props.options.component(rIndex)}
-                                                    </div>
-                                                </TableCell>
-                                            )
-                                        }
+                            <TableRow key={rIndex} hover role="checkbox" tabIndex={-1} >
+                                {props.columns.map((column, index) => {
+                                    const value = row[index];
+                                    if (column === props.options.name) {
                                         return (
-                                            <TableCell key={column.id} align="center">
-                                                <Typography style={{color: state ? "#fff" : "#494949f2"}}>
-                                                    {value}
-                                                </Typography>
+                                            <TableCell key={index} align="center">
+                                                <div key={index} style={{ display: 'flex', justifyContent: 'center' }}>
+                                                    {props.options.component(rIndex)}
+                                                </div>
                                             </TableCell>
                                         )
-                                    })}
-                                </TableRow>
+                                    }
+                                    return (
+                                        <TableCell key={column.id} align="center">
+                                            <Typography style={{ color: state ? "#fff" : "#494949f2" }}>
+                                                {value}
+                                            </Typography>
+                                        </TableCell>
+                                    )
+                                })}
+                            </TableRow>
                         );
                     })}
                 </TableBody>
@@ -98,14 +98,14 @@ const Body = (props) => {
 
 export default function CustomTable({ rows, columns, options, children, dropDown }) {
     const [page, setPage] = useState(0);
-    const {state, dispatch} = useContext(DarkContext)
+    const { state } = useContext(DarkContext)
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const searchInput = useRef()
-    useEffect(()=>{
+    useEffect(() => {
         searchInput.current.focus()
-    },[searchInput.value])
-    function search(){
-        if ( searchInput.current.value !== ""){
+    }, [searchInput.value])
+    function search() {
+        if (searchInput.current.value !== "") {
             return rows.filter(row => row === searchInput.current.value)
         }
         return rows
@@ -120,10 +120,10 @@ export default function CustomTable({ rows, columns, options, children, dropDown
 
     return (
         <>
-            <Paper 
-            elevation={6}
-            style={{
-                backgroundColor: state ? "#101b38" : "#fff" 
+            <Paper
+                elevation={2}
+                style={{
+                    backgroundColor: state ? "#101b38" : "#fff"
                 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <div style={{ margin: '10px' }}>
@@ -150,7 +150,7 @@ export default function CustomTable({ rows, columns, options, children, dropDown
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 15, 20, 25, 30]}
                     component="div"
-                    style={{color: state ? "#fff" : "#494949f2"}}
+                    style={{ color: state ? "#fff" : "#494949f2" }}
                     count={rows ? rows.length : 0}
                     rowsPerPage={rowsPerPage}
                     page={page}
