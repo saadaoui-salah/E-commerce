@@ -31,7 +31,7 @@ function Navbar() {
     appBar: {
       zIndex: '30',
       transition: '0.3s',
-      backgroundColor: state ? '#101b38' : '#f0f0f0'
+      backgroundColor: state ? '#101b38' : '#f8f8ff'
     },
     appBarClose: {
       zIndex: '30',
@@ -51,19 +51,19 @@ function Navbar() {
       transition: '0.3s'
     },
     icon: {
-      color: state ? "#7bc3f5b5" : "grey" ,
+      color: state ? "#7bc3f5b5" : '#606060' ,
       cursor: 'pointer',
     },
     arrowActive: {
       transform: 'rotateX(180deg)'
     },
     menuIcon: {
-      color: state ? "#7bc3f5b5" :"grey",
+      color: state ? "#7bc3f5b5" : '#606060',
       cursor: 'pointer',
       fontWeight: 'bold'
     },
     active: {
-      color: state ? "#0097ff" : '#000',
+      color: state ? "#0097ff" : '#1a73e8',
     },
     hover: {
       marginTop: '5px',
@@ -93,12 +93,12 @@ function Navbar() {
       marginLeft: '15px',
       marginRight: '5px',
       fontWeight: 'bold',
-      color: state ? "#7bc3f5b5" : "grey",
+      color: state ? "#7bc3f5b5" : '#606060',
       userSelect: 'none'
     },
     drawerPaper: {
       height: '100vh',
-      backgroundColor: state ? "#101b38" : "#fff",
+      backgroundColor: state ? "#101b38" : "#f8f8ff",
       zIndex: 1,
       alignItems: 'center',
     },
@@ -113,7 +113,7 @@ function Navbar() {
     },
   }))
   useMemo(() =>{
-    document.body.style.backgroundColor = state ? "#2c303a" : "#fff" 
+    document.body.style.backgroundColor = state ? "#2c303a" : "#f1f1f1" 
   },[state])
   const tablette = useMediaQuery('(max-width:900px)')
   const [open, setOpen] = useState(false)
@@ -122,7 +122,6 @@ function Navbar() {
   useMemo(() => setOpen(true), [tablette])
   const style = useStyles()
   const Item = ({ id, enName, icon, children }) => {
-    console.log( activeItem === id)
     return (
       <ListItem
         onClick={() => { setActiveItem(id); setOpen(false) }}
