@@ -40,13 +40,27 @@ export default function Products() {
     })
     return (
         <Container maxWidth="lg">
-            <Typography variant="h4" style={{ color: state ? "#fff" : "#000",  paddingTop:"20px" }}>Manage Your Products</Typography>
-            <Divider style={{marginTop:"10px", marginBottom:"30px", backgroundColor: state ? "#f1f1f1" : "#010101" }} />
+            <Typography
+                variant="h4"
+                style={{
+                    fontWeight: "bold",
+                    color: state ? "#fff" : "#25265e",
+                    paddingTop: "20px"
+                }}>
+                Manage Your Products
+            </Typography>
+            <Divider
+                style={{
+                    marginTop: "10px",
+                    marginBottom: "30px",
+                    backgroundColor: state ? "#f1f1f1" : "#25265e"
+                }}
+            />
             <div style={{ marginBottom: "10px" }}>
-                <AddButton value="Product" content={<ProductFrom />} title="Create New Product" style={{marginRight:"100px"}} />
+                <AddButton value="Product" content={<ProductFrom />} title="Create New Product" style={{ marginRight: "100px" }} />
                 <DeleteButton content="Are you sure" title="Delete Product" />
             </div>
-            <Table columns={columns} style={{width:"100%"}} rows={rows} options={options_}>
+            <Table columns={columns} style={{ width: "100%" }} rows={rows} options={options_}>
             </Table>
         </Container>
     )
