@@ -27,11 +27,11 @@ const drawerWidthOpen = 200
 
 function Navbar() {
   const { state, dispatch } = useContext(DarkContext)
-  const useStyles = makeStyles((theme) => ({
+  const useStyles = makeStyles(() => ({
     appBar: {
       zIndex: '30',
       transition: '0.3s',
-      backgroundColor: state ? '#101b38' : '#f8f8ff'
+      backgroundColor: state ? '#101b38' : '#fff'
     },
     appBarClose: {
       zIndex: '30',
@@ -51,7 +51,7 @@ function Navbar() {
       transition: '0.3s'
     },
     icon: {
-      color: state ? "#7bc3f5b5" : '#606060' ,
+      color: state ? "#7bc3f5b5" : '#606060',
       cursor: 'pointer',
     },
     arrowActive: {
@@ -72,7 +72,7 @@ function Navbar() {
       borderRadius: '5px',
       '&:hover': {
         paddingLeft: '4px',
-        backgroundColor: state ? "#0085ea57": "#c0c0c0a6",
+        backgroundColor: state ? "#0085ea57" : "#c0c0c0a6",
         cursor: 'pointer',
       }
     },
@@ -98,7 +98,7 @@ function Navbar() {
     },
     drawerPaper: {
       height: '100vh',
-      backgroundColor: state ? "#101b38" : "#f8f8ff",
+      backgroundColor: state ? "#101b38" : "#fff",
       zIndex: 1,
       alignItems: 'center',
     },
@@ -112,9 +112,9 @@ function Navbar() {
       height: '35px',
     },
   }))
-  useMemo(() =>{
-    document.body.style.backgroundColor = state ? "#2c303a" : "#f1f1f1" 
-  },[state])
+  useMemo(() => {
+    document.body.style.backgroundColor = state ? "#2c303a" : "#f9fafc"
+  }, [state])
   const tablette = useMediaQuery('(max-width:900px)')
   const [open, setOpen] = useState(false)
   const [activeItem, setActiveItem] = useState(1)
@@ -148,7 +148,8 @@ function Navbar() {
     <>
       <AppBar
         color="primary"
-        elevation={1}
+        style={{boxShadow: "0 4px 12px rgb(37 38 94 / 6%)"}}
+        elevation={0}
         position='fixed'
         classes={{
           root: clsx(style.appBar, {
@@ -202,7 +203,16 @@ function Navbar() {
                     </Icon>
                   </IconButton>
                   <Avatar style={{ marginTop: '20px', width: '70px', height: '70px' }} />
-                  <Typography style={{ color: "#fff", marginTop: "5px" }} variant="h6">Salah Saadaoui</Typography>
+                  <Typography
+                    style={{ 
+                      fontWeight: "bold", 
+                      color: state ? "#fff" : "#010101", 
+                      marginTop: "5px" }} 
+                      variant="h6"
+                      >
+                        Salah Saadaoui
+                        </Typography>
+
                   <MuiSwitch value={state} onChange={() => dispatch(setDark(!state))} />
                   <List
                     className={style.list}
