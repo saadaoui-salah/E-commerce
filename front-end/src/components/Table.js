@@ -123,7 +123,8 @@ export default function CustomTable({ rows, columns, options, children, dropDown
             <Paper
                 elevation={1}
                 style={{
-                    backgroundColor: state ? "#101b38" : "#f8faff"
+                    backgroundColor: state ? "#101b38" : "#fff",
+
                 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <div style={{ margin: '10px' }}>
