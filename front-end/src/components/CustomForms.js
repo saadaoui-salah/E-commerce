@@ -24,11 +24,11 @@ export function ProductFrom() {
         priceVender: '',
         priceAchat: '',
     })
-    const { error, loading, data } = useQuery(LOAD_PARENT_CATEGORIES)
+    const {  loading, data } = useQuery(LOAD_PARENT_CATEGORIES)
     const [getCategories, response] = useLazyQuery(LOAD_CATEGORIES)
 
-    const [addProduct, { newData, Error }] = useMutation(ADD_PRODUCT, { variales: values })
-
+    const [addProduct, { newData, error }] = useMutation(ADD_PRODUCT, { variales: values })
+    console.log(error)
     function createProduct() {
         addProduct()
     }
@@ -53,6 +53,9 @@ export function ProductFrom() {
                         <Grid item>
                             <TextField
                                 onChange={(e) => onChange(e)}
+                                required
+                                fullWidth
+                                autoFocus
                                 label="Name"
                                 name="name"
                                 variant="outlined"
@@ -64,6 +67,7 @@ export function ProductFrom() {
                                 style={{ width: '100%' }}
                                 select
                                 name="parentCategory"
+                                fullWidth
                                 variant="outlined"
                                 label="Parent Category">
                                 {parentCategoriesState.map(category => {
@@ -78,6 +82,7 @@ export function ProductFrom() {
                             <TextField
                                 style={{ width: '100%' }}
                                 select
+                                fullWidth
                                 name="category"
                                 onChange={(e) => onChange(e)}
                                 label="Category"
@@ -99,8 +104,10 @@ export function ProductFrom() {
                             <TextField
                                 onChange={(e) => onChange(e)}
                                 label="Quantity"
+                                fullWidth
                                 name="quantity"
                                 type="number"
+                                required
                                 variant="outlined"
                             />
                         </Grid>
@@ -109,6 +116,7 @@ export function ProductFrom() {
                                 onChange={(e) => onChange(e)}
                                 label="Buy Price"
                                 name="priceAchat"
+                                fullWidth
                                 type="number"
                                 variant="outlined"
                             />
@@ -117,13 +125,27 @@ export function ProductFrom() {
                             <TextField
                                 onChange={(e) => onChange(e)}
                                 name="priceVendre"
+                                fullWidth
                                 label="Vendre"
+                                required
                                 type="number"
                                 variant="outlined"
-                            />
+                                />
                         </Grid>
                     </Grid>
                 </Grid>
+            </Grid>
+            <Grid container spacing={0} direction="row">
+                <TextField
+                    fullWidth
+                    style={{marginTop:"10px"}}
+                    rows={10}
+                    onChange={e => onChange(e)}
+                    name="detail"
+                    label="Details"
+                    type="text"
+                    multiline={true}
+                    variant="outlined"/>
             </Grid>
             <Button onClick={(e) => onSubmit(e)}>ADD</Button>
         </>
