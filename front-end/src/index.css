@@ -1,24 +1,27 @@
 body {
     background-color: #010101;
     margin: 0;
-    font-family: euclid_circular_a, arial, source sans pro, helvetica neue, helvetica, arial, sans-serif;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace ;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace ;
 }
 
 body::-webkit-scrollbar {
-    width: 5px;
+    width: 7px;
+    padding: 2px;
 }
 
 body::-webkit-scrollbar-track {
-    background-color: #bcceffa3;
+    background-color: none;
+    padding: 2px;
 }
 
 body::-webkit-scrollbar-thumb {
-    border-radius: 100px;
-    background-color: #323848;
+    padding: 2px;
+    border-radius: 10px;
+    background-color: #d1d6de;
 }
