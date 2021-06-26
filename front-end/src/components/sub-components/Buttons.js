@@ -186,6 +186,8 @@ export const AddButton = ({ value, content, title }) => {
     return (
         <>
             <Button
+                elevation={0}
+                variant="contained"
                 color="primary"
                 onClick={handleOpen}
                 className={style.addBtn}
@@ -207,15 +209,16 @@ export const AddButton = ({ value, content, title }) => {
 }
 
 export const DeleteButton = ({ title, content }) => {
-    const style = useStyle()
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
     return (
         <>
             <Button
-                className={style.deleteBtn}
                 onClick={handleOpen}
+                elevation={0}
+                color="secondary"
+                variant="contained"
             >
                 delete <DeleteIcon />
             </Button>
