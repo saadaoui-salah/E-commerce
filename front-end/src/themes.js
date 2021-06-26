@@ -8,13 +8,23 @@ import { DarkContext } from './reducers/context'
 
 const Theme = ({ children }) => {
     console.log("theme")
-    const {state, dispatch} = useContext(DarkContext)
+    const {state} = useContext(DarkContext)
     const darkTheme = createMuiTheme({
         type: 'dark',
+        overrides:{
+            MuiPaper:{
+                boxShadow:" 0 7px 14px 0 rgb(65 69 88 / 10%), 0 3px 6px 0 rgb(0 0 0 / 7%)"
+            }
+        }
     })
     
     const lightTheme = createMuiTheme({
         type: 'light',
+        overrides:{
+            MuiPaper:{
+                elevation1:" 0 7px 14px 0 rgb(65 69 88 / 10%), 0 3px 6px 0 rgb(0 0 0 / 7%)"
+            }
+        }
     })
     const theme = state ? darkTheme : lightTheme
     return (
