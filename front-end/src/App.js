@@ -33,10 +33,6 @@ function Navbar() {
       transition: '0.3s',
       backgroundColor: state ? '#101b38' : '#fff'
     },
-    appBarClose: {
-      zIndex: '30',
-      width: '100%',
-    },
     component: {
       display: 'flex',
       alignItems: 'center'
@@ -98,33 +94,22 @@ function Navbar() {
     },
     drawerPaper: {
       height: '100vh',
-      backgroundColor: state ? "#101b38" : "#fff",
+      backgroundColor: state ? "#101b38" : "#edf2f9",
       zIndex: 1,
       alignItems: 'center',
-    },
-    drawerPaperOpen: {
-      zIndex: 1,
       width: `${drawerWidthOpen}px`
-    },
-    leftIcon: {
-      color: 'white',
-      width: '35px',
-      height: '35px',
     },
   }))
   useMemo(() => {
-    document.body.style.backgroundColor = state ? "#2c303a" : "#f9fafc"
+    document.body.style.backgroundColor = state ? "#2c303a" : "#edf2f9"
   }, [state])
   const tablette = useMediaQuery('(max-width:900px)')
-  const [open, setOpen] = useState(false)
   const [activeItem, setActiveItem] = useState(1)
-  const justifyCondition = (open, isOpen, isClose) => open ? { justifyContent: isOpen } : { justifyContent: isClose }
-  useMemo(() => setOpen(true), [tablette])
   const style = useStyles()
   const Item = ({ id, enName, icon, children }) => {
     return (
       <ListItem
-        onClick={() => { setActiveItem(id); setOpen(false) }}
+        onClick={() => { setActiveItem(id); }}
         className={
           clsx(style.hover, {
             [style.active]: activeItem === id,
@@ -151,58 +136,28 @@ function Navbar() {
         style={{boxShadow: "0 4px 12px rgb(37 38 94 / 6%)"}}
         elevation={0}
         position='fixed'
-        classes={{
-          root: clsx(style.appBar, {
-            [style.appBarClose]: open
-          })
-        }}>
+        className={style.appBar}>
         <Toolbar
-          style={justifyCondition(open, 'flex-end', 'space-between')}
+          style={{justifyContent: 'space-between'}}
         >
-          {open ?
-            null
-            :
-            <IconButton
-              style={{ marginLeft: '-20px' }}
-              className={style.hoverIcon}
-              onClick={() => setOpen(true)}
-            >
-              <Icon>
-                <MenuOutlinedIcon className={style.menuIcon} />
-              </Icon>
-            </IconButton>
-          }
         </Toolbar>
       </AppBar>
       <Router>
-        <div className={style.component} style={justifyCondition(open, 'flex-end', 'center')}>
+        <div className={style.component} style={{justifyContent: 'space-between'}}>
           <div className={style.side}>
-            <Slide direction="right" in={open} timeout={300}>
               <div>
                 <Drawer
                   color="primary"
                   elevation={0}
-                  onClose={() => setOpen(false)}
-                  open={open}
+                  open={true}
+                  variant="permanent"
                   style={{ duration: '0.3s !important' }}
                   classes={{
-                    paper: clsx(style.drawerPaper, {
-                      [style.drawerPaperOpen]: open,
-                      [style.drawerPaperClose]: !open
-                    }),
+                    paper: style.drawerPaper,
                   }}
                   anchor="left"
                 >
-                  <IconButton
-                    style={{ marginTop: '10px' }}
-                    className={style.hoverIcon}
-                    onClick={() => setOpen(false)}
-                  >
-                    <Icon>
-                      <ChevronLeftIcon className={style.icon} />
-                    </Icon>
-                  </IconButton>
-                  <Avatar style={{ marginTop: '20px', width: '70px', height: '70px' }} />
+                  <Avatar style={{ marginTop: '90px', width: '70px', height: '70px' }} />
                   <Typography
                     style={{ 
                       fontWeight: "bold", 
@@ -233,13 +188,10 @@ function Navbar() {
                   </List>
                 </Drawer>
               </div>
-            </Slide>
           </div>
           <div className={style.content} >
             <div className={style.container}
-              style={open ? {
-                margin: `80px 20px 0px ${tablette ? '0px' : drawerWidthOpen + 20}px `
-              } : { margin: '80px 20px 0px 20px' }}
+              style={{margin: `80px 20px 0px ${ drawerWidthOpen + 20}px `}}
             >
               <Switch>
                 {routers.pages.map(page => <Route key={page.id} exact={page.exact} path={page.path} component={page.component} />)}
