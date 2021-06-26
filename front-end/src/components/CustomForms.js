@@ -39,8 +39,7 @@ export function ProductFrom() {
     }, [data])
     useEffect(() => {
         if (values.parentCategory !== '') {
-            window.alert(values.parentCategory)
-            getCategories({ variables: { id: values.parentCategory[0].id } })
+            getCategories({ variables: { id: values.parentCategory.id } })
         }
         if (response.data !== undefined) {
             setCategories(response.data.getCategories)
