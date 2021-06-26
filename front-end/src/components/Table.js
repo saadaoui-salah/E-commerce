@@ -24,7 +24,7 @@ const Header = ({ columns }) => {
                         key={index}
                         align="center"
                     >
-                        <Typography style={{ color: state ? "#fff" : "#000" }}>{column}</Typography>
+                        <Typography style={{ color: state ? "#fff" : "#25265e" }}>{column}</Typography>
                     </TableCell>
                 ))}
             </TableRow>
@@ -78,7 +78,7 @@ const Body = (props) => {
                                     }
                                     return (
                                         <TableCell key={column.id} align="center">
-                                            <Typography style={{ color: state ? "#fff" : "#494949f2" }}>
+                                            <Typography style={{ color: state ? "#fff" : "#25265eb3" }}>
                                                 {value}
                                             </Typography>
                                         </TableCell>
@@ -123,7 +123,7 @@ export default function CustomTable({ rows, columns, options, children, dropDown
             <Paper
                 elevation={2}
                 style={{
-                    backgroundColor: state ? "#101b38" : "#fff"
+                    backgroundColor: state ? "#101b38" : "#f8faff"
                 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <div style={{ margin: '10px' }}>
@@ -150,7 +150,7 @@ export default function CustomTable({ rows, columns, options, children, dropDown
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 15, 20, 25, 30]}
                     component="div"
-                    style={{ color: state ? "#fff" : "#494949f2" }}
+                    style={{ color: state ? "#fff" : "#25265eb3" }}
                     count={rows ? rows.length : 0}
                     rowsPerPage={rowsPerPage}
                     page={page}
