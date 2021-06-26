@@ -121,7 +121,7 @@ export default function CustomTable({ rows, columns, options, children, dropDown
     return (
         <>
             <Paper
-                elevation={2}
+                elevation={1}
                 style={{
                     backgroundColor: state ? "#101b38" : "#f8faff"
                 }}>
