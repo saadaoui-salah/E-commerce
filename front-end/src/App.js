@@ -1,14 +1,12 @@
-import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { makeStyles } from '@material-ui/core/styles'
-import { useMemo, useState, useContext } from 'react'
+import { useMemo, useState, useContext, useCallback } from 'react'
 import { routers } from './routers/routersData'
 import clsx from 'clsx'
 import {
   Avatar, ListItem, List,
   Switch as MuiSwitch,
-  Drawer, AppBar, Slide, Icon,
-  Toolbar, Typography, IconButton,
+  Paper, AppBar, Grid,
+  Toolbar, Typography,
 } from '@material-ui/core';
 import {
   BrowserRouter as Router,
@@ -24,32 +22,133 @@ const drawerWidthOpen = 200
 /* const primary = "#101b38" */
 /* const primary = "#f5f6ff" */
 
+const Item = ({setActiveItem, activeItem, id, enName, icon, children }) => {
+  const { state } = useContext(DarkContext)
+  const useStyles = useCallback(makeStyles(()=>({
+    active: {
+      color: state ? "#0097ff" : '#1a73e8',
+    },
+    hover: {
+      marginTop: '5px',
+      padding: '5px 10px',
+      transition: '0.2s all',
+      borderRadius: '5px',
+      '&:hover': {
+        paddingLeft: '4px',
+        backgroundColor: state ? "#0085ea57" : "#c0c0c0a6",
+        cursor: 'pointer',
+      }
+    },
+    textList: {
+      marginLeft: '15px',
+      marginRight: '5px',
+      fontWeight: 'bold',
+      color: state ? "#7bc3f5b5" : '#606060',
+      userSelect: 'none',
+    },
+    navItem: {
+      display: 'flex',
+    },
+  }))
+  , [state])
+  const style = useStyles()
+  return (
+    <ListItem
+      onClick={() => { setActiveItem(id); }}
+      className={
+        clsx(style.hover, {
+          [style.active]: activeItem === id,
+        })}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className={style.navItem}>{icon}
+          <Typography
+            className={clsx(style.textList, {
+              [style.active]: activeItem === id
+            })}>
+            {enName}
+          </Typography>
+        </div>
+        <div >{children}</div>
+      </div>
+    </ListItem>
+  )
+}
+
+const Sidebar = () => {
+  const tablette = useMediaQuery('(max-width:900px)')
+  const [activeItem, setActiveItem] = useState(1)
+  const { state, dispatch } = useContext(DarkContext)
+  const useStyles = useCallback(makeStyles(() => ({
+    icon: {
+      color: state ? "#7bc3f5b5" : '#606060',
+      cursor: 'pointer',
+    },
+    drawerPaper: {
+      height: '88vh',
+      backgroundColor: state ? "#101b38" : "#fff",
+      position:"fixed",
+      zIndex: 1,
+      width: `${drawerWidthOpen}px`
+    },
+  })))
+  const style = useStyles()
+  return (
+    <Paper
+    elevation={0}
+    className={style.drawerPaper}
+  >
+    <Avatar style={{ marginTop: '30px', width: '70px', height: '70px' }} />
+    <Typography
+      style={{ 
+        fontWeight: "bold", 
+        color: state ? "#fff" : "#010101", 
+        marginTop: "5px" 
+      }} 
+        variant="h6"
+        >
+          Salah Saadaoui
+          </Typography>
+
+    <MuiSwitch value={state} onChange={() => dispatch(setDark(!state))} />
+    <List
+      className={style.list}
+      style={tablette ? {} : { marginTop: '45px' }}
+    >
+      {routers.items.map(item => {
+        const active = item.id === activeItem
+        return (
+          <Link key={item.id} style={{ textDecoration: 'none' }} to={item.to}>
+            <Item
+              key={item.id}
+              activeItem={activeItem}
+              setActiveItem={setActiveItem}
+              icon={item.icon(style, active)}
+              id={item.id}
+              enName={item.enName}
+            />
+          </Link>
+        )
+      })}
+    </List>
+  </Paper>
+  )
+}
+
 
 function Navbar() {
-  const { state, dispatch } = useContext(DarkContext)
-  const useStyles = makeStyles(() => ({
+  const { state } = useContext(DarkContext)
+  const useStyles = useCallback(makeStyles(() => ({
     appBar: {
       zIndex: '30',
       transition: '0.3s',
       backgroundColor: state ? '#101b38' : '#fff'
-    },
-    component: {
-      display: 'flex',
-      alignItems: 'center'
-    },
-    content: {
-      display: 'contents',
     },
     container: {
       width: '100%',
       height: 'calc(100% - 90px)',
       margin: '90px 0px 0px 0px ',
       transition: '0.3s'
-    },
-    icon: {
-      color: state ? "#7bc3f5b5" : '#606060',
-      cursor: 'pointer',
-    },
+    },    
     arrowActive: {
       transform: 'rotateX(180deg)'
     },
@@ -82,53 +181,13 @@ function Navbar() {
         cursor: 'pointer',
       }
     },
-    navItem: {
-      display: 'flex',
-    },
-    textList: {
-      marginLeft: '15px',
-      marginRight: '5px',
-      fontWeight: 'bold',
-      color: state ? "#7bc3f5b5" : '#606060',
-      userSelect: 'none'
-    },
-    drawerPaper: {
-      height: '100vh',
-      backgroundColor: state ? "#101b38" : "#edf2f9",
-      zIndex: 1,
-      alignItems: 'center',
-      width: `${drawerWidthOpen}px`
-    },
-  }))
+
+  }
+  )),[state])
   useMemo(() => {
     document.body.style.backgroundColor = state ? "#2c303a" : "#edf2f9"
   }, [state])
-  const tablette = useMediaQuery('(max-width:900px)')
-  const [activeItem, setActiveItem] = useState(1)
   const style = useStyles()
-  const Item = ({ id, enName, icon, children }) => {
-    return (
-      <ListItem
-        onClick={() => { setActiveItem(id); }}
-        className={
-          clsx(style.hover, {
-            [style.active]: activeItem === id,
-            [style.openActive]: activeItem === id,
-          })}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div className={style.navItem}>{icon}
-            <Typography
-              className={clsx(style.textList, {
-                [style.active]: activeItem === id
-              })}>
-              {enName}
-            </Typography>
-          </div>
-          <div >{children}</div>
-        </div>
-      </ListItem>
-    )
-  }
   return (
     <>
       <AppBar
@@ -139,66 +198,19 @@ function Navbar() {
         className={style.appBar}>
         <Toolbar
           style={{justifyContent: 'space-between'}}
-        >
-        </Toolbar>
+        />
       </AppBar>
       <Router>
-        <div className={style.component} style={{justifyContent: 'space-between'}}>
-          <div className={style.side}>
-              <div>
-                <Drawer
-                  color="primary"
-                  elevation={0}
-                  open={true}
-                  variant="permanent"
-                  style={{ duration: '0.3s !important' }}
-                  classes={{
-                    paper: style.drawerPaper,
-                  }}
-                  anchor="left"
-                >
-                  <Avatar style={{ marginTop: '90px', width: '70px', height: '70px' }} />
-                  <Typography
-                    style={{ 
-                      fontWeight: "bold", 
-                      color: state ? "#fff" : "#010101", 
-                      marginTop: "5px" }} 
-                      variant="h6"
-                      >
-                        Salah Saadaoui
-                        </Typography>
-
-                  <MuiSwitch value={state} onChange={() => dispatch(setDark(!state))} />
-                  <List
-                    className={style.list}
-                    style={tablette ? {} : { marginTop: '45px' }}
-                  >
-                    {routers.items.map(item => {
-                      const active = item.id === activeItem
-                      return (
-                        <Link key={item.id} style={{ textDecoration: 'none' }} to={item.to}>
-                          <Item
-                            icon={item.icon(style, active)}
-                            id={item.id}
-                            enName={item.enName}
-                          />
-                        </Link>
-                      )
-                    })}
-                  </List>
-                </Drawer>
-              </div>
+        <Grid container>
+          <div style={{flex:1, marginLeft:"20px", marginTop:"80px"}}>
+            <Sidebar />
           </div>
-          <div className={style.content} >
-            <div className={style.container}
-              style={{margin: `80px 20px 0px ${ drawerWidthOpen + 20}px `}}
-            >
-              <Switch>
-                {routers.pages.map(page => <Route key={page.id} exact={page.exact} path={page.path} component={page.component} />)}
-              </Switch>
-            </div>
+          <div style={{flex:6, marginRight:"20px", marginTop:"80px"}}>
+            <Switch>
+              {routers.pages.map(page => <Route exact={page.exact} path={page.path} component={page.component} />)}
+            </Switch>
           </div>
-        </div>
+        </Grid>
       </Router>
     </>
   )
