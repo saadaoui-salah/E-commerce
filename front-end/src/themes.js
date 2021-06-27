@@ -13,18 +13,17 @@ const Theme = ({ children }) => {
         type: 'dark',
         overrides:{
             MuiPaper:{
-                boxShadow:" 0 7px 14px 0 rgb(65 69 88 / 10%), 0 3px 6px 0 rgb(0 0 0 / 7%)"
+                elevation0:"0 7px 14px 0 rgb(65 69 88 / 10%), 0 3px 6px 0 rgb(0 0 0 / 7%)"
             }
         }
     })
     
     const lightTheme = createMuiTheme({
         type: 'light',
-        overrides:{
-            MuiPaper:{
-                elevation1:" 0 7px 14px 0 rgb(65 69 88 / 10%), 0 3px 6px 0 rgb(0 0 0 / 7%)"
-            }
-        }
+        shadows:[
+            {0:"none"},
+            {1:"0 7px 14px 0 rgb(65 69 88 / 10%), 0 3px 6px 0 rgb(0 0 0 / 7%)"},
+            ]
     })
     const theme = state ? darkTheme : lightTheme
     return (
