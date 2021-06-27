@@ -11,11 +11,11 @@ import {
     Slide,
 } from '@material-ui/core'
 import { CardOptions, EditIconButton } from './sub-components/Buttons'
-import { useState, useContext } from 'react'
+import React from 'react'
 import { DarkContext } from '../reducers/context'
 
-export function HomeCard(props) {
-    const { state } = useContext(DarkContext)
+export const HomeCard =  (props) => {
+    const { state } = React.useContext(DarkContext)
     const useStyles = makeStyles((theme) => ({
         collectionCard:{
             backgroundColor: theme.palette.primary.main
@@ -64,8 +64,8 @@ export function CollectionCard({ id }) {
         },
     }))
     const style = useStyles()
-    const [checked, setChecked] = useState(false)
-    const [hover, setHover] = useState(false)
+    const [checked, setChecked] = React.useState(false)
+    const [hover, setHover] = React.useState(false)
     return (
         <>
             <Card

@@ -4,47 +4,12 @@ import {
     MenuItem,
     TextField,
 } from '@material-ui/core'
-import { useEffect, useState } from 'react'
-import { useQuery, useLazyQuery, useMutation } from '@apollo/client'
-import { LOAD_CATEGORIES, LOAD_PARENT_CATEGORIES } from '../graphql/queries'
-import { ADD_PRODUCT } from '../graphql/mutations'
-import { useForm } from '../hooks'
+import { useQuery } from '@apollo/client'
+import { useState } from 'react'
+import { LOAD_CATEGORIES } from '../graphql/queries'
 
-export function ProductFrom() {
-    const [categoriesState, setCategories] = useState([])
-    const [parentCategoriesState, setParentCategories] = useState([])
-    const { values, onChange, onSubmit } = useForm(createProduct, {
-        id: 61,
-        vendor: 5,
-        name: '',
-        parentCategory: '',
-        category: '',
-        quantity: '',
-        detail: '',
-        priceVender: '',
-        priceAchat: '',
-    })
-    const {  loading, data } = useQuery(LOAD_PARENT_CATEGORIES)
-    const [getCategories, response] = useLazyQuery(LOAD_CATEGORIES)
+export function ProductFrom({onChange, onSubmit, categories, parentCategories}) {
 
-    const [addProduct, { newData, error }] = useMutation(ADD_PRODUCT, { variales: values })
-    console.log(error)
-    function createProduct() {
-        addProduct()
-    }
-    useEffect(() => {
-        if (!loading && data !== undefined) {
-            setParentCategories(data.getCategories)
-        }
-    }, [data])
-    useEffect(() => {
-        if (values.parentCategory !== '') {
-            getCategories({ variables: { id: values.parentCategory.id } })
-        }
-        if (response.data !== undefined) {
-            setCategories(response.data.getCategories)
-        }
-    }, [values.parentCategory, response.data])
     return (
         <>
             <Grid container spacing={2} direction="row">
@@ -70,11 +35,13 @@ export function ProductFrom() {
                                 fullWidth
                                 variant="outlined"
                                 label="Parent Category">
-                                {parentCategoriesState.map(category => {
+                                {parentCategories ? 
+                                parentCategories.map(category => {
                                     return (
                                         <MenuItem value={category} key={category.id}>{category.category}</MenuItem>
                                     )
-                                })
+                                }) : 
+                                "Nothing to select"
                                 }
                             </TextField>
                         </Grid>
@@ -87,12 +54,14 @@ export function ProductFrom() {
                                 onChange={(e) => onChange(e)}
                                 label="Category"
                                 variant="outlined"
-                            >
-                                {categoriesState.map(category => {
+                                >
+                                {categories ? categories.map(category => {
                                     return (
                                         <MenuItem value={category} key={category.id}>{category.category}</MenuItem>
-                                    )
-                                })
+                                        )
+                                    })
+                                    : 
+                                   "Nothing to select"
                                 }
                             </TextField>
                         </Grid>

@@ -52,7 +52,6 @@ function DashboardPage() {
     const { error, loading, data } = useQuery(HOME_COUNTERS)
     return (
         <>
-            <Grid alignItems="center" direction='row' justify='center' spacing={2}>
                 <Paper>
                     <Divider style={{ backgroundColor: "#fff", padding: "0.5px" }} />
                     <Grid alignItems="center" direction='row' justify='center' container >
@@ -116,7 +115,6 @@ function DashboardPage() {
                         </Paper>
                     </Grid>
                 </Grid>
-            </Grid>
         </>
     )
 }

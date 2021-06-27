@@ -69,8 +69,8 @@ const Body = (props) => {
                                     const value = row[index];
                                     if (column === props.options.name) {
                                         return (
-                                            <TableCell key={index} align="center">
-                                                <div key={index} style={{ display: 'flex', justifyContent: 'center' }}>
+                                            <TableCell key={column.id} align="center">
+                                                <div key={column.id} style={{ display: 'flex', justifyContent: 'center' }}>
                                                     {props.options.component(rIndex)}
                                                 </div>
                                             </TableCell>

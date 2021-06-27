@@ -20,10 +20,10 @@ export default function CustomDialog({open, handleClose, title, content, agree, 
                         {content}
                 </DialogContent>
                 <DialogActions style={{display:'flex',justifyContent:'space-between'}}>
-                    <Button onClick={handleClose} color="secondary">
+                    <Button onClick={handleClose} variant="contained" color="secondary">
                         {disagree}
             </Button>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={handleClose} variant="contained" color="primary">
                         {agree}
             </Button>
                 </DialogActions>
