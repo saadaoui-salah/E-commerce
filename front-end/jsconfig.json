@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "paths": {
+            "@components": ["components/"],
+            "@sub-components": ["components/sub-components"],
+            "@mutations": ["graphql/muations"],
+            "@queries": ["graphql/queries"],
+            "@reducers": ["reducers"],
+            "@routers": ["routers/"],
+            "@oreders": ["pages/Oreders"],
+            "@product": ["pages/Product"],
+            "@users": ["pages/Users"],
+        }
+    }
+};
