@@ -36,10 +36,10 @@ jobs:
       - name: Lint With Flake8
         run: |
           pip install flake8
-          
+
       - name: Coverage Report
         run: |
-          pip insall coverage
+          pip install coverage
           coverage run manage.py test product
           coverage report
 
