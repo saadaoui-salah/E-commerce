@@ -7,57 +7,68 @@ import { useHistory } from "react-router-dom"
 
 export const Login = props => {
     const history = useHistory()
-    const {values, onChange, onSubmit} = useForm(authenticate, {
-        username:"",
-        password:"",
+    const { values, onChange, onSubmit } = useForm(authenticate, {
+        username: "",
+        password: "",
     })
-    const [login, {loading, data, error}] = useMutation(LOGIN, {variables: values})
-    function authenticate(){
+    const [login, { loading, data, error }] = useMutation(LOGIN, { variables: values })
+    const submit = () => {
+
+    }
+    function authenticate() {
         login()
     }
-    useEffect(()=>{
-        if ( data && data.tokenAuth.success){
+    useEffect(() => {
+        if (data && data.tokenAuth.success) {
             history.push("/")
         }
     }, [data])
     return (
         <Grid container justify="center" align="center">
             <Paper
-                style={{ backgroundColor: "#fff" }}
-                elevation={4}>
-                <div
-                    style={{ display: 'flex' }}
-                >
-                    <form method="POST">
-                        <h1 style={{color:'white'}}>Welcome !</h1>
-                        <h3 style={{color:'white'}}>Sign In</h3>
-                        <TextField
-                            onChange={e => onChange(e)}
-                            variant="outlined"
-                            name="username"
-                            type="email"
-                            label="Email"
-                            />
-                        <br />
-                        <TextField
-                            onChange={e => onChange(e)}
-                            type="password"
-                            variant="outlined"
-                            name="password"
-                            label="Password"
-                        />
-                        <br />
-                        <Button
-                            type="submit"
-                            onClick={(e) => onSubmit(e)}
-                            variant="contained"
-                            color="success.main"
-                        >
-                            Login
-                        </Button>
-                    </form>
-                    <div></div>
-                </div>
+                style={{
+                    backgroundColor: "#fff",
+                    width: "400px",
+                    height: "400px",
+                    display: 'flex',
+                    justifyContent: "center",
+                    alignItems: "center"
+                }}
+                elevation={2}>
+
+                <form method="POST">
+                    <div>
+                        <h1 style={{ color: '#25265eb3' }}>Welcome !</h1>
+                        <h3 style={{ color: '#25265eb3' }}>Sign In</h3>
+                    </div>
+                    <TextField
+                        onChange={e => onChange(e)}
+                        variant="outlined"
+                        style={{ marginBottom: "20px", width: '300px' }}
+                        name="username"
+                        type="email"
+                        label="Email"
+                    />
+                    <br />
+                    <TextField
+                        onChange={e => onChange(e)}
+                        type="password"
+                        style={{ marginBottom: "20px", width: '300px' }}
+                        variant="outlined"
+                        name="password"
+                        label="Password"
+                    />
+                    <br />
+                    <Button
+                        type="submit"
+                        variant="outlined" 
+                        color="success"
+                        style={{ marginTop: "5px" }}
+                        onClick={(e) => submit(e)}
+                    >
+                        Login
+                    </Button>
+                </form>
             </Paper>
         </Grid>
     )
