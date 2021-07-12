@@ -44,7 +44,7 @@ const ProductTable = () => {
         return tableRows
     },[products])
     return (
-        <Table columns={columns} style={{ width: "100%" }} rows={rows} options={options_} />
+        <Table columns={columns} style={{ width: "100%" }} rows={rows()} options={options_} />
     )
 }
 
