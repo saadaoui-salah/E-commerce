@@ -23,7 +23,7 @@ export const Login = props => {
     return (
         <Grid container justify="center" align="center">
             <Paper
-                style={{ backgroundColor: "#101b38" }}
+                style={{ backgroundColor: "#fff" }}
                 elevation={4}>
                 <div
                     style={{ display: 'flex' }}
