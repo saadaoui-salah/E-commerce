@@ -1,0 +1,52 @@
+from product.models import *
+from account.models import *
+from random import *
+
+for i in range(10):
+    Vendor.objects.create(
+        first_name = f"vendor {i}",
+        last_name = f"vendor {i}",
+        email = f"vendor{i}@gmail.com",
+        username = f"vendor{i}",
+        type = User.Type.VENDOR,
+        password = "root"
+    )
+
+for i in range(10):
+    Vendor.objects.create(
+        first_name = f"sub vendor {i}",
+        last_name = f"sub vendor {i}",
+        email = f"subvendor{i}@gmail.com",
+        username = f"subn_vendor{i}",
+        type = User.Type.VENDOR,
+        password = "root",
+        user_multi_vendor = choices(MultiVendor.objects.all())[0] 
+    )
+
+for i in range(10):
+    MultiVendor.objects.create(
+        first_name = f"Multivendor {i}",
+        last_name = f"Multivendor {i}",
+        email = f"Multivendor{i}@gmail.com",
+        username = f"Multivendor{i}",
+        type = User.Type.MULTI_VENDOR,
+        password = "root"
+    )
+
+for i in  range(10):
+    Category.objects.create(category=f"parent {i}")
+
+for i in range(10):
+    Category.objects.create(category=f"parent {i}", parent_category=choices(Category.objects.all())[0])
+
+for i in range(40):
+    Product.objects.create(
+        name=f"product {i}",
+        vendor=choices(Vendor.objects.all())[0],
+        parent_category=choices(Category.objects.all())[0],
+        category=choices(Category.objects.all())[0],
+        price_vender=randint(300, 600),
+        price_achat= randint(50, 290),
+        detail="product detail",
+        quantity= randint(10,50)
+    )

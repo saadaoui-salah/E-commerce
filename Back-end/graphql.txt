@@ -1,0 +1,88 @@
+query auth{
+  me{
+    id
+    username
+  }
+  users{
+    edges{
+      node{
+        username
+      }
+    }
+  }
+}
+
+############## PRODUCT
+query product{
+  topRating{
+    name
+  }
+  highBuy(num:1){
+    id
+  }
+  getRequests{
+    adresse
+  }
+}
+
+mutation{
+updateProduct(
+    id:3
+    quantity:30
+    priceAchat:300
+    priceVender:400
+    name:"te54564st"
+    detail:""
+  ){
+    product{
+      
+      name
+      rating
+    }
+  }
+deletProduct(id:4){
+  product {
+    id
+  }
+}
+}
+############## END PRODUCT
+
+############## REQUEST
+mutation request{
+createRequest(
+    input:{
+      consumer:3
+      product:3
+      productNum:4
+      phoneNumber:465465465
+      adresse:"saùmùm"
+    }
+  ){
+    errors{
+      messages
+    }
+  }
+updateRequest(
+    id:2,
+    status:"done"
+  )
+    {
+      request{
+        id
+        status
+    }
+  }
+}
+
+########### END REQUEST
+
+########### PUB
+query pub{
+  pubList{
+    image
+    views
+    clicks
+  }
+}
+########### END PUB

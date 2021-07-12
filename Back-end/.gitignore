@@ -1,0 +1,8 @@
+/env
+/.vscode
+/request/__pycache__
+/product/__pycache__
+/account/__pycache__
+/analytics/__pycache__
+/media
+*/.coverage
