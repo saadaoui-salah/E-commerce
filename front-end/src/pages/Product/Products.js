@@ -25,7 +25,24 @@ const ProductTable = () => {
             setProducts([...data.getProducts])
         }
     }, [data])
-    const rows = []
+    const rows =  useCallback(() => {
+        var tableRows = []
+        if (products){
+            products.map(product => {
+                 tableRows = [...tableRows, createData(
+                    product.image,
+                    product.name,
+                    product.category,
+                    product.parentCategory,
+                    product.quantity,
+                    product.priceAchat,
+                    product.priceVender
+                )]
+            })
+            return tableRows
+        } 
+        return tableRows
+    },[products])
     return (
         <Table columns={columns} style={{ width: "100%" }} rows={rows} options={options_} />
     )
