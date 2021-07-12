@@ -56,7 +56,7 @@ class ProductInfo(models.Model):
     date     = models.DateField(auto_now_add=True)
     objects  = ProductInfoManager()
     def __str__(self):
-        return self.costumer.username
+        return self.costumer
 
 # Not yet
 class Cobon(models.Model):
