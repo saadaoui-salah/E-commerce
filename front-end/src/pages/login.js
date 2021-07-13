@@ -5,7 +5,7 @@ import { LOGIN } from "../graphql/mutations"
 import { useEffect } from "react"
 import { useHistory } from "react-router-dom"
 
-export const Login = props => {
+export const Login = () => {
     const history = useHistory()
     const { values, onChange, onSubmit } = useForm(authenticate, {
         username: "",
@@ -13,6 +13,12 @@ export const Login = props => {
     })
     const [login, { loading, data, error }] = useMutation(LOGIN, { variables: values })
     const submit = () => {
+        const username = document.getElementsByName('username').values
+        const password = document.getElementsByName('password').values
+        if (username && password){
+            console.log(username, password)
+            onSubmit()
+        }
 
     }
     function authenticate() {
