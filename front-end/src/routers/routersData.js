@@ -209,12 +209,6 @@ export var routers = {
             component: () => <Routers link="users" data={usersRouters} />,
         },
         {
-            id: 5,
-            exact: false,
-            path: '/login',
-            component: () => <Login />,
-        },
-        {
             id: 6,
             exact: false,
             path: '/chat',
