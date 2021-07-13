@@ -2,7 +2,6 @@ import { gql } from '@apollo/client'
 
 export const ADD_PRODUCT = gql`
 mutation addProduct(
-    $vendor: ID!
     $category: ID!
     $parentCategory: ID!
     $name: String!
@@ -12,7 +11,6 @@ mutation addProduct(
     $quantity: Int!
     ){
         updateProduct(
-            vendor: $vendor
             category: $category
             parentCategory: $parentCategory
             name: $name
