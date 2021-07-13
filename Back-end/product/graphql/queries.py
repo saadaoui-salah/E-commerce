@@ -12,9 +12,12 @@ class CategoryQuery(graphene.ObjectType):
     get_by_category = graphene.List(ProductType,cat=graphene.String())
     
     def resolve_get_categories(root, info, parent_category_id=None,):
+        print(parent_category_id)
+        # TODO add permissions
         return Category.objects.filter(parent_category=parent_category_id)
 
     def resolve_get_by_category(root,info,cat):
+        # TODO add permissions
         return Product.objects.get_by_category(cat)
 
 class ProductInfoQuery(graphene.ObjectType):

@@ -1,3 +1,4 @@
+from itertools import product
 import graphene
 from graphene_django.forms.mutation import DjangoFormMutation
 from product.forms import ProuctInfoForm, ProductForm
@@ -29,9 +30,23 @@ class CategoryMutation(graphene.ObjectType):
     create_category      = CreateCategoryMutation.Field()
 
 ########### PRODUCT CRUD MUTATIONS
-class CreateProductMutation(DjangoFormMutation):
-    class Meta:
-        form_class = ProductForm
+class CreateProductMutation(graphene.Mutation):
+    class Arguments:
+        name             = graphene.String()
+        category         = graphene.String()
+        parent_category  = graphene.String()
+        price_vender     = graphene.Float()
+        price_achat      = graphene.Float()
+        detail           = graphene.String()
+        quantity         = graphene.Int()
+
+    product = graphene.Field(ProductType)
+    errors = graphene.String()
+
+    def mutate(root,info,name,price_vender,price_achat,detail,quantity, category, parent_category):
+        print("name ====>", name)   
+        p = Product.objects.first()
+        return CreateProductInfoMutation(product= p, errors="k") 
 
 
 class UpdateProductMutation(graphene.Mutation):
