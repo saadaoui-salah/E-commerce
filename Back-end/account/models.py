@@ -74,7 +74,7 @@ class User(AbstractUser):
             return True
         return False
     @property
-    def is_consumer(self):
+    def is_costumer(self):
         if self.type == self.Type.CONSUMER:
             return True
         return False
