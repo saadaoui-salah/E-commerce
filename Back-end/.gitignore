@@ -5,4 +5,4 @@
 /account/__pycache__
 /analytics/__pycache__
 /media
-*/.coverage
+/htmlcov
