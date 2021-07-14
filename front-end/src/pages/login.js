@@ -8,7 +8,7 @@ import { AuthContext } from "../reducers/context"
 import { setLogin } from "../reducers/actoins"
 
 export const Login = () => {
-    const { authState, authDispatch } = useContext(AuthContext)
+    const { authDispatch } = useContext(AuthContext)
     const history = useHistory()
     const { values, onChange, onSubmit } = useForm(authenticate, {
         username: "",
