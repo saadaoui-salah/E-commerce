@@ -1,9 +1,26 @@
-import { EDIT, DARK, REMOVE, OPEN, CLOSE } from './actoins'
+import { EDIT, DARK, REMOVE, OPEN, CLOSE, LOGIN, LOGOUT } from './actoins'
 
 export function DarkReducer(state, action){
     switch (action.type){
         case DARK:
             return action.dark
+        default:
+            return state
+    }
+}
+
+export function AuthReducer(state, action){
+    switch (action.type){
+        case LOGIN:
+            return {
+                loggedIn: true,
+                type: action.userType,
+            }
+        case LOGOUT:
+            return {
+                loggedIn: false,
+                type: null,
+            }
         default:
             return state
     }

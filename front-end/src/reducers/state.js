@@ -12,3 +12,8 @@ export const dropDown = {
 export const productsState= []
 
 export const dark = false
+
+export const authenticated = {
+    loggedIn: false,
+    type: null
+}

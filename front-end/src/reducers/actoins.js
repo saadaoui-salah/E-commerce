@@ -34,3 +34,19 @@ export function setDark(isDark){
         dark: isDark
     }
 }
+
+export const LOGIN = 'LOGIN'
+export function setLogin(userType){
+    return {
+        type: LOGIN,
+        userType: userType
+    }    
+}
+
+export const LOGOUT = 'LOGOUT'
+export function setLogout(){
+    return {
+        type: LOGOUT,
+        userType: null
+    }    
+}

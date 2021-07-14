@@ -2,33 +2,33 @@ import { Grid, TextField, Paper, Button } from "@material-ui/core"
 import { useForm } from "../hooks"
 import { useMutation } from "@apollo/client"
 import { LOGIN } from "../graphql/mutations"
-import { useEffect } from "react"
+import { useEffect, useContext } from "react"
 import { useHistory } from "react-router-dom"
+import { AuthContext } from "../reducers/context"
+import { setLogin } from "../reducers/actoins"
 
 export const Login = () => {
+    const { authState, authDispatch } = useContext(AuthContext)
     const history = useHistory()
     const { values, onChange, onSubmit } = useForm(authenticate, {
         username: "",
         password: "",
     })
     const [login, { loading, data, error }] = useMutation(LOGIN, { variables: values })
-    const submit = () => {
+    const submit = (e) => {
         const username = document.getElementsByName('username').values
         const password = document.getElementsByName('password').values
-        if (username && password){
-            console.log(username, password)
-            onSubmit()
-        }
-
+        if (username && password) onSubmit(e)
     }
     function authenticate() {
         login()
     }
     useEffect(() => {
-        if (data && data.tokenAuth.success) {
-            history.push("/")
+        if (data && data.tokenAuth.success && !loading) {
+            authDispatch(setLogin(data.tokenAuth.user.type))
+            history.push("")
         }
-    }, [data])
+    }, [data, loading])
     return (
         <Grid container justify="center" align="center">
             <Paper
@@ -52,8 +52,8 @@ export const Login = () => {
                         variant="outlined"
                         style={{ marginBottom: "20px", width: '300px' }}
                         name="username"
-                        type="email"
-                        label="Email"
+                        required
+                        label="username"
                     />
                     <br />
                     <TextField
@@ -61,13 +61,14 @@ export const Login = () => {
                         type="password"
                         style={{ marginBottom: "20px", width: '300px' }}
                         variant="outlined"
+                        required
                         name="password"
                         label="Password"
                     />
                     <br />
                     <Button
                         type="submit"
-                        variant="outlined" 
+                        variant="outlined"
                         color="success"
                         style={{ marginTop: "5px" }}
                         onClick={(e) => submit(e)}
