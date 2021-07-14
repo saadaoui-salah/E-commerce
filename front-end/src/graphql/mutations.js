@@ -44,6 +44,9 @@ mutation tokenAuth(
             username: $username
             password: $password
             ){
+                user{
+                    type
+                }
                 success
                 token
             }
