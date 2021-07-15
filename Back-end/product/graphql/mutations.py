@@ -1,9 +1,9 @@
 from itertools import product
 import graphene
-from graphene_django.forms.mutation import DjangoFormMutation
-from product.forms import ProuctInfoForm, ProductForm
 from product.models import Product, Category
-from .types import ProductType, ProductInfoType, CategoryType
+from .types import ProductType, ProductInfoType, CategoryType, CategoryInputType
+from graphql_jwt.decorators import permission_required
+from graphene_file_upload.scalars import Upload
 
 ########### Catgeory Crud mutation
 class CreateCategoryMutation(graphene.Mutation):
@@ -17,7 +17,7 @@ class CreateCategoryMutation(graphene.Mutation):
 
     def mutate(root, info, category, parent_category=None):
         user = info.context.user
-        print(category)
+        print(user)
         if user.Type.VENDOR or user.Type.MULTIVENDOR or user.Type.ADMIN:
             if parent_category:
                 category = Category.objects.create(category=category) 
@@ -32,21 +32,14 @@ class CategoryMutation(graphene.ObjectType):
 ########### PRODUCT CRUD MUTATIONS
 class CreateProductMutation(graphene.Mutation):
     class Arguments:
-        name             = graphene.String()
-        category         = graphene.String()
-        parent_category  = graphene.String()
-        price_vender     = graphene.Float()
-        price_achat      = graphene.Float()
-        detail           = graphene.String()
-        quantity         = graphene.Int()
+        file            = Upload(required=True) 
 
-    product = graphene.Field(ProductType)
     errors = graphene.String()
-
-    def mutate(root,info,name,price_vender,price_achat,detail,quantity, category, parent_category):
-        print("name ====>", name)   
+    
+    def mutate(self, info, file ):
         p = Product.objects.first()
-        return CreateProductInfoMutation(product= p, errors="k") 
+        print(f"====> {info.context.FILES['file']} ")
+        return CreateProductMutation(errors="k") 
 
 
 class UpdateProductMutation(graphene.Mutation):
@@ -56,8 +49,8 @@ class UpdateProductMutation(graphene.Mutation):
         price_vender = graphene.Float()
         price_achat  = graphene.Float()
         detail       = graphene.String()
-        quantity      = graphene.Int()
-        image        = graphene.String()
+        quantity     = graphene.Int()
+        image        = Upload()
     
     product = graphene.Field(ProductType)
     errors = graphene.String()
@@ -113,10 +106,6 @@ class ProductMutation(graphene.ObjectType):
 
 
 ############### PRODUCTINFO CRUD MUTATIONS
-class CreateProductInfoMutation(DjangoFormMutation):
-    class Meta:
-        form_class = ProuctInfoForm 
-                    
 
 class UpdateProductInfoMutation(graphene.Mutation):
     class Arguments:
@@ -167,7 +156,6 @@ class DeleteProductInfoMutation(graphene.Mutation):
 
 
 class ProductInfoMutations(graphene.ObjectType): 
-    create_product_info = CreateProductInfoMutation.Field()
     update_product_info = UpdateProductInfoMutation.Field()
     delet_product_info  = DeleteProductInfoMutation.Field()
 

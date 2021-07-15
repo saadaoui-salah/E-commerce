@@ -1,29 +1,16 @@
 import { gql } from '@apollo/client'
 
 export const ADD_PRODUCT = gql`
-mutation addProduct(
-    $category: ID!
-    $parentCategory: ID!
-    $name: String!
-    $priceVender: Int!
-    $priceAchat: Int!
-    $detail: String!
-    $quantity: Int!
-    ){
-        updateProduct(
-            category: $category
-            parentCategory: $parentCategory
-            name: $name
-            priceVender: $priceVender
-            priceAchat: $priceAchat
-            detail: $detail
-            quantity: $quantity
-        ){
-            product{
-                id
-            }
+mutation createProduct(
+    $file: Upload!
+    ) {
+        createProduct(
+            file: $file
+        ) {
+            errors
     }
-}
+  }
+  
 `
 
 export const ADD_CATEGORY = gql`
@@ -49,6 +36,7 @@ mutation tokenAuth(
                 }
                 success
                 token
+                refreshToken
             }
     }
 `

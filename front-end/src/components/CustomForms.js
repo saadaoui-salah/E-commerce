@@ -14,6 +14,7 @@ import { useForm } from '../hooks'
 
 export function ProductFrom() {
     const [categoriesState, setCategories] = useState([])
+    const [file, setFile] = useState([])
     const [parentCategoriesState, setParentCategories] = useState([])
 
     const { loading, data } = useQuery(LOAD_PARENT_CATEGORIES)
@@ -21,16 +22,30 @@ export function ProductFrom() {
 
     const { values, onChange, onSubmit } = useForm(createProduct, {
         name: '',
-        parentCategory: '',
-        category: '',
+        parentCategory: {
+            id: null,
+            category: ''
+        },
+        category: {
+            id: null,
+            category: ''
+        },
         quantity: '',
         detail: '',
         priceVender: '',
         priceAchat: '',
     })
-    const [addProduct, { newData, error }] = useMutation(ADD_PRODUCT, { variales: values })
+    const [addProduct] = useMutation(ADD_PRODUCT)
     function createProduct() {
-        addProduct()
+        console.log(file.image)
+        addProduct({
+            variables: {
+                file: file.image
+            }
+        })
+    }
+    const handleOnChangeFile = ({ target: { validity, files: [file] } }) => {
+        if (validity.valid) setFile({ image: file })
     }
     useEffect(() => {
         if (!loading && data !== undefined) {
@@ -42,7 +57,6 @@ export function ProductFrom() {
             getCategories({ variables: { id: values.parentCategory.id } })
         }
         if (response.data !== undefined) {
-            console.log(response.data.getCategories)
             setCategories(response.data.getCategories)
         }
     }, [values.parentCategory, response.data])
@@ -131,7 +145,7 @@ export function ProductFrom() {
                             <Grid item>
                                 <TextField
                                     onChange={(e) => onChange(e)}
-                                    name="priceVendre"
+                                    name="priceVender"
                                     fullWidth
                                     label="Vendre"
                                     required
@@ -156,11 +170,11 @@ export function ProductFrom() {
                 </Grid>
             </Grid>
             <Grid container spacing={0} direction="column">
-               {/*  <input 
+                <input
                     type="file"
                     name="image"
-                    onChange={e =>{ if onChange(e)}}
-                    /> */}
+                    onChange={(e) => handleOnChangeFile(e)}
+                />
             </Grid>
             <Button onClick={(e) => onSubmit(e)}>ADD</Button>
         </>
