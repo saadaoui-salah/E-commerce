@@ -110,7 +110,6 @@ function DashboardPage() {
                     <Grid alignItems="center" direction='column' justify='center' spacing={2} container >
                         <Cards/>
                         <Grid direction='row' justify='content' container >
-                            <Map />
                         </Grid>
                     </Grid>
                 <Grid alignItems="center" direction='row' justify='center' container style={{ marginTop: '35px' }}>
