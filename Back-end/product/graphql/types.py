@@ -19,11 +19,6 @@ class ProductType(DjangoObjectType):
             'quantity',
             )
 
-class ProductImageType(DjangoObjectType):
-    class Meta:
-        model = Product
-        fields = ['image']
-
 class CategoryInputType(graphene.InputObjectType):
     id = graphene.ID()
     category = graphene.String()
