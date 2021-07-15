@@ -11,10 +11,10 @@ class CategoryQuery(graphene.ObjectType):
     get_categories   = graphene.List(CategoryType, parent_category_id=graphene.ID(required=False))
     get_by_category = graphene.List(ProductType,cat=graphene.String())
     
-    def resolve_get_categories(root, info, parent_category_id=None,):
+    def resolve_get_categories(root, info, parent_category_id=None):
         print(parent_category_id)
         # TODO add permissions
-        return Category.objects.filter(parent_category=parent_category_id)
+        return Category.objects.filter(parent_category__id=parent_category_id)
 
     def resolve_get_by_category(root,info,cat):
         # TODO add permissions
@@ -34,6 +34,7 @@ class ProductInfoQuery(graphene.ObjectType):
 class ProductQuery(graphene.ObjectType):
     get_products = graphene.List(ProductType)
     get_product  = graphene.List(ProductType,id=graphene.ID())
+
     def resolve_get_products(root,info):
         user = info.context.user
         if user.is_authenticated:
