@@ -13,7 +13,7 @@ import {
 
 const AuthRoute = () => {
   const { authState } = useContext(AuthContext)
-  if (authState.loggedIn) return <CustomAppbar /> 
+  if (window.localStorage.getItem("token")) return <CustomAppbar /> 
   return <Redirect push to="/login" />
 }
 
