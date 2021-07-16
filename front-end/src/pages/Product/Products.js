@@ -1,7 +1,7 @@
 import Table from '../../components/Table'
 import { AddButton, TableOptions, DeleteButton } from '../../components/sub-components/Buttons'
 import { ProductFrom } from '../../components/CustomForms'
-import { useContext, useCallback, useEffect, useState } from 'react'
+import { useContext, useMemo, useEffect, useState } from 'react'
 import { Typography, Container, Divider } from '@material-ui/core'
 import { DarkContext } from '../../reducers/context'
 import { useQuery } from '@apollo/client'
@@ -21,11 +21,10 @@ const ProductTable = () => {
     const { error, laoding, data } = useQuery(LOAD_PRODUCTS)
     useEffect(() => {
         if ( !laoding && data !== undefined) {
-            console.log(data.getProducts)
             setProducts([...data.getProducts])
         }
     }, [data])
-    const rows =  useCallback(() => {
+    const rows =  useMemo(() => {
         var tableRows = []
         if (products){
             products.map(product => {
@@ -44,7 +43,7 @@ const ProductTable = () => {
         return tableRows
     },[products])
     return (
-        <Table columns={columns} style={{ width: "100%" }} rows={rows()} options={options_} />
+        <Table columns={columns} style={{ width: "100%" }} rows={rows} options={options_} />
     )
 }
 
@@ -71,8 +70,7 @@ export default function Products() {
             <div style={{ marginBottom: "10px" }}>
             <AddButton 
                 value="Product" 
-                content={<ProductFrom />} 
-                title="Create New Product" 
+                dialog={<ProductFrom />} 
                 style={{ marginRight: "100px" }} 
                 />
                 <DeleteButton content="Are you sure" title="Delete Product" />
