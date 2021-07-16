@@ -1,25 +1,24 @@
 import {
-    Grid,
-    Button,
-    MenuItem,
-    TextField,
+Grid, Dialog,
+Button, DialogActions,
+MenuItem, DialogContent,
+TextField, DialogTitle,
 } from '@material-ui/core'
 import { useEffect } from 'react'
 import { useQuery, useLazyQuery, useMutation } from '@apollo/client'
 import { useState } from 'react'
 import { LOAD_CATEGORIES, LOAD_PARENT_CATEGORIES } from '../graphql/queries'
 import { ADD_PRODUCT, ADD_CATEGORY } from '../graphql/mutations'
-import { useForm } from '../hooks'
+import { useForm, useOpen } from '../hooks'
 
 
 export function ProductFrom() {
     const [categoriesState, setCategories] = useState([])
     const [file, setFile] = useState([])
     const [parentCategoriesState, setParentCategories] = useState([])
-
+    const {handleClose, handleOpen, open} = useOpen()
     const { loading, data } = useQuery(LOAD_PARENT_CATEGORIES)
     const [getCategories, response] = useLazyQuery(LOAD_CATEGORIES)
-
     const { values, onChange, onSubmit } = useForm(createProduct, {
         name: '',
         parentCategory: {
@@ -61,7 +60,13 @@ export function ProductFrom() {
         }
     }, [values.parentCategory, response.data])
     return (
-        <>
+        <Dialog
+                open={open}
+                keepMounted
+                onClose={handleClose}
+            >
+            <DialogTitle >Create Product</DialogTitle>
+            <DialogContent>
             <Grid container spacing={2} direction="column">
                 <Grid container spacing={2} direction="row">
                     <Grid item>
@@ -176,8 +181,11 @@ export function ProductFrom() {
                     onChange={(e) => handleOnChangeFile(e)}
                 />
             </Grid>
-            <Button onClick={(e) => onSubmit(e)}>ADD</Button>
-        </>
+            </DialogContent>
+            <DialogActions style={{display:'flex',justifyContent:'space-between'}}>
+                <Button color="primary" onClick={(e) => onSubmit(e)}>ADD</Button>
+            </DialogActions>
+    </Dialog>
     )
 }
 
