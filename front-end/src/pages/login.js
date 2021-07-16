@@ -14,19 +14,32 @@ export const Login = () => {
         username: "",
         password: "",
     })
-    const [login, { loading, data, error }] = useMutation(LOGIN, { variables: values })
+    const [login, { loading, data, error }] = useMutation(LOGIN,
+    {onCompleted(data){
+        const token = data?.tokenAuth?.token
+        console.log(token)
+        if(token){
+            window.localStorage.setItem("token", token)
+            window.location.href = "/"
+        }else{
+            console.error("UNKOWN USER")
+        }
+    }}
+    )
     const submit = (e) => {
         const username = document.getElementsByName('username').values
         const password = document.getElementsByName('password').values
         if (username && password) onSubmit(e)
     }
     function authenticate() {
-        login()
+        login( { variables: values })
     }
     useEffect(() => {
         if (data && data.tokenAuth.success && !loading) {
             authDispatch(setLogin(data.tokenAuth.user.type))
             history.push("")
+        }else{
+            history.push("/login")
         }
     }, [data, loading])
     return (
