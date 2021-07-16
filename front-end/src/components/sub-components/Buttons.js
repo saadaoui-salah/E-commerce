@@ -13,10 +13,9 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles'
 import { Grow } from '@material-ui/core'
-import CustomDialog from './Dialog'
 import { edit, cancel } from '../../reducers/actoins'
 import { DarkContext, OptionsContext } from '../../reducers/context'
-
+import {useOpen} from '../../hooks'
 
 const useStyle = makeStyles(() => ({
     optionBtn: {
@@ -94,7 +93,7 @@ export const EditIconButton = ({ id }) => {
             style={{ backgroundColor: "#0063cc" }}
             className={style.optionBtn}
         >
-            <Fade in={true} timeout={600}>
+            <Fade in={true} timeout={900}>
                 <EditIcon className={style.icon} />
             </Fade>
         </IconButton>
@@ -172,11 +171,9 @@ export const CardOptions = ({ id }) => {
     )
 }
 
-export const AddButton = ({ value, content, title }) => {
+export const AddButton = ({ value, dialog, title }) => {
     const { state, dispatch } = useContext(DarkContext)
-    const [open, setOpen] = useState(false)
-    const handleOpen = () => setOpen(true)
-    const handleClose = () => setOpen(false)
+    const {handleClose, handleOpen, open} = useOpen()
     const useStyle = makeStyles(() => ({
         addBtn: {
             marginRight: "10px",
@@ -194,24 +191,15 @@ export const AddButton = ({ value, content, title }) => {
             >
                 New {value} +
             </Button>
-            <Fade in={open} timeout={10000}>
-                <CustomDialog
-                    open={open}
-                    handleClose={handleClose}
-                    title={title}
-                    content={content}
-                    agree="Save"
-                    disagree="Cancel"
-                />
+            <Fade in={true} timeout={10000}>
+                {dialog}
             </Fade>
         </>
     )
 }
 
 export const DeleteButton = ({ title, content }) => {
-    const [open, setOpen] = useState(false)
-    const handleOpen = () => setOpen(true)
-    const handleClose = () => setOpen(false)
+
     return (
         <>
             <Button
@@ -222,14 +210,7 @@ export const DeleteButton = ({ title, content }) => {
             >
                 delete <DeleteIcon />
             </Button>
-            <CustomDialog
-                open={open}
-                handleClose={handleClose}
-                title={title}
-                content={content}
-                agree="Delete"
-                disagree="Cancel"
-            />
+
 
         </>
     )
