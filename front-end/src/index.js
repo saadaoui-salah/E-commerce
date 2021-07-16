@@ -7,11 +7,10 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  HttpClient,
-  from
+  createHttpLink,
 } from '@apollo/client'
 import {onError} from '@apollo/client/link/error'
-
+import { setContext } from "@apollo/client/link/context";
 /* const errorLink = onError(({graphqlErrors, networkError})=>{
   if (graphqlErrors){
     graphqlErrors.map(({message, location, path})=>{
@@ -25,9 +24,20 @@ const link = from([
   new HttpClient({uri:"http://127.0.0.1:8000/graphql"}),
 ]) */
 
+const httpLink = createHttpLink({uri:"http://127.0.0.1:8000/graphql"})
+const authLink = setContext((_, {headers})=>{
+  const token = window.localStorage.getItem('token')
+  return {
+    headers :{
+      ...headers,
+      authorization: token ? `JWT ${token}` : ""
+    }
+  }
+})
+
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  uri:"http://127.0.0.1:8000/graphql"
+  link: authLink.concat(httpLink)
 })
 
 
