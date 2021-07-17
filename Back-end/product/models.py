@@ -17,8 +17,6 @@ class Category(models.Model):
 
 class Product(models.Model):
     vendor          = models.ForeignKey('account.Vendor', on_delete=models.CASCADE)
-    parent_category = models.ForeignKey(Category,on_delete=models.CASCADE,related_name="product_parent_category",null=True,blank=True,limit_choices_to={"parent_category__isnull":True})
-    category        = models.ForeignKey(Category,on_delete=models.CASCADE,related_name="product_category",null=True,blank=True,limit_choices_to={"parent_category__isnull":False})
     name            = models.CharField(max_length=100)
     price_vender    = models.DecimalField(decimal_places=2,max_digits=10)
     price_achat     = models.DecimalField(decimal_places=2,max_digits=10)
