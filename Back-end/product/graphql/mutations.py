@@ -1,8 +1,8 @@
 from itertools import product
 import graphene
 from product.models import Product, Category
-from .types import ProductType, ProductInfoType, CategoryType, CategoryInputType
-from graphql_jwt.decorators import permission_required
+from product.forms import ProductForm, CategoryForm
+from .types import ProductType, ProductInfoType, CategoryType
 from graphene_file_upload.scalars import Upload
 
 ########### Catgeory Crud mutation
@@ -32,14 +32,26 @@ class CategoryMutation(graphene.ObjectType):
 ########### PRODUCT CRUD MUTATIONS
 class CreateProductMutation(graphene.Mutation):
     class Arguments:
-        file            = Upload(required=True) 
+        name         = graphene.String()
+        quantity     = graphene.Int(required=False)
+        price_achat  = graphene.Float(required=False)
+        price_vender = graphene.Float()
+        detail       = graphene.String(required=False)
+        image        = Upload(required=True) 
 
-    errors = graphene.String()
-    
-    def mutate(self, info, file ):
-        p = Product.objects.first()
-        print(f"====> {info.context.FILES['file']} ")
-        return CreateProductMutation(errors="k") 
+    errors  = graphene.String(required=False)
+    success = graphene.Boolean()
+    product = graphene.List(ProductType, required=False)
+    def mutate(self, info, name, price_achat, price_vender, detail, image, quantity):
+        new_product = Product(
+            name=name, 
+            quantity=quantity, 
+            price_achat=price_achat, 
+            price_vender=price_vender, 
+            detail=detail,
+            image=image)
+        new_product.save()
+        return CreateProductMutation(success=True, product=new_product) 
 
 
 class UpdateProductMutation(graphene.Mutation):
