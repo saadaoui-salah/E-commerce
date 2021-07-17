@@ -1,191 +1,131 @@
 import {
-Grid, Dialog,
-Button, DialogActions,
-MenuItem, DialogContent,
-TextField, DialogTitle,
+    Grid, Dialog,
+    Button, DialogActions,
+    MenuItem, DialogContent,
+    TextField, DialogTitle,
 } from '@material-ui/core'
 import { useEffect } from 'react'
-import { useQuery, useLazyQuery, useMutation } from '@apollo/client'
+import { useQuery, useMutation } from '@apollo/client'
 import { useState } from 'react'
-import { LOAD_CATEGORIES, LOAD_PARENT_CATEGORIES } from '../graphql/queries'
+import {LOAD_PARENT_CATEGORIES} from '../graphql/queries'
 import { ADD_PRODUCT, ADD_CATEGORY } from '../graphql/mutations'
-import { useForm, useOpen } from '../hooks'
+import { useForm } from '../hooks'
 
-
-export function ProductFrom() {
-    const [categoriesState, setCategories] = useState([])
+export function ProductDialogFrom({ handleClose, open }) {
     const [file, setFile] = useState([])
-    const [parentCategoriesState, setParentCategories] = useState([])
-    const {handleClose, handleOpen, open} = useOpen()
-    const { loading, data } = useQuery(LOAD_PARENT_CATEGORIES)
-    const [getCategories, response] = useLazyQuery(LOAD_CATEGORIES)
     const { values, onChange, onSubmit } = useForm(createProduct, {
         name: '',
-        parentCategory: {
-            id: null,
-            category: ''
-        },
-        category: {
-            id: null,
-            category: ''
-        },
         quantity: '',
         detail: '',
-        priceVender: '',
-        priceAchat: '',
+        priceVender: 0,
+        priceAchat: 0,
     })
     const [addProduct] = useMutation(ADD_PRODUCT)
     function createProduct() {
-        console.log(file.image)
+        console.log({...values, ...file})
         addProduct({
-            variables: {
-                file: file.image
-            }
+            variables: {...values,  ...file}
         })
     }
     const handleOnChangeFile = ({ target: { validity, files: [file] } }) => {
         if (validity.valid) setFile({ image: file })
     }
-    useEffect(() => {
-        if (!loading && data !== undefined) {
-            setParentCategories([...data.getCategories])
-        }
-    }, [data])
-    useEffect(() => {
-        if (values.parentCategory !== '') {
-            getCategories({ variables: { id: values.parentCategory.id } })
-        }
-        if (response.data !== undefined) {
-            setCategories(response.data.getCategories)
-        }
-    }, [values.parentCategory, response.data])
     return (
         <Dialog
-                open={open}
-                keepMounted
-                onClose={handleClose}
-            >
-            <DialogTitle >Create Product</DialogTitle>
+            fullWidth
+            open={open}
+            keepMounted
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-slide-title"
+            aria-describedby="alert-dialog-slide-description">
+            <DialogTitle id="alert-dialog-slide-title">Create New Product</DialogTitle>
             <DialogContent>
-            <Grid container spacing={2} direction="column">
-                <Grid container spacing={2} direction="row">
-                    <Grid item>
-                        <Grid container spacing={2} justify="center" align="center" direction="column">
+                <Grid container direction="column">
+                    <Grid container spacing={2} direction="column">
+                        <Grid container spacing={2} direction="row">
                             <Grid item>
-                                <TextField
-                                    onChange={(e) => onChange(e)}
-                                    required
-                                    fullWidth
-                                    autoFocus
-                                    label="Name"
-                                    name="name"
-                                    variant="outlined"
-                                />
+                                <Grid container spacing={2} justify="center" align="center" direction="column">
+                                    <Grid item>
+                                        <TextField
+                                            onChange={(e) => onChange(e)}
+                                            required
+                                            fullWidth
+                                            autoFocus
+                                            label="Name"
+                                            name="name"
+                                            variant="outlined"
+                                        />
+                                    </Grid>
+                                    <Grid item>
+                                        <TextField
+                                            onChange={(e) => onChange(e)}
+                                            label="Quantity"
+                                            fullWidth
+                                            name="quantity"
+                                            type="number"
+                                            variant="outlined"
+                                        />
+                                    </Grid>
+                                </Grid>
                             </Grid>
                             <Grid item>
-                                <TextField
-                                    onChange={(e) => onChange(e)}
-                                    style={{ width: '100%' }}
-                                    select
-                                    name="parentCategory"
-                                    fullWidth
-                                    variant="outlined"
-                                    label="Parent Category">
-                                    {parentCategoriesState.length > 0 ?
-                                        parentCategoriesState.map(category => {
-                                            return (
-                                                <MenuItem value={category} key={category.id}>{category.category}</MenuItem>
-                                            )
-                                        }) :
-                                        <MenuItem value="Nothing to select">"Nothing to select"</MenuItem>
-                                    }
-                                </TextField>
-                            </Grid>
-                            <Grid item>
-                                <TextField
-                                    style={{ width: '100%' }}
-                                    select
-                                    fullWidth
-                                    name="category"
-                                    onChange={(e) => onChange(e)}
-                                    label="Category"
-                                    variant="outlined"
-                                >
-                                    {categoriesState.length > 0 ?
-                                        categoriesState.map(category => {
-                                            return (
-                                                <MenuItem value={category} key={category.id}>{category.category}</MenuItem>
-                                            )
-                                        })
-                                        :
-                                        <MenuItem value="Nothing to select"> Nothing to select</MenuItem>
-                                    }
-                                </TextField>
+                                <Grid container spacing={2} justify="center" align="center" direction="column">
+                                    <Grid item>
+                                        <TextField
+                                            onChange={(e) => onChange(e)}
+                                            label="Buy Price"
+                                            name="priceAchat"
+                                            fullWidth
+                                            type="number"
+                                            variant="outlined"
+                                        />
+                                    </Grid>
+                                    <Grid item>
+                                        <TextField
+                                            onChange={(e) => onChange(e)}
+                                            name="priceVender"
+                                            fullWidth
+                                            label="Vendre"
+                                            required
+                                            type="number"
+                                            variant="outlined"
+                                        />
+                                    </Grid>
+                                </Grid>
                             </Grid>
                         </Grid>
-                    </Grid>
-                    <Grid item>
-                        <Grid container spacing={2} justify="center" align="center" direction="column">
-                            <Grid item>
-                                <TextField
-                                    onChange={(e) => onChange(e)}
-                                    label="Quantity"
-                                    fullWidth
-                                    name="quantity"
-                                    type="number"
-                                    required
-                                    variant="outlined"
-                                />
-                            </Grid>
-                            <Grid item>
-                                <TextField
-                                    onChange={(e) => onChange(e)}
-                                    label="Buy Price"
-                                    name="priceAchat"
-                                    fullWidth
-                                    type="number"
-                                    variant="outlined"
-                                />
-                            </Grid>
-                            <Grid item>
-                                <TextField
-                                    onChange={(e) => onChange(e)}
-                                    name="priceVender"
-                                    fullWidth
-                                    label="Vendre"
-                                    required
-                                    type="number"
-                                    variant="outlined"
-                                />
-                            </Grid>
+                        <Grid container spacing={0} direction="column">
+                            <TextField
+                                fullWidth
+                                style={{ marginTop: "10px" }}
+                                rows={10}
+                                onChange={e => onChange(e)}
+                                name="detail"
+                                label="Details"
+                                type="text"
+                                multiline={true}
+                                variant="outlined" />
                         </Grid>
                     </Grid>
+                    <Grid container spacing={0} direction="column">
+                        <input
+                            label="Upload an image"
+                            type="file"
+                            name="image"
+                            onChange={(e) => handleOnChangeFile(e)}
+                        />
+                    </Grid>
                 </Grid>
-                <Grid container spacing={0} direction="row">
-                    <TextField
-                        fullWidth
-                        style={{ marginTop: "10px" }}
-                        rows={10}
-                        onChange={e => onChange(e)}
-                        name="detail"
-                        label="Details"
-                        type="text"
-                        multiline={true}
-                        variant="outlined" />
-                </Grid>
-            </Grid>
-            <Grid container spacing={0} direction="column">
-                <input
-                    type="file"
-                    name="image"
-                    onChange={(e) => handleOnChangeFile(e)}
-                />
-            </Grid>
             </DialogContent>
-            <DialogActions style={{display:'flex',justifyContent:'space-between'}}>
-                <Button color="primary" onClick={(e) => onSubmit(e)}>ADD</Button>
+            <DialogActions style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Button onClick={handleClose} variant="contained" color="secondary">
+                    Cancel
+                </Button>
+                <Button onClick={(e) => { onSubmit(e); handleClose() }} variant="contained" color="primary">
+                    Add
+                </Button>
             </DialogActions>
-    </Dialog>
+        </Dialog>
     )
 }
 
