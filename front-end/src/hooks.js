@@ -5,7 +5,11 @@ export const useForm = (callback, initialState = {}) => {
     const [values, setValues] = useState(initialState)
 
     const onChange = (e) => {
-        setValues({ ...values, [e.target.name]: e.target.value })
+        if (e.target.type === "number"){
+            setValues({ ...values, [e.target.name]: e.target.valueAsNumber })
+        } else{
+            setValues({ ...values, [e.target.name]: e.target.value })
+        }
     }
 
     const onSubmit = (e) => {
