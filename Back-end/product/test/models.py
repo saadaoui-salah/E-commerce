@@ -21,8 +21,6 @@ class CategoryTest(TestCase):
 class ProductTest(TestCase):
     
     def setUp(self):
-        tets_parent_category = Category.objects.filter(parent_category=None).first()
-        tets_category = Category.objects.filter(parent_category=(not None)).first()
         tets_vendor = Vendor.objects.first()
         tets_image = SimpleUploadedFile(
             name='product_test.jpeg', 
@@ -30,8 +28,6 @@ class ProductTest(TestCase):
             content_type='image/jpeg')
         self.product = Product.objects.create(
             vendor= tets_vendor,
-            parent_category=tets_parent_category,
-            category=tets_category,
             name="test product",
             price_vender=200,
             price_achat=150,
