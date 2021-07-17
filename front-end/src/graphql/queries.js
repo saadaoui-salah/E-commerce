@@ -6,14 +6,9 @@ export const LOAD_PRODUCTS = gql`
             id
             image
             name
-            parentCategory{
-                category
-            }
-            category {
-              category,
-            }
+            rating
             quantity
-            priceAchat,
+            priceAchat
             priceVender
         }
     }
