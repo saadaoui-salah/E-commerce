@@ -1,54 +1,49 @@
 import Table from '../../components/Table'
 import { AddButton, TableOptions, DeleteButton } from '../../components/sub-components/Buttons'
-import { ProductFrom } from '../../components/CustomForms'
+import { ProductDialogFrom } from '../../components/CustomForms'
 import { useContext, useMemo, useEffect, useState } from 'react'
 import { Typography, Container, Divider } from '@material-ui/core'
 import { DarkContext } from '../../reducers/context'
 import { useQuery } from '@apollo/client'
 import { LOAD_PRODUCTS } from '../../graphql/queries'
+import { useOpen } from '../../hooks'
 
-
-function createData(image, product, category, parentCategory, quantity, bPrice, vPrice) {
+function createData(image, product, rating, quantity, bPrice, vPrice) {
     const benifits = parseFloat(vPrice) - parseFloat(bPrice);
-    category = parentCategory.category + (category ? ' - ' + category.category : '') 
-    return [image, product, category, quantity, vPrice, benifits.toFixed(2)];
+    return [image, product, rating, quantity, vPrice, benifits.toFixed(2)];
 }
 
 const ProductTable = () => {
-    const [products, setProducts] = useState([])
-    const columns = ["Image", "Product", "Category", "Quantity", "Price", "Benifits"];
+    const columns = ["Image", "Product", "Average Rating", "Quantity", "Price", "Benifits"];
     const options_ = { name: "Options", component: (id) => <TableOptions id={id} /> }
     const { error, laoding, data } = useQuery(LOAD_PRODUCTS)
-    useEffect(() => {
-        if ( !laoding && data !== undefined) {
-            setProducts([...data.getProducts])
-        }
-    }, [data])
-    const rows =  useMemo(() => {
+
+    const rows = useMemo(() => {
         var tableRows = []
-        if (products){
-            products.map(product => {
-                 tableRows = [...tableRows, createData(
+        if (data?.getProducts) {
+            data.getProducts.map(product => {
+                tableRows = [...tableRows, createData(
                     product.image,
                     product.name,
-                    product.category,
-                    product.parentCategory,
+                    product.rating,
                     product.quantity,
                     product.priceAchat,
                     product.priceVender
                 )]
             })
+            console.log(tableRows)
             return tableRows
-        } 
+        }
         return tableRows
-    },[products])
+    }, [data])
     return (
         <Table columns={columns} style={{ width: "100%" }} rows={rows} options={options_} />
     )
 }
 
 export default function Products() {
-    const { state } = useContext(DarkContext) 
+    const { state } = useContext(DarkContext)
+    const { handleClose, handleOpen, open } = useOpen()
     return (
         <Container>
             <Typography
@@ -68,11 +63,13 @@ export default function Products() {
                 }}
             />
             <div style={{ marginBottom: "10px" }}>
-            <AddButton 
-                value="Product" 
-                dialog={<ProductFrom />} 
-                style={{ marginRight: "100px" }} 
+                <AddButton
+                    open={open}
+                    onClick={handleOpen}
+                    title="Add Product"
+                    style={{ marginRight: "100px" }}
                 />
+                <ProductDialogFrom handleClose={handleClose} open={open} />
                 <DeleteButton content="Are you sure" title="Delete Product" />
             </div>
             <ProductTable />
