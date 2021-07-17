@@ -2,12 +2,22 @@ import { gql } from '@apollo/client'
 
 export const ADD_PRODUCT = gql`
 mutation createProduct(
-    $file: Upload!
+    $name : String!
+    $quantity: Int
+    $priceVender: Float!
+    $priceAchat: Float
+    $detail: String
+    $image : Upload!
     ) {
         createProduct(
-            file: $file
+            name: $name
+            quantity: $quantity
+            priceVender: $priceVender
+            priceAchat: $priceAchat
+            detail: $detail
+            image: $image
         ) {
-            errors
+            success
     }
   }
   
@@ -31,9 +41,6 @@ mutation tokenAuth(
             username: $username
             password: $password
             ){
-                user{
-                    type
-                }
                 success
                 token
                 refreshToken
