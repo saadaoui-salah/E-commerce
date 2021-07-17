@@ -19,6 +19,14 @@ const Header = ({ columns }) => {
     return (
         <TableHead>
             <TableRow>
+                <TableCell padding="checkbox">
+                    <Checkbox
+                        indeterminate={numSelected > 0 && numSelected < rowCount}
+                        checked={rowCount > 0 && numSelected === rowCount}
+                        onChange={onSelectAllClick}
+                        inputProps={{ 'aria-label': 'select all desserts' }}
+                    />
+                </TableCell>
                 {columns.map((column, index) => (
                     <TableCell
                         key={index}
@@ -64,18 +72,17 @@ const Body = (props) => {
                         props.page * props.rowsPerPage + props.rowsPerPage
                     ).map((row, rIndex) => {
                         return (
-                            <TableRow key={rIndex} hover role="checkbox" tabIndex={-1} >
+                            <TableRow selected key={rIndex} hover role="checkbox" tabIndex={-1} >
+                                <TableCell padding="checkbox">
+                                    <Checkbox
+                                        indeterminate={numSelected > 0 && numSelected < rowCount}
+                                        checked={rowCount > 0 && numSelected === rowCount}
+                                        onChange={onSelectAllClick}
+                                        inputProps={{ 'aria-label': 'select all desserts' }}
+                                    />
+                                </TableCell>
                                 {props.columns.map((column, index) => {
                                     const value = row[index];
-                                    if (column === props.options.name) {
-                                        return (
-                                            <TableCell key={column.id} align="center">
-                                                <div key={column.id} style={{ display: 'flex', justifyContent: 'center' }}>
-                                                    {props.options.component(rIndex)}
-                                                </div>
-                                            </TableCell>
-                                        )
-                                    }
                                     return (
                                         <TableCell key={column.id} align="center">
                                             <Typography style={{ color: state ? "#fff" : "#25265eb3" }}>
